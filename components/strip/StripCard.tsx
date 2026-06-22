@@ -42,7 +42,7 @@ export function StripCard({ name, desc, thumbnail, toastText, ruleFlag, soon, de
       )}
 
       {/* Mini stage */}
-      <div style={{ position: 'relative', height: 120, borderRadius: 10, overflow: 'hidden', border: '1px solid var(--hairline)', background: 'linear-gradient(160deg,#0d0f15,#08090c)', marginBottom: 14 }}>
+      <div style={{ position: 'relative', height: 160, borderRadius: 10, overflow: 'hidden', border: '1px solid var(--hairline)', background: 'linear-gradient(160deg,#0d0f15,#08090c)', marginBottom: 14 }}>
         {/* Thumbnail */}
         <div
           style={{
@@ -87,14 +87,14 @@ export function StripCard({ name, desc, thumbnail, toastText, ruleFlag, soon, de
         {/* Toast */}
         <div
           style={{
-            position: 'absolute', left: '50%', bottom: 10,
-            transform: `translateX(-50%) translateY(${toastVis ? 0 : 6}px)`,
+            position: 'absolute', left: '5%', right: '5%', bottom: 10,
+            transform: `translateY(${toastVis ? 0 : 6}px)`,
             opacity: toastVis ? 1 : 0, transition: '.4s var(--ease)',
             display: 'flex', alignItems: 'center', gap: 7,
-            padding: '6px 9px', borderRadius: 9,
+            padding: '7px 10px', borderRadius: 9,
             background: 'rgba(16,18,24,.95)', border: '1px solid var(--hairline2)',
-            fontSize: 9, color: 'var(--mist)', whiteSpace: 'nowrap',
-            maxWidth: '94%', boxShadow: '0 10px 26px -12px rgba(0,0,0,.85)', zIndex: 6,
+            fontSize: 9, color: 'var(--mist)',
+            boxShadow: '0 10px 26px -12px rgba(0,0,0,.85)', zIndex: 6,
           }}
         >
           <span style={{ width: 12, height: 12, borderRadius: '50%', border: '1.5px solid var(--phosphor)', color: 'var(--phosphor)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 7, flexShrink: 0, boxShadow: '0 0 8px var(--phosphor-glow)' }}>✓</span>

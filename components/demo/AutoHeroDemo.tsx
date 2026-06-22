@@ -180,32 +180,33 @@ export function AutoHeroDemo() {
     }))
   }, [])
 
-  const play = useCallback(() => {
+  const play = useCallback((skipIdle = false) => {
     clear()
-    // Reset all state synchronously
+    // Reset all state
     setSnip(SNIP_INITIAL)
-    setIdleShow(true); setPageShow(false); setPopShow(false); setDropShow(false)
+    setIdleShow(!skipIdle); setPageShow(skipIdle)
+    setPopShow(false); setDropShow(false)
     setRuleOn(false); setPressing(false); setPanelShow(false); setTableShow(false)
     setAskShow(false); setAskTyped(''); setAnswerShow(false)
     askTimers.current.forEach(clearTimeout); askTimers.current = []
 
-    // ── Sequence: idle visible 1500ms, then full loop ──
-    // (all timestamps shifted +1300ms vs original so idle is clearly readable)
-    at(1500,  () => { setIdleShow(false); setPageShow(true) })
-    at(2100,  () => setSnip(s => ({ ...s, dimShow: true, toolShow: true })))
-    at(2650,  () => measureSel())
-    at(3750,  () => setSnip(s => ({ ...s, dimShow: false, toolShow: false, selShow: false, scrimShow: true, flashKey: s.flashKey + 1 })))
-    at(4200,  () => setPopShow(true))
-    at(5000,  () => setDropShow(true))
-    at(5900,  () => setDropShow(false))
-    at(6400,  () => setRuleOn(true))
-    at(7200,  () => setPressing(true))
-    at(7600,  () => { setPressing(false); setPopShow(false); setPanelShow(true) })
-    at(9200,  () => setTableShow(true))
-    at(11200, () => setTableShow(false))
-    at(11700, () => { setAskShow(true); typeAsk() })
-    at(12700, () => setAnswerShow(true))
-    at(13700, () => play())
+    // Offset: 0 when skipIdle (button click), 1500ms when auto-looping
+    const o = skipIdle ? 0 : 1500
+    if (!skipIdle) at(o, () => { setIdleShow(false); setPageShow(true) })
+    at(o + 600,  () => setSnip(s => ({ ...s, dimShow: true, toolShow: true })))
+    at(o + 1150, () => measureSel())
+    at(o + 2250, () => setSnip(s => ({ ...s, dimShow: false, toolShow: false, selShow: false, scrimShow: true, flashKey: s.flashKey + 1 })))
+    at(o + 2700, () => setPopShow(true))
+    at(o + 3500, () => setDropShow(true))
+    at(o + 4400, () => setDropShow(false))
+    at(o + 4900, () => setRuleOn(true))
+    at(o + 5700, () => setPressing(true))
+    at(o + 6100, () => { setPressing(false); setPopShow(false); setPanelShow(true) })
+    at(o + 7700, () => setTableShow(true))
+    at(o + 9700, () => setTableShow(false))
+    at(o + 10200, () => { setAskShow(true); typeAsk() })
+    at(o + 11200, () => setAnswerShow(true))
+    at(o + 12200, () => play())
   }, [measureSel]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -229,11 +230,17 @@ export function AutoHeroDemo() {
           <div style={{ fontFamily: 'var(--font-jetbrains,monospace)', fontSize: 12, letterSpacing: '.32em', color: 'var(--ghost2)', textTransform: 'lowercase' }}>
             nothing here until you capture
           </div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 9, padding: '10px 14px', border: '1px solid var(--hairline)', borderRadius: 12, background: 'var(--vapor)', backdropFilter: 'blur(12px)', fontSize: 12.5, color: 'var(--ghost)' }}>
+          <button
+            onClick={() => play(true)}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 9, padding: '10px 14px', border: '1px solid var(--hairline)', borderRadius: 12, background: 'var(--vapor)', backdropFilter: 'blur(12px)', fontSize: 12.5, color: 'var(--ghost)', cursor: 'pointer', fontFamily: 'inherit', transition: 'border-color .2s, background .2s' }}
+            onMouseOver={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--hairline2)'; (e.currentTarget as HTMLElement).style.background = 'var(--vapor2)' }}
+            onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--hairline)'; (e.currentTarget as HTMLElement).style.background = 'var(--vapor)' }}
+            aria-label="Start capture demo"
+          >
             <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--phosphor)', boxShadow: '0 0 10px var(--phosphor-glow)', display: 'inline-block', flexShrink: 0, animation: 'breathe 3s var(--ease) infinite' }} />
             take a screenshot&nbsp;&nbsp;
             <kbd style={{ fontFamily: 'var(--font-jetbrains,monospace)', fontSize: 11, padding: '4px 6px', borderRadius: 6, background: 'rgba(255,255,255,.07)', border: '1px solid var(--hairline2)', borderBottomWidth: 2, color: 'var(--mist)' }}>⊞ Shift S</kbd>
-          </div>
+          </button>
         </div>
       )}
 
@@ -288,11 +295,11 @@ export function AutoHeroDemo() {
             <div style={{ position: 'relative', display: 'inline-block' }}>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 9, fontSize: 13, color: '#EAF0FF', background: 'rgba(174,194,255,.08)', border: '1px solid rgba(174,194,255,.4)', borderRadius: 10, padding: '8px 13px' }}>
                 <span style={{ width: 8, height: 8, borderRadius: 2, background: 'var(--phosphor)', boxShadow: '0 0 8px var(--phosphor-glow)', display: 'inline-block' }} />
-                Green shorts
+                Wishlist
                 <span style={{ color: 'var(--ghost)', fontSize: 10 }}>▾</span>
               </div>
               <div style={{ position: 'absolute', left: 0, bottom: 'calc(100% + 6px)', width: 170, background: 'rgba(18,20,26,.98)', border: '1px solid var(--hairline2)', borderRadius: 11, padding: 5, boxShadow: '0 20px 50px -16px rgba(0,0,0,.85)', opacity: dropShow ? 1 : 0, transform: dropShow ? 'none' : 'translateY(6px)', transition: '.2s var(--ease)', zIndex: 5, pointerEvents: 'none' }}>
-                {['Green shorts', 'Shopping', 'Wishlist'].map((name, i) => (
+                {['Wishlist', 'Shopping', 'Green shorts'].map((name, i) => (
                   <div key={name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 10px', borderRadius: 8, fontSize: 12.5, color: i === 0 ? '#EAF0FF' : 'var(--ghost)', background: i === 0 ? 'rgba(255,255,255,.06)' : undefined }}>
                     <span>{name}</span>
                     <span style={{ color: 'var(--phosphor)', fontSize: 11, opacity: i === 0 ? 1 : 0 }}>✓</span>
@@ -305,7 +312,7 @@ export function AutoHeroDemo() {
               <div style={{ width: 30, height: 17, borderRadius: 999, background: ruleOn ? 'rgba(174,194,255,.3)' : 'rgba(255,255,255,.12)', border: `1px solid ${ruleOn ? 'rgba(174,194,255,.5)' : 'var(--hairline2)'}`, position: 'relative', transition: '.25s', flexShrink: 0 }}>
                 <div style={{ position: 'absolute', top: 1.5, width: 12, height: 12, borderRadius: '50%', background: ruleOn ? 'var(--phosphor)' : '#9aa0aa', left: ruleOn ? 15 : 2, boxShadow: ruleOn ? '0 0 8px var(--phosphor-glow)' : 'none', transition: '.25s' }} />
               </div>
-              auto-file <strong style={{ color: '#EAF0FF', fontWeight: 500 }}>green shorts</strong> here from now on
+              auto-file <strong style={{ color: '#EAF0FF', fontWeight: 500 }}>new Aritzia items</strong> here from now on
             </div>
           </div>
 
@@ -323,7 +330,7 @@ export function AutoHeroDemo() {
         <div style={{ position: 'absolute', inset: 16, borderRadius: 13, border: '1px solid var(--hairline2)', background: 'linear-gradient(180deg,rgba(20,22,28,.96),rgba(12,13,18,.98))', backdropFilter: 'blur(20px)', zIndex: 55, display: 'flex', flexDirection: 'column', overflow: 'hidden', boxShadow: '0 30px 80px -22px rgba(0,0,0,.85)', animation: 'rise .45s var(--ease) both' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 16px', borderBottom: '1px solid var(--hairline)', flexShrink: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 14, fontWeight: 600 }}>
-              <span style={{ width: 9, height: 9, borderRadius: 2, background: '#5b7a4a', display: 'inline-block' }} />
+              <span style={{ width: 9, height: 9, borderRadius: 2, background: '#7a6a9a', display: 'inline-block' }} />
               Wishlist
               <span style={{ fontFamily: 'var(--font-jetbrains,monospace)', fontSize: 10, color: 'var(--ghost2)', fontWeight: 400 }}>10 captures</span>
             </div>
