@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# nothing.ai — landing page
 
-## Getting Started
+A production-ready, single-page marketing website for nothing.ai.
 
-First, run the development server:
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploying to Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push this repo to GitHub.
+2. Import the repo at [vercel.com/new](https://vercel.com/new).
+3. Set the environment variable (see below).
+4. Click Deploy.
 
-## Learn More
+No other services required.
 
-To learn more about Next.js, take a look at the following resources:
+## Environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `LOOPS_API_KEY` | No (but recommended for prod) | Your Loops API key from [app.loops.so/settings/api](https://app.loops.so/settings/api) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Without `LOOPS_API_KEY`, waitlist signups are logged to the console and return success — the site works fully out of the box without any backend.
 
-## Deploy on Vercel
+**Local setup:**
+```bash
+cp .env.example .env.local
+# then paste your Loops key into .env.local
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Vercel:** add `LOOPS_API_KEY` in Project Settings → Environment Variables.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Swapping in real images
+
+See `public/images/README.md` for the list of placeholder slots. Drop your images there and pass the `src` prop to the relevant illustration component:
+
+```tsx
+<ShortsCard src="/images/shorts-product.jpg" brand="H&M" price="$17.99" />
+```
+
+## Tech stack
+
+- Next.js 16 (App Router) + TypeScript
+- Tailwind CSS v4
+- Framer Motion v12
+- Loops for email collection (optional)

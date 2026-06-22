@@ -1,26 +1,242 @@
 @import "tailwindcss";
 
+/* ─── Design tokens ─────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --void: #0A0B0D;
+  --void2: #101218;
+  --vapor: rgba(255,255,255,0.055);
+  --vapor2: rgba(255,255,255,0.085);
+  --hairline: rgba(255,255,255,0.10);
+  --hairline2: rgba(255,255,255,0.16);
+  --mist: #E9EBEF;
+  --ghost: #878C96;
+  --ghost2: #5A5F69;
+  --phosphor: #AEC2FF;
+  --phosphor-glow: rgba(174,194,255,0.55);
+  --radius: 18px;
+  --ease: cubic-bezier(.2,.8,.2,1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─── Tailwind v4 theme tokens ──────────────────────────────────────── */
+@theme {
+  --color-void: #0A0B0D;
+  --color-void2: #101218;
+  --color-mist: #E9EBEF;
+  --color-ghost: #878C96;
+  --color-ghost2: #5A5F69;
+  --color-phosphor: #AEC2FF;
+  --color-hairline: rgba(255,255,255,0.10);
+  --color-hairline2: rgba(255,255,255,0.16);
+  --color-vapor: rgba(255,255,255,0.055);
+  --color-vapor2: rgba(255,255,255,0.085);
+  --font-family-mono: var(--font-jetbrains, 'JetBrains Mono', ui-monospace, monospace);
+  --font-family-display: var(--font-bebas, 'Bebas Neue', sans-serif);
+  --border-radius-surface: 18px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─── Base ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { color-scheme: dark; }
+
+body {
+  background: var(--void);
+  color: var(--mist);
+  font-family: var(--font-inter, 'Inter', system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.font-mono, [class*="font-mono"] {
+  font-family: var(--font-jetbrains, 'JetBrains Mono', monospace);
+}
+
+.font-display {
+  font-family: var(--font-bebas, 'Bebas Neue', sans-serif);
+}
+
+/* ─── Keyframes ─────────────────────────────────────────────────────── */
+@keyframes materialize {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.975);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
 }
+
+@keyframes ansin {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50%       { opacity: 1;    transform: scale(1); }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes snipFlash {
+  0%   { opacity: 0; }
+  24%  { opacity: .7; }
+  100% { opacity: 0; }
+}
+
+@keyframes presskey {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(0.96); box-shadow: 0 0 14px var(--phosphor-glow); }
+  100% { transform: scale(1); }
+}
+
+/* ─── Reduced motion: disable all animations ────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Utility classes ───────────────────────────────────────────────── */
+.surface {
+  background: linear-gradient(180deg, rgba(22,24,30,.86) 0%, rgba(13,14,19,.88) 100%);
+  backdrop-filter: blur(26px) saturate(1.1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  box-shadow:
+    0 30px 80px -24px rgba(0,0,0,.85),
+    inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+.surface-pop {
+  background: linear-gradient(180deg, rgba(22,24,30,.92) 0%, rgba(13,14,19,.94) 100%);
+  backdrop-filter: blur(28px) saturate(1.1);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  box-shadow:
+    0 24px 60px -16px rgba(0,0,0,.9),
+    inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+.btn-phosphor {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  background: linear-gradient(180deg, rgba(174,194,255,.18) 0%, rgba(174,194,255,.08) 100%);
+  border: 1px solid rgba(174,194,255,.45);
+  border-radius: 11px;
+  color: #EAF0FF;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: box-shadow 0.2s var(--ease), background 0.2s var(--ease);
+  box-shadow: 0 6px 22px -8px var(--phosphor-glow);
+}
+
+.btn-phosphor:hover {
+  box-shadow: 0 0 22px -2px var(--phosphor-glow), 0 6px 26px -6px var(--phosphor-glow);
+}
+
+.btn-phosphor:focus-visible {
+  outline: 2px solid var(--phosphor);
+  outline-offset: 2px;
+}
+
+.btn-phosphor.pressed {
+  animation: presskey 0.32s var(--ease) both;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  background: var(--vapor);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--ghost);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.chip:hover {
+  color: var(--mist);
+  border-color: var(--hairline2);
+  background: var(--vapor2);
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--phosphor);
+  outline-offset: 2px;
+}
+
+.chip.sel {
+  color: #EAF0FF;
+  border-color: rgba(174,194,255,.45);
+  background: rgba(174,194,255,.08);
+}
+
+.mono-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ghost2);
+}
+
+/* Footer / nav link hover */
+.link-ghost {
+  color: var(--ghost2);
+  transition: color 0.2s;
+}
+.link-ghost:hover { color: var(--mist); }
+
+/* Step hover transition */
+.step-hover { transition: background 0.2s; }
+.step-hover:hover { background: var(--vapor); }
+
+/* Focus ring for all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--phosphor);
+  outline-offset: 2px;
+}
+
+/* Animate-in helpers */
+.anim-materialize { animation: materialize 0.4s var(--ease) both; }
+.anim-rise        { animation: rise 0.5s var(--ease) both; }
+.anim-ansin       { animation: ansin 0.35s var(--ease) both; }
+.anim-breathe     { animation: breathe 3s ease-in-out infinite; }
+.anim-blink       { animation: blink 1.1s step-start infinite; }
