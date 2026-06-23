@@ -56,7 +56,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid email' }, { status: 422 })
   }
 
-  const apiKey = process.env.RESEND_API_KEY
+  // Strip any non-printable characters that can corrupt HTTP headers
+  const apiKey = process.env.RESEND_API_KEY?.trim().replace(/[^\x20-\x7E]/g, '')
 
   if (!apiKey) {
     console.log('[nothing.ai waitlist] RESEND_API_KEY not set:', {
