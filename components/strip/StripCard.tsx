@@ -42,14 +42,14 @@ export function StripCard({ name, desc, thumbnail, toastText, ruleFlag, soon, de
       )}
 
       {/* Mini stage */}
-      <div style={{ position: 'relative', height: 160, borderRadius: 10, overflow: 'hidden', border: '1px solid var(--hairline)', background: 'linear-gradient(160deg,#0d0f15,#08090c)', marginBottom: 14 }}>
+      <div style={{ position: 'relative', height: 160, borderRadius: 10, overflow: 'hidden', border: '1px solid var(--hairline)', background: 'linear-gradient(160deg,#0f1118,#09090e)', marginBottom: 14 }}>
         {/* Thumbnail */}
         <div
           style={{
             position: 'absolute', left: 12, top: 11, width: 80, aspectRatio: '4/5',
             borderRadius: 9, overflow: 'hidden', border: '1px solid var(--hairline2)',
             boxShadow: '0 12px 26px -12px rgba(0,0,0,.8)',
-            opacity: thumbVis ? 1 : 0,
+            opacity: thumbVis ? 1 : 0.12,
             transform: thumbVis ? 'none' : 'translateY(8px) scale(.92)',
             transition: '.45s var(--ease)',
           }}

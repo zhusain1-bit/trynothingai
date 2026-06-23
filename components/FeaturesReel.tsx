@@ -71,8 +71,9 @@ export function FeaturesReel() {
               )}
             </div>
 
-            {/* Stage */}
+            {/* Stage — fixed height on desktop, capped at 360px on mobile */}
             <div
+              className="max-sm:!h-[360px]"
               style={{
                 position: 'relative',
                 height: hero.height,

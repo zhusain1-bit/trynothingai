@@ -113,6 +113,16 @@ function ProductIcon({ type, color }: { type: string; color: string }) {
           <rect x="45" y="70" width="30" height="22" rx="3" fill={d} opacity=".4" />
         </svg>
       )
+    case 'headphones':
+      return (
+        <svg viewBox="0 0 120 100" style={{ width: '70%', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,.15))' }}>
+          <path d="M20 55 Q20 12 60 12 Q100 12 100 55" fill="none" stroke={color} strokeWidth="9" strokeLinecap="round"/>
+          <rect x="5" y="48" width="26" height="36" rx="10" fill={color}/>
+          <rect x="89" y="48" width="26" height="36" rx="10" fill={color}/>
+          <rect x="8" y="55" width="20" height="22" rx="7" fill={d} opacity=".4"/>
+          <rect x="92" y="55" width="20" height="22" rx="7" fill={d} opacity=".4"/>
+        </svg>
+      )
     default:
       return <svg viewBox="0 0 80 80" style={{ width: '50%' }}><rect x="10" y="10" width="60" height="60" rx="8" fill={color} /></svg>
   }
@@ -120,7 +130,7 @@ function ProductIcon({ type, color }: { type: string; color: string }) {
 
 // ── Mixed product catalogue ───────────────────────────────────────────
 const WARD = [
-  { type: 'shorts',     label: 'Effortless Short', brand: 'Aritzia',        price: '$48.00', fresh: true,  color: '#4f6740' },
+  { type: 'headphones', label: 'WH-1000XM5 Wireless', brand: 'Sony',        price: '$279.99', fresh: true,  color: '#232836' },
   { type: 'jacket',     label: 'Puffer Jacket',    brand: "Arc'teryx",      price: '$340.00',             color: '#2a3a4a' },
   { type: 'sneakers',   label: 'Air Max 90',       brand: 'Nike',            price: '$120.00',             color: '#c0392b' },
   { type: 'sunglasses', label: 'Wayfarer',         brand: 'Ray-Ban',         price: '$165.00',             color: '#1a1a2e' },
@@ -203,10 +213,10 @@ export function AutoHeroDemo() {
     at(o + 5700, () => setPressing(true))
     at(o + 6100, () => { setPressing(false); setPopShow(false); setPanelShow(true) })
     at(o + 7700, () => setTableShow(true))
-    at(o + 9700, () => setTableShow(false))
-    at(o + 10200, () => { setAskShow(true); typeAsk() })
-    at(o + 11200, () => setAnswerShow(true))
-    at(o + 12200, () => play())
+    at(o + 9200, () => setTableShow(false))
+    at(o + 9700, () => { setAskShow(true); typeAsk() })
+    at(o + 10700, () => setAnswerShow(true))
+    at(o + 12000, () => play())
   }, [measureSel]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -250,21 +260,21 @@ export function AutoHeroDemo() {
           <div style={{ height: 30, background: '#ececE7', display: 'flex', alignItems: 'center', gap: 7, padding: '0 11px', borderBottom: '1px solid #d8d8d2', flexShrink: 0 }}>
             <span style={{ color: '#aaa', fontSize: 13, lineHeight: 1, userSelect: 'none' }}>‹ ›</span>
             <span style={{ fontFamily: 'var(--font-jetbrains,monospace)', fontSize: 10, color: '#666', background: '#fff', border: '1px solid #ddd', borderRadius: 7, padding: '3px 12px', flex: 1, maxWidth: '60%' }}>
-              aritzia.com/effortless-short
+              sony.com/headphones/wh-1000xm5
             </span>
           </div>
           <div ref={infoRef} style={{ flex: 1, display: 'flex', gap: 22, padding: 24, alignItems: 'center', overflow: 'hidden' }}>
-            <div style={{ width: '44%', aspectRatio: '4/5', borderRadius: 12, background: 'linear-gradient(165deg,#eee,#dcdcd5)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
-              <ProductIcon type="shorts" color="#4f6740" />
+            <div style={{ width: '44%', aspectRatio: '1/1', borderRadius: 12, background: 'linear-gradient(165deg,#f0f0f0,#e2e2e2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
+              <ProductIcon type="headphones" color="#232836" />
             </div>
             <div>
-              <div style={{ fontSize: 12, color: '#888', letterSpacing: '.12em', textTransform: 'uppercase', fontWeight: 600 }}>Aritzia</div>
-              <div style={{ fontSize: 'clamp(18px,3vw,24px)', fontWeight: 700, marginTop: 6, letterSpacing: '-.02em' }}>Effortless Short</div>
-              <div style={{ fontFamily: 'var(--font-jetbrains,monospace)', fontSize: 'clamp(14px,2vw,18px)', marginTop: 10 }}>$48.00</div>
+              <div style={{ fontSize: 12, color: '#888', letterSpacing: '.12em', textTransform: 'uppercase', fontWeight: 600 }}>Sony</div>
+              <div style={{ fontSize: 'clamp(16px,2.5vw,22px)', fontWeight: 700, marginTop: 6, letterSpacing: '-.02em' }}>WH-1000XM5 Wireless</div>
+              <div style={{ fontFamily: 'var(--font-jetbrains,monospace)', fontSize: 'clamp(13px,1.8vw,17px)', marginTop: 10 }}>$279.99</div>
               <div style={{ display: 'flex', gap: 7, marginTop: 14 }}>
-                {['#4f6740','#2a2a2a','#b9a06a'].map(c => <span key={c} style={{ width: 18, height: 18, borderRadius: '50%', border: '1px solid rgba(0,0,0,.12)', background: c }} />)}
+                {['#1a1a1a','#c8c8c8','#f5f0e8'].map(c => <span key={c} style={{ width: 18, height: 18, borderRadius: '50%', border: '1px solid rgba(0,0,0,.12)', background: c }} />)}
               </div>
-              <div style={{ marginTop: 18, display: 'inline-block', background: '#1a1a1d', color: '#fff', fontSize: 13, fontWeight: 500, padding: '11px 22px', borderRadius: 8 }}>Add to Bag</div>
+              <div style={{ marginTop: 18, display: 'inline-block', background: '#1a1a1d', color: '#fff', fontSize: 13, fontWeight: 500, padding: '11px 22px', borderRadius: 8 }}>Add to Cart</div>
             </div>
           </div>
         </div>
@@ -277,16 +287,16 @@ export function AutoHeroDemo() {
       {popShow && (
         <div style={{ position: 'absolute', left: '5%', bottom: '8%', width: 'clamp(280px,60%,356px)', zIndex: 50, borderRadius: 15, background: 'linear-gradient(180deg,rgba(22,24,30,.94),rgba(12,13,18,.97))', backdropFilter: 'blur(24px)', border: '1px solid var(--hairline2)', boxShadow: '0 30px 80px -22px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.07)', animation: 'materialize .45s var(--ease) both' }}>
           <div style={{ display: 'flex', gap: 13, padding: '14px 14px 0' }}>
-            <div style={{ width: 58, aspectRatio: '4/5', flexShrink: 0, borderRadius: 9, overflow: 'hidden', border: '1px solid var(--hairline2)', background: 'linear-gradient(165deg,#f6f6f2,#e6e6df)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <ProductIcon type="shorts" color="#4f6740" />
+            <div style={{ width: 58, aspectRatio: '1/1', flexShrink: 0, borderRadius: 9, overflow: 'hidden', border: '1px solid var(--hairline2)', background: 'linear-gradient(165deg,#f0f0f0,#e2e2e2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <ProductIcon type="headphones" color="#232836" />
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 7, fontFamily: 'var(--font-jetbrains,monospace)', fontSize: 9.5, letterSpacing: '.13em', textTransform: 'uppercase', color: 'var(--ghost)' }}>
                 <span style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--phosphor)', boxShadow: '0 0 8px var(--phosphor-glow)', display: 'inline-block', flexShrink: 0 }} />
                 Item detected
               </div>
-              <div style={{ marginTop: 7, fontSize: 14, fontWeight: 600, color: 'var(--mist)' }}>Effortless Short</div>
-              <div style={{ marginTop: 4, fontFamily: 'var(--font-jetbrains,monospace)', fontSize: 10, color: 'var(--ghost)' }}>Aritzia · $48.00 · aritzia.com</div>
+              <div style={{ marginTop: 7, fontSize: 14, fontWeight: 600, color: 'var(--mist)' }}>WH-1000XM5 Wireless</div>
+              <div style={{ marginTop: 4, fontFamily: 'var(--font-jetbrains,monospace)', fontSize: 10, color: 'var(--ghost)' }}>Sony · $279.99 · sony.com</div>
             </div>
           </div>
 
@@ -312,7 +322,7 @@ export function AutoHeroDemo() {
               <div style={{ width: 30, height: 17, borderRadius: 999, background: ruleOn ? 'rgba(174,194,255,.3)' : 'rgba(255,255,255,.12)', border: `1px solid ${ruleOn ? 'rgba(174,194,255,.5)' : 'var(--hairline2)'}`, position: 'relative', transition: '.25s', flexShrink: 0 }}>
                 <div style={{ position: 'absolute', top: 1.5, width: 12, height: 12, borderRadius: '50%', background: ruleOn ? 'var(--phosphor)' : '#9aa0aa', left: ruleOn ? 15 : 2, boxShadow: ruleOn ? '0 0 8px var(--phosphor-glow)' : 'none', transition: '.25s' }} />
               </div>
-              auto-file <strong style={{ color: '#EAF0FF', fontWeight: 500 }}>new Aritzia items</strong> here from now on
+              auto-file <strong style={{ color: '#EAF0FF', fontWeight: 500 }}>Sony headphones</strong> here from now on
             </div>
           </div>
 

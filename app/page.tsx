@@ -10,7 +10,7 @@ import { WaitlistSection }    from '@/components/WaitlistSection'
 import { Footer }             from '@/components/Footer'
 
 // Subtle alternating tints — break monotony without changing darkness
-const TINT = 'rgba(255,255,255,.014)'
+const TINT = 'rgba(255,255,255,.028)'
 
 export default function Home() {
   return (
