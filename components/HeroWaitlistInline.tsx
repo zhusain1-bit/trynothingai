@@ -40,7 +40,7 @@ export function HeroWaitlistInline() {
           <span style={{ width: 14, height: 14, borderRadius: '50%', border: '1.5px solid var(--phosphor)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, boxShadow: '0 0 10px var(--phosphor-glow)' }}>✓</span>
           you're on the list.
         </div>
-        <p className="font-mono" style={{ fontSize: 10, color: 'var(--ghost2)' }}>
+        <p className="font-mono" style={{ fontSize: 11, color: 'var(--ghost2)' }}>
           we'll reach out when founding access opens.
         </p>
       </div>
@@ -52,7 +52,7 @@ export function HeroWaitlistInline() {
       <label
         htmlFor={emailId}
         className="font-mono"
-        style={{ fontSize: 10, letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--ghost2)' }}
+        style={{ fontSize: 11, letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--ghost2)' }}
       >
         email
       </label>
@@ -94,10 +94,10 @@ export function HeroWaitlistInline() {
 
       {/* Social proof + microcopy */}
       <div className="flex items-center justify-between flex-wrap gap-[6px]">
-        <p className="font-mono" style={{ fontSize: 10, color: 'var(--ghost2)' }}>
+        <p className="font-mono" style={{ fontSize: 11, color: 'var(--ghost2)' }}>
           no charge now · 50% off at launch
         </p>
-        <div className="flex items-center gap-[5px] font-mono" style={{ fontSize: 10, color: 'var(--ghost2)' }}>
+        <div className="flex items-center gap-[5px] font-mono" style={{ fontSize: 11, color: 'var(--ghost2)' }}>
           <span
             style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--phosphor)', boxShadow: '0 0 6px var(--phosphor-glow)', display: 'inline-block', animation: 'breathe 3s var(--ease) infinite' }}
           />

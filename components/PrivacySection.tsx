@@ -28,7 +28,7 @@ export function PrivacySection() {
       aria-labelledby="privacy-heading"
     >
       <div className="text-center mb-[40px]">
-        <span className="font-mono text-[10px] uppercase tracking-[.18em]" style={{ color: 'var(--ghost2)' }}>
+        <span className="font-mono text-[11px] uppercase tracking-[.18em]" style={{ color: 'var(--ghost2)' }}>
           privacy
         </span>
         <h2

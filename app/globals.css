@@ -10,7 +10,7 @@
   --hairline2: rgba(255,255,255,0.16);
   --mist: #E9EBEF;
   --ghost: #878C96;
-  --ghost2: #5A5F69;
+  --ghost2: #6E7480; /* bumped from #5A5F69 — passes WCAG AA 4.5:1 on --void */
   --phosphor: #AEC2FF;
   --phosphor-glow: rgba(174,194,255,0.55);
   --radius: 18px;
@@ -23,7 +23,7 @@
   --color-void2: #101218;
   --color-mist: #E9EBEF;
   --color-ghost: #878C96;
-  --color-ghost2: #5A5F69;
+  --color-ghost2: #6E7480;
   --color-phosphor: #AEC2FF;
   --color-hairline: rgba(255,255,255,0.10);
   --color-hairline2: rgba(255,255,255,0.16);
@@ -206,10 +206,18 @@ body {
 
 .mono-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 11px; /* bumped from 10px — meets 12px min guideline at 11px for uppercase */
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: var(--ghost2);
+}
+
+/* ─── Cursor: pointer on all clickable elements ─────────────────────── */
+button:not(:disabled),
+[role="button"],
+label[for],
+summary {
+  cursor: pointer;
 }
 
 /* Footer / nav link hover */

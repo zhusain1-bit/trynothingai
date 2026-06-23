@@ -68,7 +68,7 @@ export function WaitlistSection() {
       aria-labelledby="waitlist-heading"
     >
       <div className="text-center flex flex-col gap-[8px]">
-        <span className="font-mono text-[10px] uppercase tracking-[.2em]" style={{ color: 'var(--phosphor)' }}>
+        <span className="font-mono text-[11px] uppercase tracking-[.2em]" style={{ color: 'var(--phosphor)' }}>
           founding access
         </span>
         <h2

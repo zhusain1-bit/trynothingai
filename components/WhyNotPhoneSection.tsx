@@ -5,7 +5,7 @@ export function WhyNotPhoneSection() {
       aria-labelledby="cross-device-heading"
     >
       <div className="text-center mb-[36px]">
-        <span className="font-mono text-[10px] uppercase tracking-[.18em]" style={{ color: 'var(--ghost2)' }}>
+        <span className="font-mono text-[11px] uppercase tracking-[.18em]" style={{ color: 'var(--ghost2)' }}>
           cross-device
         </span>
         <h2

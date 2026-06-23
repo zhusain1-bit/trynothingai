@@ -4,7 +4,7 @@ export function ProblemSection() {
       className="w-full max-w-[640px] mx-auto px-4 text-center"
       aria-labelledby="problem-heading"
     >
-      <span className="font-mono text-[10px] uppercase tracking-[.18em]" style={{ color: 'var(--ghost2)' }}>
+      <span className="font-mono text-[11px] uppercase tracking-[.18em]" style={{ color: 'var(--ghost2)' }}>
         the problem
       </span>
       <h2

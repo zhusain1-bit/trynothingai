@@ -26,7 +26,7 @@ export function HowItWorksSection() {
       aria-labelledby="how-heading"
     >
       <div className="text-center mb-[36px]">
-        <span className="font-mono text-[10px] uppercase tracking-[.18em]" style={{ color: 'var(--ghost2)' }}>
+        <span className="font-mono text-[11px] uppercase tracking-[.18em]" style={{ color: 'var(--ghost2)' }}>
           how it works
         </span>
         <h2
@@ -45,7 +45,7 @@ export function HowItWorksSection() {
         {steps.map(step => (
           <div key={step.num} className="surface p-[14px_18px]">
             <div className="flex items-center gap-[10px] mb-[8px]">
-              <span className="font-mono font-semibold" style={{ fontSize: 10, color: 'var(--phosphor)', letterSpacing: '.12em' }}>
+              <span className="font-mono font-semibold" style={{ fontSize: 11, color: 'var(--phosphor)', letterSpacing: '.12em' }}>
                 {step.num} · {step.label}
               </span>
             </div>
