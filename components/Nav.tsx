@@ -36,7 +36,7 @@ export function Nav() {
       <a
         href="#waitlist"
         className="btn-phosphor"
-        style={{ fontSize: 12, padding: '7px 14px' }}
+        style={{ fontSize: 12, padding: '11px 16px', minHeight: 44 }}
       >
         join waitlist
       </a>

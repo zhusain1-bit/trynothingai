@@ -52,13 +52,13 @@ export function Footer() {
       </div>
 
       {/* Manifesto */}
-      <p className="text-center font-mono leading-[1.75] max-w-[400px]" style={{ fontSize: 11, color: 'var(--ghost2)' }}>
+      <p className="text-center font-mono leading-[1.75] max-w-[400px]" style={{ fontSize: 12, color: 'var(--ghost2)' }}>
         your life happens in pictures, not words.<br />
         in moments, not generalizations.
       </p>
 
       {/* Sign-off */}
-      <p className="font-mono" style={{ fontSize: 10.5, color: 'var(--ghost2)', letterSpacing: '0.08em' }}>
+      <p className="font-mono" style={{ fontSize: 12, color: 'var(--ghost2)', letterSpacing: '0.08em' }}>
         the ai without a face.
       </p>
 
@@ -90,14 +90,14 @@ export function Footer() {
             key={link.label}
             href={link.href}
             className="link-ghost font-mono"
-            style={{ fontSize: 10.5, letterSpacing: '0.04em' }}
+            style={{ fontSize: 12, letterSpacing: '0.04em' }}
           >
             {link.label}
           </a>
         ))}
       </nav>
 
-      <p className="font-mono" style={{ fontSize: 9.5, color: 'var(--ghost2)', opacity: 0.4 }}>
+      <p className="font-mono" style={{ fontSize: 11, color: 'var(--ghost2)', opacity: 0.4 }}>
         © 2026 nothing.ai
       </p>
     </footer>
