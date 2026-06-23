@@ -94,7 +94,7 @@ export function FeaturesReel() {
         <div style={{ textAlign: 'center', fontFamily: 'var(--font-jetbrains,monospace)', fontSize: 11, letterSpacing: '.14em', textTransform: 'lowercase', color: 'var(--ghost2)', marginBottom: 16 }}>
           and a dozen small things, the same way
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 12 }} className="max-lg:!grid-cols-2 max-sm:!grid-cols-1">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 12 }} className="max-lg:!grid-cols-3 max-sm:!grid-cols-2 max-xs:!grid-cols-1">
           <StripCard
             name="Save a song"
             toastText="Added to · Songs"

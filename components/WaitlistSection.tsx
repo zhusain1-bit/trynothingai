@@ -191,9 +191,8 @@ export function WaitlistSection() {
                 href={STRIPE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ fontSize: 13.5, color: 'var(--mist)', textDecoration: 'none' }}
-                onMouseOver={e => (e.currentTarget.style.color = '#fff')}
-                onMouseOut={e => (e.currentTarget.style.color = 'var(--mist)')}
+                className="link-deposit"
+                style={{ fontSize: 13.5, textDecoration: 'none' }}
               >
                 Skip the line — lock founding access for{' '}
                 <strong style={{ color: 'var(--phosphor)', fontWeight: 500 }}>$5</strong>{' '}

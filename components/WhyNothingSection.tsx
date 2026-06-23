@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, type RefObject } from 'react'
+import { useInView } from '@/components/features/useInView'
 
 const WORDS = [
   'a window',
@@ -11,55 +12,51 @@ const WORDS = [
 ]
 
 export function WhyNothingSection() {
-  const [wordsIn,    setWordsIn]    = useState<boolean[]>(Array(WORDS.length).fill(false))
+  const { ref: sectionRef, inView } = useInView(0.2)
+  const played = useRef(false)
+
+  const [wordsIn,     setWordsIn]    = useState<boolean[]>(Array(WORDS.length).fill(false))
   const [wordsStruck, setWordsStruck] = useState<boolean[]>(Array(WORDS.length).fill(false))
-  const [listGone,   setListGone]   = useState(false)
-  const [revealShow, setRevealShow] = useState(false)
-  const [closeShow,  setCloseShow]  = useState(false)
+  const [listGone,    setListGone]   = useState(false)
+  const [revealShow,  setRevealShow] = useState(false)
+  const [closeShow,   setCloseShow]  = useState(false)
   const timers = useRef<ReturnType<typeof setTimeout>[]>([])
 
   function clear() { timers.current.forEach(clearTimeout); timers.current = [] }
   function at(t: number, fn: () => void) { timers.current.push(setTimeout(fn, t)) }
 
-  function play(prefersReduced = false) {
-    clear()
-    if (prefersReduced) {
+  useEffect(() => {
+    if (!inView || played.current) return
+    played.current = true
+
+    const reduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced) {
       setWordsIn(Array(WORDS.length).fill(true))
       setWordsStruck(Array(WORDS.length).fill(true))
       setListGone(false); setRevealShow(true); setCloseShow(true)
       return
     }
 
-    // reset
-    setWordsIn(Array(WORDS.length).fill(false))
-    setWordsStruck(Array(WORDS.length).fill(false))
-    setListGone(false); setRevealShow(false); setCloseShow(false)
-
     // words fade in
     WORDS.forEach((_, i) => at(300 + i * 230, () => setWordsIn(prev => { const n = [...prev]; n[i] = true; return n })))
 
     // strikethrough
-    const strikeStart = 300 + WORDS.length * 230 + 450 // 1900ms
+    const strikeStart = 300 + WORDS.length * 230 + 450  // 1900ms
     WORDS.forEach((_, i) => at(strikeStart + i * 520, () => setWordsStruck(prev => { const n = [...prev]; n[i] = true; return n })))
 
-    // collapse
-    const collapse = strikeStart + WORDS.length * 520 + 500 // 5000ms
-    at(collapse,       () => setListGone(true))
-    at(collapse + 450, () => setRevealShow(true))   // 5450ms
+    // collapse → reveal → close — then STOP (no loop)
+    const collapse = strikeStart + WORDS.length * 520 + 500  // 5000ms
+    at(collapse,        () => setListGone(true))
+    at(collapse + 450,  () => setRevealShow(true))  // 5450ms
     at(collapse + 1100, () => setCloseShow(true))   // 6100ms
+    // stays visible permanently — no reset
 
-    // loop
-    at(collapse + 5200, () => play())               // 10200ms
-  }
-
-  useEffect(() => {
-    const reduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    play(reduced)
     return clear
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [inView]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <section
+      ref={sectionRef as RefObject<HTMLElement>}
       className="w-full flex flex-col items-center text-center px-4"
       style={{ maxWidth: 680, margin: '0 auto' }}
       aria-labelledby="why-heading"

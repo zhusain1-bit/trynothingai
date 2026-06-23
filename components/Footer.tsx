@@ -84,6 +84,7 @@ export function Footer() {
         {[
           { href: '#waitlist',                  label: 'join waitlist' },
           { href: 'mailto:hi@trynothingai.com', label: 'contact' },
+          { href: '/privacy',                   label: 'privacy' },
         ].map(link => (
           <a
             key={link.label}

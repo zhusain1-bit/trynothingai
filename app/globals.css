@@ -227,6 +227,10 @@ summary {
 }
 .link-ghost:hover { color: var(--mist); }
 
+/* Deposit link hover */
+.link-deposit { color: var(--mist); transition: color 0.2s; }
+.link-deposit:hover { color: #fff; }
+
 /* Step hover transition */
 .step-hover { transition: background 0.2s; }
 .step-hover:hover { background: var(--vapor); }
