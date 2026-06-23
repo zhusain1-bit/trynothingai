@@ -7,6 +7,7 @@ import { WhyNothingSection }  from '@/components/WhyNothingSection'
 import { PrivacySection }     from '@/components/PrivacySection'
 import { WhyNotPhoneSection } from '@/components/WhyNotPhoneSection'
 import { WaitlistSection }    from '@/components/WaitlistSection'
+import { StickyWaitlistBar } from '@/components/StickyWaitlistBar'
 import { Footer }             from '@/components/Footer'
 
 // Subtle alternating tints — break monotony without changing darkness
@@ -60,6 +61,7 @@ export default function Home() {
 
         <Footer />
       </main>
+      <StickyWaitlistBar />
     </>
   )
 }

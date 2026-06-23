@@ -55,7 +55,7 @@ export function WaitlistSection() {
       await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), context: context.trim() }),
+        body: JSON.stringify({ email: email.trim(), context: context.trim(), contextOnly: true }),
       })
     } catch { /* non-critical */ }
     setFollowSent(true)

@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid body' }, { status: 400 })
   }
 
-  const { email, context } = body as Record<string, unknown>
+  const { email, context, contextOnly } = body as Record<string, unknown>
 
   if (typeof email !== 'string' || !EMAIL_RE.test(email)) {
     return NextResponse.json({ error: 'Invalid email' }, { status: 422 })
@@ -70,6 +70,19 @@ export async function POST(req: NextRequest) {
 
   const resend = new Resend(apiKey)
   const contextStr = typeof context === 'string' && context.trim() ? context.trim() : null
+
+  // contextOnly = follow-up context from success state; skip welcome email, just notify owner
+  if (contextOnly === true) {
+    if (contextStr) {
+      await resend.emails.send({
+        from: 'nothing.ai waitlist <zohair@trynothingai.com>',
+        to: ['zohairhusain14@gmail.com'],
+        subject: `signup context: ${email}`,
+        text: `Context from ${email}:\n${contextStr}`,
+      })
+    }
+    return NextResponse.json({ ok: true })
+  }
 
   // Welcome email to signup
   const { error: welcomeErr } = await resend.emails.send({
