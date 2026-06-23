@@ -46,7 +46,7 @@ export function StripCard({ name, desc, thumbnail, toastText, ruleFlag, soon, de
         {/* Thumbnail */}
         <div
           style={{
-            position: 'absolute', left: 12, top: 11, width: 80, aspectRatio: '4/5',
+            position: 'absolute', left: 10, top: 10, width: 90, aspectRatio: '4/5',
             borderRadius: 9, overflow: 'hidden', border: '1px solid var(--hairline2)',
             boxShadow: '0 12px 26px -12px rgba(0,0,0,.8)',
             opacity: thumbVis ? 1 : 0.12,
