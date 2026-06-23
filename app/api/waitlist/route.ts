@@ -2,6 +2,65 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+const WELCOME_HTML = (email: string) => `
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#0A0B0D;font-family:'Inter',system-ui,sans-serif;color:#E9EBEF">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0A0B0D;padding:48px 24px">
+    <tr><td align="center">
+      <table width="100%" style="max-width:480px;border:1px solid rgba(255,255,255,0.10);border-radius:18px;background:linear-gradient(180deg,rgba(22,24,30,.9),rgba(13,14,19,.95));padding:40px 36px">
+        <tr><td>
+          <!-- Wordmark -->
+          <p style="margin:0 0 32px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.28em;color:#878C96;text-transform:lowercase">
+            — <span style="color:#E9EBEF">nothing</span><span style="color:#AEC2FF">.ai</span> —
+          </p>
+
+          <!-- Heading -->
+          <h1 style="margin:0 0 16px;font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.2;color:#E9EBEF">
+            you're on the list.
+          </h1>
+
+          <!-- Body -->
+          <p style="margin:0 0 12px;font-size:15px;line-height:1.6;color:#878C96">
+            founding access is open to a small group first. we'll reach out when it's your turn — no spam, just the one email that matters.
+          </p>
+          <p style="margin:0 0 32px;font-size:15px;line-height:1.6;color:#878C96">
+            founding users get <span style="color:#E9EBEF;font-weight:500">50% off</span> at launch, locked in permanently.
+          </p>
+
+          <!-- Divider -->
+          <div style="height:1px;background:rgba(255,255,255,.08);margin:0 0 28px"></div>
+
+          <!-- Sign-off -->
+          <p style="margin:0;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5A5F69;letter-spacing:.04em;line-height:1.7">
+            the ai without a face.<br>
+            <a href="https://trynothingai.com" style="color:#AEC2FF;text-decoration:none">trynothingai.com</a>
+          </p>
+        </td></tr>
+      </table>
+
+      <!-- Footer -->
+      <p style="margin:20px 0 0;font-family:'JetBrains Mono',monospace;font-size:10px;color:#5A5F69;text-align:center">
+        you signed up at trynothingai.com with ${email}
+      </p>
+    </td></tr>
+  </table>
+</body>
+</html>`
+
+async function resendSend(apiKey: string, payload: object) {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify(payload),
+  })
+  if (!res.ok) {
+    const text = await res.text()
+    console.error('[nothing.ai waitlist] Resend error:', res.status, text)
+  }
+}
+
 export async function POST(req: NextRequest) {
   let body: unknown
   try {
@@ -20,12 +79,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid email' }, { status: 422 })
   }
 
-  const apiKey = process.env.LOOPS_API_KEY
+  const apiKey = process.env.RESEND_API_KEY
 
   if (!apiKey) {
-    // TODO: Add your Loops API key to .env.local as LOOPS_API_KEY=your_key_here
-    // See README.md for setup instructions.
-    console.log('[nothing.ai waitlist] LOOPS_API_KEY not set — logging locally:', {
+    // TODO: Add RESEND_API_KEY to Vercel environment variables
+    console.log('[nothing.ai waitlist] RESEND_API_KEY not set — logging locally:', {
       email,
       context: typeof context === 'string' ? context.trim() : undefined,
       timestamp: new Date().toISOString(),
@@ -33,30 +91,33 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true })
   }
 
-  try {
-    const res = await fetch('https://app.loops.so/api/v1/contacts/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        email,
-        source: 'nothing-ai-waitlist',
-        ...(typeof context === 'string' && context.trim()
-          ? { screenshotUseCase: context.trim() }
-          : {}),
-      }),
-    })
+  const contextStr = typeof context === 'string' && context.trim() ? context.trim() : null
 
-    if (!res.ok) {
-      const text = await res.text()
-      console.error('[nothing.ai waitlist] Loops error:', res.status, text)
-      // Return ok anyway — don't block the user on a Loops API failure
-    }
+  try {
+    await Promise.all([
+      // 1. Welcome email to the person who signed up
+      resendSend(apiKey, {
+        from: 'nothing.ai <zohair@trynothingai.com>',
+        to: [email],
+        subject: "you're on the list.",
+        html: WELCOME_HTML(email),
+      }),
+
+      // 2. Notification to you for every new signup
+      resendSend(apiKey, {
+        from: 'nothing.ai waitlist <zohair@trynothingai.com>',
+        to: ['zohairhusain14@gmail.com'],
+        subject: `new signup: ${email}`,
+        text: [
+          `Email: ${email}`,
+          contextStr ? `Context: ${contextStr}` : null,
+          `Time: ${new Date().toISOString()}`,
+        ].filter(Boolean).join('\n'),
+      }),
+    ])
   } catch (err) {
-    console.error('[nothing.ai waitlist] Loops fetch failed:', err)
-    // Same — return ok to the client
+    console.error('[nothing.ai waitlist] Resend fetch failed:', err)
+    // Return ok anyway — don't block the user on a send failure
   }
 
   return NextResponse.json({ ok: true })
