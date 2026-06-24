@@ -141,6 +141,20 @@ export function WaitlistSection() {
           {followSent && context && (
             <p className="font-mono" style={{ fontSize: 10, color: 'var(--ghost2)', marginTop: 4 }}>got it. thanks.</p>
           )}
+          {STRIPE_URL && (
+            <div className="w-full" style={{ marginTop: 6, paddingTop: 12, borderTop: '1px solid var(--hairline)' }}>
+              <a
+                href={depositHref ?? STRIPE_URL!}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-deposit"
+                style={{ fontSize: 12.5, textDecoration: 'none' }}
+                onClick={() => { capture('deposit_click', { source: getSource(), location: 'waitlist_section_success' }); capture('deposit_started', { source: getSource(), location: 'waitlist_section_success' }) }}
+              >
+                or lock founding access now — <strong style={{ color: 'var(--phosphor)', fontWeight: 500 }}>$5</strong>, refundable
+              </a>
+            </div>
+          )}
         </div>
       ) : (
         <div className="w-full flex flex-col gap-[10px]">

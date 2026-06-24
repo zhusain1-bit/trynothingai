@@ -95,6 +95,20 @@ export function HeroWaitlistInline() {
           </form>
         )}
         {followSent && <p className="font-mono" style={{ fontSize: 11, color: 'var(--ghost2)' }}>we'll reach out when founding access opens.</p>}
+        {STRIPE_URL && (
+          <div style={{ marginTop: 4, paddingTop: 10, borderTop: '1px solid var(--hairline)' }}>
+            <a
+              href={depositHref ?? STRIPE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => { capture('deposit_click', { source: getSource(), location: 'hero_success' }); capture('deposit_started', { source: getSource(), location: 'hero_success' }) }}
+              className="font-mono"
+              style={{ fontSize: 11, color: 'var(--ghost2)', textDecoration: 'underline', cursor: 'pointer', textUnderlineOffset: 3 }}
+            >
+              or lock founding access now — $5, refundable
+            </a>
+          </div>
+        )}
       </div>
     )
   }
