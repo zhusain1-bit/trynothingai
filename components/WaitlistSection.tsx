@@ -17,6 +17,7 @@ export function WaitlistSection() {
   const [errMsg,     setErrMsg]     = useState('')
   const [showFollow, setShowFollow] = useState(false)
   const [followSent, setFollowSent] = useState(false)
+  const [depositHref, setDepositHref] = useState<string | null>(STRIPE_URL)
 
   // Fade in the follow-up field 400ms after success
   useEffect(() => {
@@ -24,6 +25,13 @@ export function WaitlistSection() {
     const t = setTimeout(() => setShowFollow(true), 400)
     return () => clearTimeout(t)
   }, [formState])
+
+  // Upgrade the deposit link to the source-attributed URL after mount.
+  // Server renders the bare STRIPE_URL; building the attributed URL only client-side
+  // avoids a hydration mismatch on the href attribute.
+  useEffect(() => {
+    if (STRIPE_URL) setDepositHref(buildDepositUrl(STRIPE_URL))
+  }, [])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -189,7 +197,7 @@ export function WaitlistSection() {
               style={{ borderColor: 'var(--hairline)', background: 'transparent' }}
             >
               <a
-                href={typeof window !== 'undefined' ? buildDepositUrl(STRIPE_URL!) : STRIPE_URL!}
+                href={depositHref ?? STRIPE_URL!}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-deposit"

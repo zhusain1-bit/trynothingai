@@ -16,12 +16,20 @@ export function HeroWaitlistInline() {
   const [state,      setState]      = useState<State>('idle')
   const [showFollow, setShowFollow] = useState(false)
   const [followSent, setFollowSent] = useState(false)
+  const [depositHref, setDepositHref] = useState<string | null>(STRIPE_URL)
 
   useEffect(() => {
     if (state !== 'success') return
     const t = setTimeout(() => setShowFollow(true), 400)
     return () => clearTimeout(t)
   }, [state])
+
+  // Upgrade the deposit link to the source-attributed URL after mount.
+  // Server renders the bare STRIPE_URL; building the attributed URL only client-side
+  // avoids a hydration mismatch on the href attribute.
+  useEffect(() => {
+    if (STRIPE_URL) setDepositHref(buildDepositUrl(STRIPE_URL))
+  }, [])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -137,7 +145,7 @@ export function HeroWaitlistInline() {
       {STRIPE_URL && (
         <div className="text-center" style={{ marginTop: 4, paddingTop: 8, borderTop: '1px solid var(--hairline)' }}>
           <a
-            href={typeof window !== 'undefined' ? buildDepositUrl(STRIPE_URL) : STRIPE_URL}
+            href={depositHref ?? STRIPE_URL}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => { capture('deposit_click', { source: getSource(), location: 'hero' }); capture('deposit_started', { source: getSource(), location: 'hero' }) }}
