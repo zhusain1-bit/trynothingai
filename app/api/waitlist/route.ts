@@ -25,6 +25,11 @@ const ratelimit =
 // If unset, signups still work; only the owner notification is skipped.
 const NOTIFY_EMAIL = process.env.WAITLIST_NOTIFY_EMAIL?.trim()
 
+// Resend Audience to collect signups into a real, queryable email list (and the
+// authoritative total-signups count for the metrics dashboard). If unset, contact
+// creation is skipped — signups still receive their emails as before.
+const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID?.trim()
+
 // Escape user-supplied text before interpolating into the HTML email body.
 const escapeHtml = (s: string) =>
   s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!))
@@ -130,6 +135,17 @@ export async function POST(req: NextRequest) {
     html: WELCOME_HTML(email),
   })
   if (welcomeErr) console.error('[nothing.ai waitlist] welcome email error:', welcomeErr)
+
+  // Add the signup to the Resend Audience so we build a real email list for launch
+  // (skipped if RESEND_AUDIENCE_ID is unset). Failures here never block the signup.
+  if (AUDIENCE_ID) {
+    const { error: contactErr } = await resend.contacts.create({
+      email,
+      audienceId: AUDIENCE_ID,
+      unsubscribed: false,
+    })
+    if (contactErr) console.error('[nothing.ai waitlist] resend contact error:', contactErr)
+  }
 
   // Notification to owner (skipped if WAITLIST_NOTIFY_EMAIL is unset)
   if (NOTIFY_EMAIL) {

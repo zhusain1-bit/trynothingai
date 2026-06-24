@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# private local tools (e.g. founding-metrics dashboard) — never commit to the public repo
+/tools
+
 # vercel
 .vercel
 
