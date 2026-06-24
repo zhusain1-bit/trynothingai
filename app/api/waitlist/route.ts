@@ -1,7 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { Ratelimit } from '@upstash/ratelimit'
+import { Redis } from '@upstash/redis'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+// Per-IP rate limiter (5 requests / 60s, sliding window). Active only when Upstash
+// credentials are present; otherwise no-ops so local dev and pre-setup deploys work.
+const ratelimit =
+  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+    ? new Ratelimit({
+        redis: Redis.fromEnv(),
+        limiter: Ratelimit.slidingWindow(5, '60 s'),
+        prefix: 'ratelimit:waitlist',
+        analytics: false,
+      })
+    : null
 
 // Owner notification address — kept out of source (public repo) via env var.
 // If unset, signups still work; only the owner notification is skipped.
@@ -47,6 +61,18 @@ const WELCOME_HTML = (email: string) => `<!DOCTYPE html>
 </html>`
 
 export async function POST(req: NextRequest) {
+  // Throttle abusive clients before doing any work (no-ops if Upstash isn't configured).
+  if (ratelimit) {
+    const ip =
+      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      req.headers.get('x-real-ip')?.trim() ||
+      'unknown'
+    const { success } = await ratelimit.limit(ip)
+    if (!success) {
+      return NextResponse.json({ error: 'Too many requests. Please try again shortly.' }, { status: 429 })
+    }
+  }
+
   let body: unknown
   try {
     body = await req.json()
