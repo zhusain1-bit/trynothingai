@@ -23,6 +23,8 @@ const bebasNeue = Bebas_Neue({
 })
 
 export const metadata: Metadata = {
+  // Resolves relative metadata URLs (incl. the generated OG/Twitter images) to absolute.
+  metadataBase: new URL('https://trynothingai.com'),
   title: 'nothing.ai — make your screenshots smarter',
   description: 'the ai that lives in your copy and paste. your life happens in pictures, not words.',
   icons: {
@@ -33,6 +35,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'nothing.ai — make your screenshots smarter',
     description: 'the ai that lives in your copy and paste. your life happens in pictures, not words.',
+    url: 'https://trynothingai.com',
+    siteName: 'nothing.ai',
     type: 'website',
   },
   twitter: {

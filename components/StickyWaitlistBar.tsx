@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useId } from 'react'
+import { capture, getSource } from '@/lib/posthog'
 
 type State = 'idle' | 'loading' | 'success'
 
@@ -37,8 +38,10 @@ export function StickyWaitlistBar() {
         body: JSON.stringify({ email: email.trim() }),
       })
       const data = (await res.json()) as { ok?: boolean }
-      if (res.ok && data.ok) setState('success')
-      else setState('idle')
+      if (res.ok && data.ok) {
+        setState('success')
+        capture('waitlist_signup', { source: getSource(), location: 'sticky_bar', has_context: false })
+      } else setState('idle')
     } catch {
       setState('idle')
     }
