@@ -7,10 +7,14 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 // Per-IP rate limiter (5 requests / 60s, sliding window). Active only when Upstash
 // credentials are present; otherwise no-ops so local dev and pre-setup deploys work.
+// Accepts either the native Upstash names or the Vercel KV integration names.
+const redisUrl = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL
+const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN
+
 const ratelimit =
-  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+  redisUrl && redisToken
     ? new Ratelimit({
-        redis: Redis.fromEnv(),
+        redis: new Redis({ url: redisUrl, token: redisToken }),
         limiter: Ratelimit.slidingWindow(5, '60 s'),
         prefix: 'ratelimit:waitlist',
         analytics: false,
