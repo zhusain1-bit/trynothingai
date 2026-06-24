@@ -105,7 +105,7 @@ export function HeroWaitlistInline() {
               className="font-mono"
               style={{ fontSize: 11, color: 'var(--ghost2)', textDecoration: 'underline', cursor: 'pointer', textUnderlineOffset: 3 }}
             >
-              or lock founding access now — $5, refundable
+              or lock founding access now — $5, credited at launch
             </a>
           </div>
         )}
@@ -169,7 +169,7 @@ export function HeroWaitlistInline() {
             skip the line — lock founding access for $5
           </a>
           <p className="font-mono" style={{ fontSize: 10, color: 'var(--ghost2)', opacity: 0.65, marginTop: 3 }}>
-            fully refundable · locks your 50% founding discount
+            goes toward your launch purchase · locks 50% off · refundable on request
           </p>
         </div>
       )}

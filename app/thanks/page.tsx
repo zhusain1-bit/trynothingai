@@ -5,7 +5,7 @@ import { ThanksClient } from './ThanksClient'
 
 export const metadata: Metadata = {
   title: 'You’re founding — nothing.ai',
-  description: 'Your founding deposit is locked. Fully refundable anytime before launch.',
+  description: 'Your founding deposit is locked and credited toward launch.',
   robots: { index: false, follow: false },
 }
 
@@ -40,9 +40,9 @@ export default function ThanksPage() {
         </h1>
 
         <p style={{ fontSize: 15, color: 'var(--ghost)', lineHeight: 1.65, maxWidth: 400 }}>
-          Your $5 is locked and your 50% founding discount is secured. It&rsquo;s fully
-          refundable anytime before launch — just email us and we&rsquo;ll send it back, no
-          questions asked. We&rsquo;ll reach out the moment founding access opens.
+          Your $5 is locked in and goes straight toward your purchase at launch — and your
+          50% founding discount is secured. Changed your mind? Just email us anytime before
+          launch and we&rsquo;ll refund it. We&rsquo;ll reach out the moment founding access opens.
         </p>
 
         <a

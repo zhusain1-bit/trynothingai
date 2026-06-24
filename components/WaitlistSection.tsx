@@ -151,7 +151,7 @@ export function WaitlistSection() {
                 style={{ fontSize: 12.5, textDecoration: 'none' }}
                 onClick={() => { capture('deposit_click', { source: getSource(), location: 'waitlist_section_success' }); capture('deposit_started', { source: getSource(), location: 'waitlist_section_success' }) }}
               >
-                or lock founding access now — <strong style={{ color: 'var(--phosphor)', fontWeight: 500 }}>$5</strong>, refundable
+                or lock founding access now — <strong style={{ color: 'var(--phosphor)', fontWeight: 500 }}>$5</strong>, credited at launch
               </a>
             </div>
           )}
@@ -220,10 +220,10 @@ export function WaitlistSection() {
               >
                 Skip the line — lock founding access for{' '}
                 <strong style={{ color: 'var(--phosphor)', fontWeight: 500 }}>$5</strong>{' '}
-                <span style={{ color: 'var(--ghost)' }}>(fully refundable)</span>
+                <span style={{ color: 'var(--ghost)' }}>(credited at launch)</span>
               </a>
               <p className="font-mono mt-[5px]" style={{ fontSize: 9.5, color: 'var(--ghost2)' }}>
-                refundable anytime before launch · locks your 50% founding discount
+                goes toward your launch purchase · locks 50% off · refundable on request
               </p>
             </div>
           )}
