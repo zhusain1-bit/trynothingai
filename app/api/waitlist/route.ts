@@ -3,6 +3,14 @@ import { Resend } from 'resend'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+// Owner notification address — kept out of source (public repo) via env var.
+// If unset, signups still work; only the owner notification is skipped.
+const NOTIFY_EMAIL = process.env.WAITLIST_NOTIFY_EMAIL?.trim()
+
+// Escape user-supplied text before interpolating into the HTML email body.
+const escapeHtml = (s: string) =>
+  s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!))
+
 const WELCOME_HTML = (email: string) => `<!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -31,7 +39,7 @@ const WELCOME_HTML = (email: string) => `<!DOCTYPE html>
         </td></tr>
       </table>
       <p style="margin:20px 0 0;font-size:10px;color:#5A5F69;text-align:center">
-        you signed up at trynothingai.com &middot; ${email}
+        you signed up at trynothingai.com &middot; ${escapeHtml(email)}
       </p>
     </td></tr>
   </table>
@@ -52,7 +60,7 @@ export async function POST(req: NextRequest) {
 
   const { email, context, contextOnly } = body as Record<string, unknown>
 
-  if (typeof email !== 'string' || !EMAIL_RE.test(email)) {
+  if (typeof email !== 'string' || email.length > 254 || !EMAIL_RE.test(email)) {
     return NextResponse.json({ error: 'Invalid email' }, { status: 422 })
   }
 
@@ -69,14 +77,14 @@ export async function POST(req: NextRequest) {
   }
 
   const resend = new Resend(apiKey)
-  const contextStr = typeof context === 'string' && context.trim() ? context.trim() : null
+  const contextStr = typeof context === 'string' && context.trim() ? context.trim().slice(0, 500) : null
 
   // contextOnly = follow-up context from success state; skip welcome email, just notify owner
   if (contextOnly === true) {
-    if (contextStr) {
+    if (contextStr && NOTIFY_EMAIL) {
       await resend.emails.send({
         from: 'nothing.ai waitlist <zohair@trynothingai.com>',
-        to: ['zohairhusain14@gmail.com'],
+        to: [NOTIFY_EMAIL],
         subject: `signup context: ${email}`,
         text: `Context from ${email}:\n${contextStr}`,
       })
@@ -93,14 +101,16 @@ export async function POST(req: NextRequest) {
   })
   if (welcomeErr) console.error('[nothing.ai waitlist] welcome email error:', welcomeErr)
 
-  // Notification to owner
-  const { error: notifyErr } = await resend.emails.send({
-    from: 'nothing.ai waitlist <zohair@trynothingai.com>',
-    to: ['zohairhusain14@gmail.com'],
-    subject: `new signup: ${email}`,
-    text: [`Email: ${email}`, contextStr ? `Context: ${contextStr}` : null, `Time: ${new Date().toISOString()}`].filter(Boolean).join('\n'),
-  })
-  if (notifyErr) console.error('[nothing.ai waitlist] notify email error:', notifyErr)
+  // Notification to owner (skipped if WAITLIST_NOTIFY_EMAIL is unset)
+  if (NOTIFY_EMAIL) {
+    const { error: notifyErr } = await resend.emails.send({
+      from: 'nothing.ai waitlist <zohair@trynothingai.com>',
+      to: [NOTIFY_EMAIL],
+      subject: `new signup: ${email}`,
+      text: [`Email: ${email}`, contextStr ? `Context: ${contextStr}` : null, `Time: ${new Date().toISOString()}`].filter(Boolean).join('\n'),
+    })
+    if (notifyErr) console.error('[nothing.ai waitlist] notify email error:', notifyErr)
+  }
 
   return NextResponse.json({ ok: true })
 }
