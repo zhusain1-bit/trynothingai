@@ -25,6 +25,10 @@ const SECTIONS = [
     body: "We use Resend to deliver transactional emails. Your email address is stored with them for delivery purposes, subject to Resend's privacy policy.",
   },
   {
+    title: 'Analytics',
+    body: "We use PostHog to measure anonymous usage — page visits, which link or platform sent you here, and whether you joined or placed a deposit. It runs without cookies and we don't track you across other sites. This data is never sold or shared, and is only used to understand what's working.",
+  },
+  {
     title: 'Deleting your data',
     body: "Email hi@trynothingai.com at any time and we will remove you from the waitlist immediately.",
   },

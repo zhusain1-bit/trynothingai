@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useId, useEffect } from 'react'
+import { capture, getSource, buildDepositUrl } from '@/lib/posthog'
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
 
-// NEXT_PUBLIC_STRIPE_DEPOSIT_URL — set in .env.local to show the deposit option
 const STRIPE_URL = process.env.NEXT_PUBLIC_STRIPE_DEPOSIT_URL ?? null
 
 export function WaitlistSection() {
@@ -42,6 +42,7 @@ export function WaitlistSection() {
       const data = (await res.json()) as { ok?: boolean; error?: string }
       if (!res.ok || !data.ok) throw new Error(data.error ?? 'Something went wrong')
       setFormState('success')
+      capture('waitlist_signup', { source: getSource(), location: 'waitlist_section', has_context: false })
     } catch (err) {
       setFormState('error')
       setErrMsg(err instanceof Error ? err.message : 'Something went wrong')
@@ -188,11 +189,12 @@ export function WaitlistSection() {
               style={{ borderColor: 'var(--hairline)', background: 'transparent' }}
             >
               <a
-                href={STRIPE_URL}
+                href={typeof window !== 'undefined' ? buildDepositUrl(STRIPE_URL!) : STRIPE_URL!}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-deposit"
                 style={{ fontSize: 13.5, textDecoration: 'none' }}
+                onClick={() => { capture('deposit_click', { source: getSource(), location: 'waitlist_section' }); capture('deposit_started', { source: getSource(), location: 'waitlist_section' }) }}
               >
                 Skip the line — lock founding access for{' '}
                 <strong style={{ color: 'var(--phosphor)', fontWeight: 500 }}>$5</strong>{' '}

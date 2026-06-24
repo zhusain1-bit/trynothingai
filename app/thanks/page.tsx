@@ -1,0 +1,63 @@
+import type { Metadata } from 'next'
+import { Nav } from '@/components/Nav'
+import { Footer } from '@/components/Footer'
+import { ThanksClient } from './ThanksClient'
+
+export const metadata: Metadata = {
+  title: 'You’re founding — nothing.ai',
+  description: 'Your founding deposit is locked. Fully refundable anytime before launch.',
+  robots: { index: false, follow: false },
+}
+
+export default function ThanksPage() {
+  return (
+    <>
+      <ThanksClient />
+      <Nav />
+      <main
+        className="w-full max-w-[560px] mx-auto px-6 pt-[140px] pb-[100px] flex flex-col items-center text-center gap-[20px]"
+        id="main-content"
+      >
+        <div
+          className="rounded-full flex items-center justify-center font-mono"
+          style={{ width: 40, height: 40, border: '1.5px solid var(--phosphor)', color: 'var(--phosphor)', boxShadow: '0 0 20px var(--phosphor-glow)', fontSize: 18 }}
+        >
+          ✓
+        </div>
+
+        <span
+          className="font-mono uppercase tracking-[.2em]"
+          style={{ fontSize: 11, color: 'var(--phosphor)' }}
+        >
+          founding access
+        </span>
+
+        <h1
+          className="font-semibold tracking-tight"
+          style={{ fontSize: 'clamp(26px,4vw,38px)', color: 'var(--mist)' }}
+        >
+          You&rsquo;re founding.
+        </h1>
+
+        <p style={{ fontSize: 15, color: 'var(--ghost)', lineHeight: 1.65, maxWidth: 400 }}>
+          Your $5 is locked and your 50% founding discount is secured. It&rsquo;s fully
+          refundable anytime before launch — just email us and we&rsquo;ll send it back, no
+          questions asked. We&rsquo;ll reach out the moment founding access opens.
+        </p>
+
+        <a
+          href="/"
+          className="btn-phosphor"
+          style={{ fontSize: 13, marginTop: 4, minHeight: 44 }}
+        >
+          back to nothing.ai
+        </a>
+
+        <p className="font-mono" style={{ fontSize: 11, color: 'var(--ghost2)', marginTop: 4 }}>
+          questions? hi@trynothingai.com
+        </p>
+      </main>
+      <Footer />
+    </>
+  )
+}

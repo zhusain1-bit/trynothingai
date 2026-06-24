@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono, Bebas_Neue } from 'next/font/google'
+import { PostHogProvider } from '@/components/PostHogProvider'
 import './globals.css'
 
 const inter = Inter({
@@ -54,7 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           skip to content
         </a>
-        {children}
+        <PostHogProvider>{children}</PostHogProvider>
       </body>
     </html>
   )
