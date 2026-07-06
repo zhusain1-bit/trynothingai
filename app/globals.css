@@ -30,7 +30,6 @@
   --color-vapor: rgba(255,255,255,0.055);
   --color-vapor2: rgba(255,255,255,0.085);
   --font-family-mono: var(--font-jetbrains, 'JetBrains Mono', ui-monospace, monospace);
-  --font-family-display: var(--font-bebas, 'Bebas Neue', sans-serif);
   --border-radius-surface: 18px;
 }
 
@@ -49,10 +48,6 @@ body {
 
 .font-mono, [class*="font-mono"] {
   font-family: var(--font-jetbrains, 'JetBrains Mono', monospace);
-}
-
-.font-display {
-  font-family: var(--font-bebas, 'Bebas Neue', sans-serif);
 }
 
 /* ─── Keyframes ─────────────────────────────────────────────────────── */

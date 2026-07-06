@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono, Bebas_Neue } from 'next/font/google'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import { PostHogProvider } from '@/components/PostHogProvider'
 import './globals.css'
 
@@ -15,23 +15,11 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 })
 
-const bebasNeue = Bebas_Neue({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-bebas',
-  display: 'swap',
-})
-
 export const metadata: Metadata = {
   // Resolves relative metadata URLs (incl. the generated OG/Twitter images) to absolute.
   metadataBase: new URL('https://trynothingai.com'),
   title: 'nothing.ai — make your screenshots smarter',
   description: 'the ai that lives in your copy and paste. your life happens in pictures, not words.',
-  icons: {
-    icon: '/nothing-favicon.svg',
-    // TODO: generate favicon.ico from nothing-favicon.svg for older browser fallback
-    // e.g.: npx @squoosh/cli --resize '{"enabled":true,"width":32,"height":32}' public/nothing-favicon.svg
-  },
   openGraph: {
     title: 'nothing.ai — make your screenshots smarter',
     description: 'the ai that lives in your copy and paste. your life happens in pictures, not words.',
@@ -50,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} ${bebasNeue.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body>
         <a
