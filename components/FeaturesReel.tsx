@@ -1,4 +1,4 @@
-import { CalendarHero }     from '@/components/features/CalendarHero'
+import { CalendarVideo }    from '@/components/features/CalendarVideo'
 import { EmailHero }        from '@/components/features/EmailHero'
 import { CollectionsHero }  from '@/components/features/CollectionsHero'
 import { AskHero }          from '@/components/features/AskHero'
@@ -18,7 +18,7 @@ const HEROES: {
     headline: "Screenshot an event. It's on your calendar.",
     desc: "Snip the event page — the date, time, and place are on it — and nothing.ai reads them and books it.",
     height: 460,
-    component: <CalendarHero />,
+    component: <CalendarVideo />,
   },
   {
     id: 'email', n: '02 · email → clipboard',
