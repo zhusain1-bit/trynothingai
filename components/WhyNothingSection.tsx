@@ -57,20 +57,19 @@ export function WhyNothingSection() {
   return (
     <section
       ref={sectionRef as RefObject<HTMLElement>}
-      className="w-full flex flex-col items-center text-center px-4"
-      style={{ maxWidth: 680, margin: '0 auto' }}
+      className="w-full flex flex-col items-center text-center"
+      style={{ background: '#000', padding: 'clamp(80px, 12vw, 160px) 24px' }}
       aria-labelledby="why-heading"
     >
-      <div className="font-mono" style={{ fontSize: 12, letterSpacing: '.28em', textTransform: 'lowercase', color: 'var(--ghost2)' }}>
-        why "nothing"
-      </div>
+      <div className="eyebrow">why &ldquo;nothing&rdquo;</div>
       <h2
         id="why-heading"
-        style={{ marginTop: 16, fontSize: 'clamp(24px,4.4vw,38px)', fontWeight: 600, letterSpacing: '-.02em', lineHeight: 1.12, color: 'var(--mist)' }}
+        className="headline-xl headline-dim"
+        style={{ marginTop: 16, maxWidth: 820 }}
       >
-        Because that's what it adds to your screen.
+        Because that&rsquo;s what it adds <span className="em">to your screen.</span>
       </h2>
-      <p style={{ marginTop: 18, fontSize: 15, color: 'var(--ghost)', lineHeight: 1.6, maxWidth: 520 }}>
+      <p className="copy-l" style={{ marginTop: 18, maxWidth: 620 }}>
         Every other AI wants a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>window</strong>, a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>tab</strong>, a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>chat</strong>, a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>face</strong>. nothing.ai wants none of it. it lives in the screenshot you already take and the keystroke you already press — and the moment it's done, it's gone.
       </p>
 
