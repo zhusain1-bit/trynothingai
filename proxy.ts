@@ -10,7 +10,7 @@ const SOURCES: Record<string, string> = {
   '/yt':       'youtube',
 }
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const source = SOURCES[req.nextUrl.pathname]
   if (!source) return NextResponse.next()
 
