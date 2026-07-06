@@ -295,13 +295,15 @@ select:focus-visible,
 .headline-dim { color: var(--headline-dim); }
 .headline-dim .em { color: var(--mist); }
 
-/* Scroll reveals */
+/* Scroll reveals — initial hiding is gated on scripting support so the page
+   is never blank for no-JS/legacy visitors. */
 .reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
 }
-.reveal.is-visible { opacity: 1; transform: none; }
+@media (scripting: enabled) {
+  .reveal { opacity: 0; transform: translateY(24px); }
+  .reveal.is-visible { opacity: 1; transform: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; }
 }
@@ -316,10 +318,11 @@ select:focus-visible,
 .cta-link:hover { text-decoration: underline; }
 .cta-link::after { content: ' ›'; }
 .cta-pill {
+  position: relative;
   display: inline-flex;
   align-items: center;
   border-radius: 980px;
-  padding: 6px 16px;
+  padding: 8px 18px;
   font-size: 13px;
   font-weight: 500;
   background: var(--phosphor);
@@ -327,6 +330,8 @@ select:focus-visible,
   transition: filter 0.2s var(--ease);
 }
 .cta-pill:hover { filter: brightness(1.08); }
+/* Invisible hit-area extension — keeps the Apple-slim visual while meeting 44px touch targets */
+.cta-pill::after { content: ''; position: absolute; inset: -6px; border-radius: inherit; }
 
 /* Horizontal snap rail */
 .snap-rail {

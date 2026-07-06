@@ -13,10 +13,10 @@ export function StatGrid({
       {items.map((item, i) => (
         <div
           key={item.label}
-          className="flex flex-col gap-[10px] px-[28px] py-[24px] max-sm:!border-l-0"
+          // Column hairlines on wide layouts; row hairlines when stacked on mobile
+          className={`flex flex-col gap-[10px] px-[28px] py-[24px] max-sm:!border-l-0${i > 0 ? ' max-sm:!border-t max-sm:!border-t-[rgba(255,255,255,0.10)]' : ''}`}
           style={{
             borderLeft: i > 0 ? '1px solid var(--hairline)' : 'none',
-            borderTop: 'none',
           }}
         >
           <div className="eyebrow">{item.label}</div>

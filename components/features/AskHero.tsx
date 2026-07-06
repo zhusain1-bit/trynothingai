@@ -26,7 +26,7 @@ function ProductTile({ type, color, price }: { type: string; color: string; pric
   }
   return (
     <div style={{ flex: 1, position: 'relative', aspectRatio: '4/5', borderRadius: 8, overflow: 'hidden', background: 'linear-gradient(165deg,#f8f7f4,#eae8e2)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(0,0,0,.05)' }}>
-      <Icon />
+      {Icon()}
       <span style={{ position: 'absolute', top: 4, right: 5, fontFamily: 'var(--font-jetbrains,monospace)', fontSize: 6.5, color: '#333', background: 'rgba(255,255,255,.75)', borderRadius: 3, padding: '1px 3px' }}>{price}</span>
     </div>
   )

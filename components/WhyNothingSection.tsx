@@ -31,6 +31,7 @@ export function WhyNothingSection() {
 
     const reduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduced) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: jump straight to the animation's end state for reduced motion
       setWordsIn(Array(WORDS.length).fill(true))
       setWordsStruck(Array(WORDS.length).fill(true))
       setListGone(false); setRevealShow(true); setCloseShow(true)
@@ -52,7 +53,7 @@ export function WhyNothingSection() {
     // stays visible permanently — no reset
 
     return clear
-  }, [inView]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [inView])
 
   return (
     <section
@@ -70,7 +71,7 @@ export function WhyNothingSection() {
         Because that&rsquo;s what it adds <span className="em">to your screen.</span>
       </h2>
       <p className="copy-l" style={{ marginTop: 18, maxWidth: 620 }}>
-        Every other AI wants a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>window</strong>, a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>tab</strong>, a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>chat</strong>, a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>face</strong>. nothing.ai wants none of it. it lives in the screenshot you already take and the keystroke you already press — and the moment it's done, it's gone.
+        Every other AI wants a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>window</strong>, a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>tab</strong>, a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>chat</strong>, a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>face</strong>. nothing.ai wants none of it. it lives in the screenshot you already take and the keystroke you already press — and the moment it&rsquo;s done, it&rsquo;s gone.
       </p>
 
       {/* Animated stage */}
@@ -147,7 +148,7 @@ export function WhyNothingSection() {
         }}
       >
         just the answer, <strong style={{ color: 'var(--phosphor)', fontWeight: 400 }}>exactly when you ask for it.</strong><br />
-        that's the whole point. that's the name.
+        that&rsquo;s the whole point. that&rsquo;s the name.
       </div>
     </section>
   )

@@ -39,7 +39,7 @@ export function WhyNotPhoneSection() {
             ))}
           </div>
           <div
-            className="flex flex-col gap-[12px] px-[28px] py-[24px] max-md:!border-l-0"
+            className="flex flex-col gap-[12px] px-[28px] py-[24px] max-md:!border-l-0 max-md:!border-t max-md:!border-t-[rgba(255,255,255,0.10)]"
             style={{ borderLeft: '1px solid var(--hairline)' }}
           >
             <div className="font-mono" style={{ fontSize: 11, color: 'var(--phosphor)', letterSpacing: '.08em' }}>

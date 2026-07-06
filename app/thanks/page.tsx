@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 import { ThanksClient } from './ThanksClient'
@@ -45,13 +46,13 @@ export default function ThanksPage() {
           launch and we&rsquo;ll refund it. We&rsquo;ll reach out the moment founding access opens.
         </p>
 
-        <a
+        <Link
           href="/"
           className="btn-phosphor"
           style={{ fontSize: 13, marginTop: 4, minHeight: 44 }}
         >
           back to nothing.ai
-        </a>
+        </Link>
 
         <p className="font-mono" style={{ fontSize: 11, color: 'var(--ghost2)', marginTop: 4 }}>
           questions? hi@trynothingai.com

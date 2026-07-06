@@ -45,7 +45,8 @@ export default function Home() {
           </Reveal>
         </Chapter>
 
-        {/* How it works */}
+        {/* How it works — giant dimmed hotkey glyph as the one permitted decoration */}
+        <div className="relative overflow-hidden">
         <Chapter
           tone="black"
           eyebrow="how it works"
@@ -73,12 +74,21 @@ export default function Home() {
             />
             <p
               className="font-mono text-center"
-              style={{ fontSize: 11, color: 'var(--ghost2)', fontStyle: 'italic', marginTop: 36 }}
+              style={{ fontSize: 12, color: 'var(--ghost2)', fontStyle: 'italic', marginTop: 36 }}
             >
               because i don&rsquo;t wanna stop the flow state.
             </p>
           </Reveal>
         </Chapter>
+          {/* 3% white over pure black reads as a watermark behind the content */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 flex items-center justify-center pointer-events-none select-none font-mono"
+            style={{ fontSize: 'clamp(120px, 20vw, 320px)', color: 'rgba(255,255,255,.03)', letterSpacing: '-.02em', whiteSpace: 'nowrap' }}
+          >
+            ⊞ ⇧ S
+          </div>
+        </div>
 
         {/* Feature chapter — calendar (the one real recording) */}
         <Chapter
@@ -152,6 +162,24 @@ export default function Home() {
 
         {/* Privacy */}
         <PrivacySection />
+
+        {/* At-a-glance specs — Apple product pages close with one */}
+        <Chapter
+          eyebrow="at a glance"
+          headline={<>Nothing to it. <span className="em">Literally.</span></>}
+        >
+          <Reveal>
+            <StatGrid
+              cols={4}
+              items={[
+                { label: 'platform', stat: 'Windows first.', body: 'mac is next.' },
+                { label: 'summon', stat: '⊞ ⇧ S', body: 'one keystroke. no window, no app to open.' },
+                { label: 'processing', stat: 'On-device.', body: 'your screenshots never leave your machine.' },
+                { label: 'models', stat: 'Bring your own.', body: 'one memory, answered by whichever AI you prefer.' },
+              ]}
+            />
+          </Reveal>
+        </Chapter>
 
         {/* Waitlist */}
         <div className="w-full flex justify-center" style={{ padding: 'clamp(80px, 12vw, 160px) 16px' }}>

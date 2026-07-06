@@ -2,6 +2,7 @@
 
 import { useState, useId, useEffect } from 'react'
 import { capture, getSource, buildDepositUrl } from '@/lib/posthog'
+import { WAITLIST_COUNT } from '@/lib/constants'
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
 
@@ -30,6 +31,7 @@ export function WaitlistSection() {
   // Server renders the bare STRIPE_URL; building the attributed URL only client-side
   // avoids a hydration mismatch on the href attribute.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: hydration-safe href upgrade must run once after mount
     if (STRIPE_URL) setDepositHref(buildDepositUrl(STRIPE_URL))
   }, [])
 
@@ -83,7 +85,7 @@ export function WaitlistSection() {
         ✓
       </div>
       <p className="font-semibold" style={{ fontSize: 16, color: 'var(--mist)' }}>you&rsquo;re in.</p>
-      <p className="font-mono" style={{ fontSize: 10.5, color: 'var(--ghost2)' }}>we&rsquo;ll reach out when founding access opens.</p>
+      <p className="font-mono" style={{ fontSize: 11.5, color: 'var(--ghost2)' }}>we&rsquo;ll reach out when founding access opens.</p>
 
       {/* Follow-up context field */}
       {!followSent && showFollow && (
@@ -92,7 +94,7 @@ export function WaitlistSection() {
           style={{ opacity: showFollow ? 1 : 0, transition: 'opacity .5s var(--ease)' }}
           onSubmit={handleFollowUp}
         >
-          <label htmlFor={contextId} className="font-mono" style={{ fontSize: 10.5, color: 'var(--ghost2)', letterSpacing: '.04em' }}>
+          <label htmlFor={contextId} className="font-mono" style={{ fontSize: 11.5, color: 'var(--ghost2)', letterSpacing: '.04em' }}>
             what would you screenshot this for? <span style={{ opacity: .5 }}>(optional)</span>
           </label>
           <input
@@ -117,7 +119,7 @@ export function WaitlistSection() {
         </form>
       )}
       {followSent && context && (
-        <p className="font-mono" style={{ fontSize: 10, color: 'var(--ghost2)', marginTop: 4 }}>got it. thanks.</p>
+        <p className="font-mono" style={{ fontSize: 11.5, color: 'var(--ghost2)', marginTop: 4 }}>got it. thanks.</p>
       )}
     </div>
   ) : (
@@ -132,7 +134,7 @@ export function WaitlistSection() {
         free. we&rsquo;ll email you when founding access opens.
       </p>
       <div className="flex flex-col gap-[5px]">
-        <label htmlFor={emailId} className="font-mono" style={{ fontSize: 9.5, letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--ghost2)' }}>
+        <label htmlFor={emailId} className="font-mono" style={{ fontSize: 11, letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--ghost2)' }}>
           email
         </label>
         <input
@@ -166,7 +168,7 @@ export function WaitlistSection() {
         {formState === 'loading' ? 'sending…' : 'get founding access'}
       </button>
 
-      <p className="font-mono text-center" style={{ fontSize: 9.5, color: 'var(--ghost2)' }}>
+      <p className="font-mono text-center" style={{ fontSize: 11.5, color: 'var(--ghost2)' }}>
         no charge now · founding users get 50% off at launch
       </p>
     </form>
@@ -186,6 +188,9 @@ export function WaitlistSection() {
         </h2>
         <p className="copy-l" style={{ maxWidth: 460 }}>
           no charge now · founding users get 50% off at launch.
+        </p>
+        <p className="font-mono" style={{ fontSize: 12, color: 'var(--ghost2)' }}>
+          {WAITLIST_COUNT} already on the founding list
         </p>
       </div>
 
@@ -211,7 +216,7 @@ export function WaitlistSection() {
             >
               skip the line
             </a>
-            <p className="font-mono" style={{ fontSize: 9.5, color: 'var(--ghost2)' }}>
+            <p className="font-mono" style={{ fontSize: 11.5, color: 'var(--ghost2)' }}>
               goes toward your launch purchase · locks 50% off · refundable on request
             </p>
           </div>

@@ -15,7 +15,9 @@ export function useAnimationLoop(
 ) {
   const stepsRef = useRef(steps)
   const resetRef = useRef(reset)
+  // eslint-disable-next-line react-hooks/refs -- latest-ref pattern: callers pass fresh closures each render; the effect must see them without re-running
   stepsRef.current = steps
+  // eslint-disable-next-line react-hooks/refs -- latest-ref pattern (see above)
   resetRef.current = reset
 
   useEffect(() => {

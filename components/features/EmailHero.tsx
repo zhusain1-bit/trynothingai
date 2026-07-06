@@ -154,7 +154,7 @@ export function EmailHero() {
             <div style={{ flexShrink: 0, width: 62, aspectRatio: '5/4', borderRadius: 8, overflow: 'hidden', border: '1px solid var(--hairline2)', background: '#fff', color: '#1a1a1d', position: 'relative' }}>
               <div style={{ position: 'absolute', inset: 0, padding: 6, fontSize: 5.5 }}>
                 <div style={{ fontWeight: 700, fontSize: 6.5 }}>Re: the deck</div>
-                <div style={{ marginTop: 4, color: '#555', lineHeight: 1.3 }}>"when can you send the deck? need it before the 4 PM call."</div>
+                <div style={{ marginTop: 4, color: '#555', lineHeight: 1.3 }}>&ldquo;when can you send the deck? need it before the 4 PM call.&rdquo;</div>
               </div>
             </div>
             {/* Details */}

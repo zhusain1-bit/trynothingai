@@ -52,7 +52,7 @@ const COLUMNS: { title: string; links: { href: string; label: string; external?:
     title: 'get it',
     links: [
       { href: '#waitlist', label: 'join waitlist' },
-      { href: '#waitlist', label: 'skip the line — $5' },
+      { href: '#waitlist', label: 'founding access — $5' },
     ],
   },
   {
@@ -76,7 +76,7 @@ export function Footer() {
         {/* Fine print */}
         <div
           className="font-mono flex flex-col gap-[8px] pb-[24px]"
-          style={{ fontSize: 11, color: 'var(--ghost2)', lineHeight: 1.6, borderBottom: '1px solid var(--hairline)' }}
+          style={{ fontSize: 12, color: 'var(--ghost2)', lineHeight: 1.6, borderBottom: '1px solid var(--hairline)' }}
         >
           <p>¹ the $5 founding deposit is credited toward your launch purchase and refundable on request.</p>
           <p>² founding users get 50% off at launch.</p>
@@ -96,7 +96,7 @@ export function Footer() {
                   key={link.label}
                   href={link.href}
                   className="link-ghost"
-                  style={{ fontSize: 13, textDecoration: 'none' }}
+                  style={{ fontSize: 13, textDecoration: 'none', padding: '6px 0', display: 'inline-block' }}
                 >
                   {link.label}
                 </a>
@@ -107,7 +107,7 @@ export function Footer() {
 
         {/* Legal bar */}
         <div className="flex flex-wrap items-center justify-between gap-[16px]">
-          <p className="font-mono" style={{ fontSize: 11, color: 'var(--ghost2)' }}>
+          <p className="font-mono" style={{ fontSize: 12, color: 'var(--ghost2)' }}>
             © 2026 nothing.ai · the ai without a face.
           </p>
           <div className="flex items-center gap-[16px]" aria-label="Social links">

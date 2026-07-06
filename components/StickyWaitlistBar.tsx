@@ -93,7 +93,7 @@ export function StickyWaitlistBar() {
         {state === 'success' ? (
           <div className="flex items-center gap-[8px] font-mono mx-auto" style={{ fontSize: 13, color: 'var(--phosphor)' }}>
             <span style={{ width: 16, height: 16, borderRadius: '50%', border: '1.5px solid var(--phosphor)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, boxShadow: '0 0 10px var(--phosphor-glow)' }}>✓</span>
-            you're on the list.
+            you&rsquo;re on the list.
           </div>
         ) : (
           <>

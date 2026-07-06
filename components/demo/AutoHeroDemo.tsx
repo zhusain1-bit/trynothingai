@@ -216,19 +216,45 @@ export function AutoHeroDemo() {
     at(o + 9200, () => setTableShow(false))
     at(o + 9700, () => { setAskShow(true); typeAsk() })
     at(o + 10700, () => setAnswerShow(true))
+    // eslint-disable-next-line react-hooks/immutability -- intentional self-reference: the loop re-arms itself after each 12s cycle
     at(o + 12000, () => play())
-  }, [measureSel]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [measureSel])
 
   useEffect(() => {
     const prefersReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: jump straight to the demo's end state for reduced motion
       setIdleShow(false); setPageShow(true)
       setSnip(s => ({ ...s, scrimShow: true }))
       setPanelShow(true)
       return
     }
-    play()
-    return clear
+    // Only run the loop while on screen: freeze (clear timers) when scrolled
+    // away, restart the cycle from the top when scrolled back.
+    const stage = stageRef.current
+    if (!stage) return
+    let running = false
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !running) {
+          running = true
+          play()
+        } else if (!entry.isIntersecting && running) {
+          running = false
+          clear()
+          askTimers.current.forEach(clearTimeout)
+          askTimers.current = []
+        }
+      },
+      { threshold: 0.2 },
+    )
+    obs.observe(stage)
+    return () => {
+      obs.disconnect()
+      clear()
+      askTimers.current.forEach(clearTimeout)
+      askTimers.current = []
+    }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

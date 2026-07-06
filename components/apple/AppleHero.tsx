@@ -2,6 +2,7 @@ import { AutoHeroDemo } from '@/components/demo/AutoHeroDemo'
 import { MacWindow } from '@/components/apple/MacWindow'
 import { Reveal } from '@/components/apple/Reveal'
 import { DepositCtaLink } from '@/components/apple/DepositCtaLink'
+import { WAITLIST_COUNT } from '@/lib/constants'
 
 export function AppleHero() {
   return (
@@ -21,9 +22,13 @@ export function AppleHero() {
           <a href="#waitlist" className="cta-link">join the waitlist</a>
           <DepositCtaLink location="hero">skip the line — $5</DepositCtaLink>
         </div>
+        <p className="font-mono" style={{ fontSize: 12, color: 'var(--ghost2)', marginTop: 10 }}>
+          {WAITLIST_COUNT} on the founding list · founding users get 50% off
+        </p>
       </div>
 
-      <div className="w-full" style={{ marginTop: 'clamp(40px, 6vw, 72px)', paddingBottom: 'clamp(64px, 9vw, 128px)' }}>
+      {/* Capped below MacWindow's 1080px default — the demo was art-directed for ≤860px */}
+      <div className="w-full mx-auto" style={{ maxWidth: 980, marginTop: 'clamp(40px, 6vw, 72px)', paddingBottom: 'clamp(64px, 9vw, 128px)' }}>
         <Reveal>
           <MacWindow height="clamp(360px, 46vw, 560px)" glow>
             <AutoHeroDemo />

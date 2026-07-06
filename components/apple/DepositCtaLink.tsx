@@ -18,6 +18,7 @@ export function DepositCtaLink({
   const [href, setHref] = useState<string | null>(STRIPE_URL)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: hydration-safe href upgrade must run once after mount
     if (STRIPE_URL) setHref(buildDepositUrl(STRIPE_URL))
   }, [])
 
