@@ -20,8 +20,8 @@ export function Nav() {
           <circle cx="60" cy="60" r="4" fill="#AEC2FF" />
         </svg>
       </Link>
-      <a href="#waitlist" className="link-ghost" style={{ fontSize: 13, textDecoration: 'none' }}>
-        join waitlist
+      <a href="/download" className="link-ghost" style={{ fontSize: 13, textDecoration: 'none' }}>
+        download
       </a>
     </header>
   )

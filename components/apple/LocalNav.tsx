@@ -135,7 +135,7 @@ export function LocalNav() {
               })}
             </div>
             <a
-              href="#waitlist"
+              href="/download"
               className="cta-pill"
               inert={!showCta}
               style={{
@@ -144,7 +144,7 @@ export function LocalNav() {
                 transition: 'opacity .3s var(--ease-apple-ui), transform .3s var(--ease-apple-ui)',
               }}
             >
-              join waitlist
+              download
             </a>
           </div>
         </div>

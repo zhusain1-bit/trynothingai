@@ -1,10 +1,7 @@
 import { AutoHeroDemo } from '@/components/demo/AutoHeroDemo'
 import { MacWindow } from '@/components/apple/MacWindow'
 import { Reveal } from '@/components/apple/Reveal'
-import { DepositCtaLink } from '@/components/apple/DepositCtaLink'
 import { HeroStage } from '@/components/apple/HeroStage'
-import { WAITLIST_COUNT } from '@/lib/constants'
-import { Fn } from '@/components/apple/Footnote'
 
 export function AppleHero() {
   return (
@@ -19,14 +16,13 @@ export function AppleHero() {
               actually use. it lives in a keystroke. it never opens a window.
             </p>
             <div id="hero-cta" className="flex flex-wrap items-center justify-center gap-x-[28px] gap-y-[8px] mt-[6px]">
-              <a href="#waitlist" className="cta-link">join the waitlist</a>
-              <span>
-                <DepositCtaLink location="hero">skip the line — $5</DepositCtaLink>
-                <Fn n={1} refId="fnref-1" />
-              </span>
+              <a href="/download" className="cta-link">Download for Windows</a>
+              <a href="#highlights" className="link-ghost" style={{ fontSize: 13, textDecoration: 'none' }}>
+                see how it works
+              </a>
             </div>
-            <p className="font-mono tnum" style={{ fontSize: 12, color: 'var(--ghost2)', marginTop: 10 }}>
-              {WAITLIST_COUNT} on the founding list · founding users get 50% off<Fn n={2} refId="fnref-2" />
+            <p className="font-mono" style={{ fontSize: 12, color: 'var(--ghost2)', marginTop: 10 }}>
+              free with your own API key · or nothing.ai hosted for $9.99/mo
             </p>
           </div>
         }
