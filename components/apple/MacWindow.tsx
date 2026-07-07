@@ -7,10 +7,14 @@
  */
 export function MacWindow({
   height,
+  aspect,
   children,
   glow = false,
 }: {
-  height: string
+  /** fixed stage height (clamp() ok) — for the synthetic CSS demos */
+  height?: string
+  /** exact stage aspect ratio, e.g. "1728 / 1008" — for real clips, zero crop at any width */
+  aspect?: string
   children: React.ReactNode
   glow?: boolean
 }) {
@@ -46,7 +50,10 @@ export function MacWindow({
           <span className="rounded-full" style={{ width: 10, height: 10, background: '#333740' }} />
         </div>
         {/* Stage */}
-        <div className="relative max-sm:!h-[360px]" style={{ height }}>
+        <div
+          className={aspect ? 'relative' : 'relative max-sm:!h-[360px]'}
+          style={aspect ? { aspectRatio: aspect } : { height }}
+        >
           {children}
         </div>
       </div>

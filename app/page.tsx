@@ -10,7 +10,6 @@ import { StatGrid }           from '@/components/apple/StatGrid'
 import { HighlightsRail }     from '@/components/apple/HighlightsRail'
 import { DemoVideo }          from '@/components/apple/DemoVideo'
 import { EmailHero }          from '@/components/features/EmailHero'
-import { CollectionsHero }    from '@/components/features/CollectionsHero'
 import { AskHero }            from '@/components/features/AskHero'
 import { WhyNothingSection }  from '@/components/WhyNothingSection'
 import { PrivacySection }     from '@/components/PrivacySection'
@@ -137,8 +136,13 @@ export default function Home() {
           sub="Capture from any shop — the price is on the page — pick a collection, then flip the images into sorted text."
         >
           <Reveal>
-            <MacWindow height="clamp(360px, 48vw, 474px)">
-              <CollectionsHero />
+            <MacWindow aspect="1728 / 1008" glow>
+              <DemoVideo
+                src="/videos/collections-demo.mp4"
+                poster="/videos/collections-demo-poster.webp"
+                label="collections demo"
+                loop={false}
+              />
             </MacWindow>
           </Reveal>
         </Chapter>
