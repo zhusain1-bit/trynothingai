@@ -18,8 +18,15 @@ export function MacWindow({
   children: React.ReactNode
   glow?: boolean
 }) {
+  // Viewport-height cap (Apple keeps product media ≤ ~60vh so headline and
+  // visual share the screen). Aspect mode caps via width = height × ratio;
+  // height mode caps the stage height directly below.
+  const maxWidth = aspect
+    ? `min(1080px, calc(52vh * ${aspect}))`
+    : 1080
+
   return (
-    <div className="relative w-full mx-auto" style={{ maxWidth: 1080 }}>
+    <div className="relative w-full mx-auto" style={{ maxWidth }}>
       {glow && (
         <div
           aria-hidden="true"
@@ -52,7 +59,7 @@ export function MacWindow({
         {/* Stage */}
         <div
           className={aspect ? 'relative' : 'relative max-sm:!h-[360px]'}
-          style={aspect ? { aspectRatio: aspect } : { height }}
+          style={aspect ? { aspectRatio: aspect } : { height: `min(${height}, 56vh)` }}
         >
           {children}
         </div>

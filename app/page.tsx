@@ -100,7 +100,7 @@ export default function Home() {
           cta={{ label: 'get it on your calendar', href: '#waitlist' }}
         >
           <Reveal>
-            <MacWindow height="clamp(340px, 50vw, 620px)" glow>
+            <MacWindow aspect="1920 / 1080" glow>
               <DemoVideo src="/videos/desktop-calendar-site.mp4" label="calendar demo" />
             </MacWindow>
           </Reveal>

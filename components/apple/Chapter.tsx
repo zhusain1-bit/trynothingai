@@ -72,7 +72,7 @@ export function Chapter({
       ) : (
         <>
           {header}
-          {children && <div style={{ marginTop: 'clamp(40px, 6vw, 72px)' }}>{children}</div>}
+          {children && <div style={{ marginTop: 'clamp(32px, 5vw, 56px)' }}>{children}</div>}
         </>
       )}
     </section>
