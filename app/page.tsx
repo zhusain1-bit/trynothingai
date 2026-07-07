@@ -15,7 +15,6 @@ import { WhyNothingSection }  from '@/components/WhyNothingSection'
 import { PrivacySection }     from '@/components/PrivacySection'
 import { WhyNotPhoneSection } from '@/components/WhyNotPhoneSection'
 import { WaitlistSection }    from '@/components/WaitlistSection'
-import { StickyWaitlistBar }  from '@/components/StickyWaitlistBar'
 import { Footer }             from '@/components/Footer'
 
 export default function Home() {
@@ -73,12 +72,6 @@ export default function Home() {
                 },
               ]}
             />
-            <p
-              className="font-mono text-center"
-              style={{ fontSize: 12, color: 'var(--ghost2)', fontStyle: 'italic', marginTop: 36 }}
-            >
-              because i don&rsquo;t wanna stop the flow state.
-            </p>
           </Reveal>
         </Chapter>
           {/* 3% white over pure black reads as a watermark behind the content */}
@@ -119,12 +112,6 @@ export default function Home() {
             <MacWindow height="clamp(360px, 48vw, 486px)">
               <EmailHero />
             </MacWindow>
-            <p
-              className="font-mono text-center"
-              style={{ fontSize: 11, color: 'var(--ghost2)', marginTop: 24 }}
-            >
-              &ldquo;answer copied to clipboard.&rdquo; · because i don&rsquo;t wanna stop the flow state.
-            </p>
           </Reveal>
         </Chapter>
 
@@ -198,7 +185,6 @@ export default function Home() {
 
         <Footer />
       </main>
-      <StickyWaitlistBar />
     </>
   )
 }
