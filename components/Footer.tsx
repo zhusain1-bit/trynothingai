@@ -73,16 +73,30 @@ export function Footer() {
       role="contentinfo"
     >
       <div className="mx-auto flex flex-col gap-[32px]" style={{ maxWidth: 980 }}>
-        {/* Fine print */}
-        <div
+        {/* Footnotes — targets for the superscript claims through the page */}
+        <ol
+          id="footnotes"
           className="font-mono flex flex-col gap-[8px] pb-[24px]"
-          style={{ fontSize: 12, color: 'var(--ghost2)', lineHeight: 1.6, borderBottom: '1px solid var(--hairline)' }}
+          style={{ fontSize: 12, color: 'var(--ghost2)', lineHeight: 1.6, borderBottom: '1px solid var(--hairline)', listStyle: 'none' }}
         >
-          <p>¹ the $5 founding deposit is credited toward your launch purchase and refundable on request.</p>
-          <p>² founding users get 50% off at launch.</p>
-          <p>nothing.ai runs on your machine. your screenshots are never sent to a server or trained on.</p>
-          <p>your life happens in pictures, not words. in moments, not generalizations.</p>
-        </div>
+          <li id="footnote-1">
+            ¹ the $5 founding deposit is credited toward your launch purchase and refundable on
+            request — email hi@trynothingai.com any time before launch.{' '}
+            <a href="#fnref-1" aria-label="Back to reference 1" className="link-ghost" style={{ textDecoration: 'none' }}>↩</a>
+          </li>
+          <li id="footnote-2">
+            ² founding users get 50% off at launch, permanently.{' '}
+            <a href="#fnref-2" aria-label="Back to reference 2" className="link-ghost" style={{ textDecoration: 'none' }}>↩</a>
+          </li>
+          <li id="footnote-3">
+            ³ screenshots are processed on-device. image content is never transmitted to our
+            servers or used to train models.{' '}
+            <a href="#fnref-3" aria-label="Back to reference 3" className="link-ghost" style={{ textDecoration: 'none' }}>↩</a>
+          </li>
+          <li aria-hidden="true" style={{ marginTop: 4 }}>
+            your life happens in pictures, not words. in moments, not generalizations.
+          </li>
+        </ol>
 
         {/* Link directory */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-[28px] pb-[24px]" style={{ borderBottom: '1px solid var(--hairline)' }}>

@@ -2,7 +2,7 @@ export function StatGrid({
   items,
   cols = 3,
 }: {
-  items: { stat: string; label: string; body?: string }[]
+  items: { stat: React.ReactNode; label: string; body?: string }[]
   cols?: 2 | 3 | 4
 }) {
   return (
@@ -20,7 +20,7 @@ export function StatGrid({
           }}
         >
           <div className="eyebrow">{item.label}</div>
-          <div className="headline-l" style={{ color: 'var(--mist)' }}>{item.stat}</div>
+          <div className="headline-l tnum" style={{ color: 'var(--mist)' }}>{item.stat}</div>
           {item.body && (
             <p style={{ fontSize: 15, lineHeight: 1.5, color: 'var(--ghost)' }}>{item.body}</p>
           )}

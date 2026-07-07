@@ -15,6 +15,10 @@
   --phosphor-glow: rgba(174,194,255,0.55);
   --radius: 18px;
   --ease: cubic-bezier(.2,.8,.2,1);
+  /* Apple's actual web easing curves — zero overshoot is the signature */
+  --ease-apple: cubic-bezier(.28,.11,.32,1);      /* content reveals */
+  --ease-apple-ui: cubic-bezier(.4,0,.6,1);       /* nav, chips, hovers: 200-320ms */
+  --ease-apple-inout: cubic-bezier(.645,.045,.355,1); /* programmatic scroll, paddles */
 }
 
 /* ─── Tailwind v4 theme tokens ──────────────────────────────────────── */
@@ -298,15 +302,60 @@ select:focus-visible,
 /* Scroll reveals — initial hiding is gated on scripting support so the page
    is never blank for no-JS/legacy visitors. */
 .reveal {
-  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  transition: opacity 0.8s var(--ease-apple), transform 0.8s var(--ease-apple);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+/* Blur-materialize variant — headlines and window-sized blocks ONLY
+   (blur rasters are expensive on large surfaces) */
+.reveal-blur {
+  transition: opacity 0.8s var(--ease-apple), transform 0.8s var(--ease-apple), filter 0.8s var(--ease-apple);
+  transition-delay: calc(var(--i, 0) * 70ms);
 }
 @media (scripting: enabled) {
   .reveal { opacity: 0; transform: translateY(24px); }
   .reveal.is-visible { opacity: 1; transform: none; }
+  .reveal-blur { opacity: 0; transform: translateY(16px) scale(.97); filter: blur(10px); }
+  .reveal-blur.is-visible { opacity: 1; transform: none; filter: blur(0); }
+  /* Release the raster layer once settled */
+  .reveal-blur.is-settled { filter: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; }
+  .reveal, .reveal-blur { opacity: 1; transform: none; filter: none; }
 }
+
+/* Tabular figures for prices, counts, keycaps */
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* Scroll-linked settle + glow drift — progressive enhancement.
+   Firefox (no animation-timeline) keeps the plain IO reveal. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .settle {
+      animation: settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+    .glow-drift {
+      animation: glow-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 60%;
+    }
+  }
+}
+@keyframes settle {
+  from { transform: scale(1.05) translateY(24px); }
+  to   { transform: none; }
+}
+@keyframes glow-drift {
+  from { transform: translateY(44px); }
+  to   { transform: translateY(0); }
+}
+/* Living-glow drift — frozen by the global reduced-motion kill switch */
+@keyframes glow-breathe {
+  0%, 100% { opacity: .72; }
+  50%      { opacity: 1; }
+}
+.glow-breathe { animation: glow-breathe 14s ease-in-out infinite; }
 
 /* Chevron CTA link + pill */
 .cta-link {

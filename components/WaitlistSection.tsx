@@ -3,6 +3,7 @@
 import { useState, useId, useEffect } from 'react'
 import { capture, getSource, buildDepositUrl } from '@/lib/posthog'
 import { WAITLIST_COUNT } from '@/lib/constants'
+import { Fn } from '@/components/apple/Footnote'
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
 
@@ -187,7 +188,7 @@ export function WaitlistSection() {
           Be first.
         </h2>
         <p className="copy-l" style={{ maxWidth: 460 }}>
-          no charge now · founding users get 50% off at launch.
+          no charge now · founding users get 50% off at launch.<Fn n={2} />
         </p>
         <p className="font-mono" style={{ fontSize: 12, color: 'var(--ghost2)' }}>
           {WAITLIST_COUNT} already on the founding list
@@ -200,8 +201,8 @@ export function WaitlistSection() {
 
         {STRIPE_URL && (
           <div className="surface w-full p-[26px] flex flex-col gap-[14px]">
-            <div className="font-semibold" style={{ fontSize: 17, color: 'var(--mist)' }}>
-              $5 founding access
+            <div className="font-semibold tnum" style={{ fontSize: 17, color: 'var(--mist)' }}>
+              $5 founding access<Fn n={1} />
             </div>
             <p style={{ fontSize: 13.5, color: 'var(--ghost)', lineHeight: 1.5 }}>
               lock founding access now. credited toward your launch purchase, locks 50% off, refundable on request.

@@ -3,6 +3,7 @@ import { MacWindow } from '@/components/apple/MacWindow'
 import { Reveal } from '@/components/apple/Reveal'
 import { DepositCtaLink } from '@/components/apple/DepositCtaLink'
 import { WAITLIST_COUNT } from '@/lib/constants'
+import { Fn } from '@/components/apple/Footnote'
 
 export function AppleHero() {
   return (
@@ -20,10 +21,13 @@ export function AppleHero() {
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-[28px] gap-y-[8px] mt-[6px]">
           <a href="#waitlist" className="cta-link">join the waitlist</a>
-          <DepositCtaLink location="hero">skip the line — $5</DepositCtaLink>
+          <span>
+            <DepositCtaLink location="hero">skip the line — $5</DepositCtaLink>
+            <Fn n={1} refId="fnref-1" />
+          </span>
         </div>
-        <p className="font-mono" style={{ fontSize: 12, color: 'var(--ghost2)', marginTop: 10 }}>
-          {WAITLIST_COUNT} on the founding list · founding users get 50% off
+        <p className="font-mono tnum" style={{ fontSize: 12, color: 'var(--ghost2)', marginTop: 10 }}>
+          {WAITLIST_COUNT} on the founding list · founding users get 50% off<Fn n={2} refId="fnref-2" />
         </p>
       </div>
 

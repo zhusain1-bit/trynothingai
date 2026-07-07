@@ -19,15 +19,15 @@ export function MacWindow({
       {glow && (
         <div
           aria-hidden="true"
-          className="absolute pointer-events-none"
+          className="absolute pointer-events-none glow-drift glow-breathe"
           style={{
             inset: '-12% -18%',
-            background: 'radial-gradient(50% 50% at 50% 40%, rgba(174,194,255,.10), transparent 70%)',
+            background: 'radial-gradient(50% 50% at 50% 45%, rgba(174,194,255,.14), rgba(174,194,255,.04) 45%, transparent 70%)',
           }}
         />
       )}
       <div
-        className="relative overflow-hidden"
+        className="relative overflow-hidden settle"
         style={{
           borderRadius: 24,
           border: '1px solid var(--hairline)',

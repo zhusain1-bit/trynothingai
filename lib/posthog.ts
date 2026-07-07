@@ -17,6 +17,7 @@ export function initPostHog() {
     capture_pageview: true,
     capture_pageleave: true,
     autocapture: false,           // explicit events only — no auto-clicking
+    capture_performance: { web_vitals: true }, // field INP/CLS/LCP — scroll-linked work is where regressions hide
   })
 }
 

@@ -1,4 +1,5 @@
 import { Nav }                from '@/components/Nav'
+import { Fn }                 from '@/components/apple/Footnote'
 import { LocalNav }           from '@/components/apple/LocalNav'
 import { AppleHero }          from '@/components/apple/AppleHero'
 import { Chapter }            from '@/components/apple/Chapter'
@@ -6,7 +7,7 @@ import { MacWindow }          from '@/components/apple/MacWindow'
 import { Reveal }             from '@/components/apple/Reveal'
 import { StatGrid }           from '@/components/apple/StatGrid'
 import { HighlightsRail }     from '@/components/apple/HighlightsRail'
-import { CalendarVideo }      from '@/components/features/CalendarVideo'
+import { DemoVideo }          from '@/components/apple/DemoVideo'
 import { EmailHero }          from '@/components/features/EmailHero'
 import { CollectionsHero }    from '@/components/features/CollectionsHero'
 import { AskHero }            from '@/components/features/AskHero'
@@ -99,7 +100,7 @@ export default function Home() {
         >
           <Reveal>
             <MacWindow height="clamp(340px, 50vw, 620px)" glow>
-              <CalendarVideo />
+              <DemoVideo src="/videos/desktop-calendar-site.mp4" label="calendar demo" />
             </MacWindow>
           </Reveal>
         </Chapter>
@@ -174,7 +175,7 @@ export default function Home() {
               items={[
                 { label: 'platform', stat: 'Windows first.', body: 'mac is next.' },
                 { label: 'summon', stat: '⊞ ⇧ S', body: 'one keystroke. no window, no app to open.' },
-                { label: 'processing', stat: 'On-device.', body: 'your screenshots never leave your machine.' },
+                { label: 'processing', stat: <>On-device.<Fn n={3} refId="fnref-3" /></>, body: 'your screenshots never leave your machine.' },
                 { label: 'models', stat: 'Bring your own.', body: 'one memory, answered by whichever AI you prefer.' },
               ]}
             />
