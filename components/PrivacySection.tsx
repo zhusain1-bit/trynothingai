@@ -29,6 +29,7 @@ export function PrivacySection() {
     <Chapter
       id="privacy"
       tone="black"
+      defer
       eyebrow="privacy"
       headline={<>Always with you. <span className="em">Always on your terms.</span></>}
     >

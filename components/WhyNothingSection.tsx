@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, type RefObject } from 'react'
 import { useInView } from '@/components/features/useInView'
+import { BrightenText } from '@/components/apple/BrightenText'
 
 const WORDS = [
   'a window',
@@ -68,7 +69,7 @@ export function WhyNothingSection() {
         className="headline-xl headline-dim"
         style={{ marginTop: 16, maxWidth: 820 }}
       >
-        Because that&rsquo;s what it adds <span className="em">to your screen.</span>
+        <BrightenText text="Because that’s what it adds to your screen." />
       </h2>
       <p className="copy-l" style={{ marginTop: 18, maxWidth: 620 }}>
         Every other AI wants a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>window</strong>, a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>tab</strong>, a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>chat</strong>, a <strong style={{ color: 'var(--mist)', fontWeight: 500 }}>face</strong>. nothing.ai wants none of it. it lives in the screenshot you already take and the keystroke you already press — and the moment it&rsquo;s done, it&rsquo;s gone.

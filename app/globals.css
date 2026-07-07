@@ -394,6 +394,38 @@ select:focus-visible,
 .snap-rail::-webkit-scrollbar { display: none; }
 .snap-rail > * { scroll-snap-align: center; flex: 0 0 clamp(260px, 70vw, 320px); }
 
+/* Rail edge fade + Apple paddle/dot controls */
+.rail-mask {
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+.paddle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(210,210,215,.16);
+  color: var(--mist);
+  cursor: pointer;
+  transition: background .24s var(--ease-apple-ui), opacity .24s var(--ease-apple-ui);
+}
+.paddle:hover { background: rgba(210,210,215,.28); }
+.paddle:disabled { opacity: 0.42; pointer-events: none; } /* Apple's literal value */
+.rail-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: none;
+  padding: 0;
+  background: rgba(255,255,255,.35);
+  cursor: pointer;
+  transition: background .24s var(--ease-apple-ui), width .24s var(--ease-apple-ui);
+}
+.rail-dot[aria-current='true'] { background: var(--mist); width: 20px; }
+
 /* Anchor offset below sticky local nav + smooth scroll */
 section[id] { scroll-margin-top: 64px; }
 @media (prefers-reduced-motion: no-preference) {

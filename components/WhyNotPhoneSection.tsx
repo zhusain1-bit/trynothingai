@@ -18,6 +18,7 @@ const NOTHING = [
 export function WhyNotPhoneSection() {
   return (
     <Chapter
+      defer
       eyebrow="cross-device"
       headline={<>One brain. <span className="em">Any screen.</span></>}
       sub="your phone's organizer stops at your phone. your work assistant stops at work."

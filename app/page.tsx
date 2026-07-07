@@ -1,5 +1,6 @@
 import { Nav }                from '@/components/Nav'
 import { Fn }                 from '@/components/apple/Footnote'
+import { BrightenText }       from '@/components/apple/BrightenText'
 import { LocalNav }           from '@/components/apple/LocalNav'
 import { AppleHero }          from '@/components/apple/AppleHero'
 import { Chapter }            from '@/components/apple/Chapter'
@@ -28,10 +29,10 @@ export default function Home() {
         {/* Hero */}
         <AppleHero />
 
-        {/* Statement — the problem */}
+        {/* Statement — the problem (scroll-linked word brightening) */}
         <Chapter
           tone="black"
-          headline={<>People screenshot things for a reason. <span className="em">And then they forget that reason.</span></>}
+          headline={<BrightenText text="People screenshot things for a reason. And then they forget that reason." />}
           sub="Everyone has thousands of dead screenshots — the show they meant to get tickets to, the jacket they meant to buy, the address they meant to save. The intent was real. It just got buried."
         />
 
@@ -97,6 +98,7 @@ export default function Home() {
           eyebrow="calendar"
           headline={<>Screenshot an event. <span className="em">It&rsquo;s on your calendar.</span></>}
           sub="Snip the event page — the date, time, and place are on it — and nothing.ai reads them and books it."
+          cta={{ label: 'get it on your calendar', href: '#waitlist' }}
         >
           <Reveal>
             <MacWindow height="clamp(340px, 50vw, 620px)" glow>
@@ -109,6 +111,7 @@ export default function Home() {
         <Chapter
           id="email"
           tone="black"
+          layout="split"
           eyebrow="email → clipboard"
           headline={<>Screenshot an email. <span className="em">The reply&rsquo;s in your clipboard.</span></>}
           sub="Snip the message, add a line of your own intent, and the reply gets copied. Paste. Done."
@@ -144,6 +147,7 @@ export default function Home() {
         <Chapter
           id="ask"
           tone="black"
+          layout="split"
           eyebrow="ask"
           headline={<>Ask your screenshots <span className="em">anything.</span></>}
           sub={<>&ldquo;Which is cheapest?&rdquo; One line back, with a tap to go buy it. Not a chat — an answer.</>}
@@ -166,6 +170,7 @@ export default function Home() {
 
         {/* At-a-glance specs — Apple product pages close with one */}
         <Chapter
+          defer
           eyebrow="at a glance"
           headline={<>Nothing to it. <span className="em">Literally.</span></>}
         >
