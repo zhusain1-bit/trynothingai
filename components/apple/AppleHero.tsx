@@ -1,7 +1,7 @@
-import { AutoHeroDemo } from '@/components/demo/AutoHeroDemo'
 import { MacWindow } from '@/components/apple/MacWindow'
 import { Reveal } from '@/components/apple/Reveal'
 import { HeroStage } from '@/components/apple/HeroStage'
+import { DemoVideo } from '@/components/apple/DemoVideo'
 
 export function AppleHero() {
   return (
@@ -27,11 +27,15 @@ export function AppleHero() {
           </div>
         }
         stage={
-          /* Capped below MacWindow's 1080px default — the demo was art-directed for ≤860px */
           <div className="w-full mx-auto" style={{ maxWidth: 980, marginTop: 'clamp(40px, 6vw, 72px)', paddingBottom: 'clamp(64px, 9vw, 128px)' }}>
             <Reveal>
-              <MacWindow height="clamp(360px, 46vw, 560px)" glow>
-                <AutoHeroDemo />
+              <MacWindow aspect="1728 / 1012" glow>
+                <DemoVideo
+                  src="/videos/hero-demo.mp4"
+                  poster="/videos/hero-demo-poster.webp"
+                  label="product demo"
+                  loop={false}
+                />
               </MacWindow>
             </Reveal>
           </div>
