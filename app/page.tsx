@@ -9,7 +9,6 @@ import { Reveal }             from '@/components/apple/Reveal'
 import { StatGrid }           from '@/components/apple/StatGrid'
 import { HighlightsRail }     from '@/components/apple/HighlightsRail'
 import { DemoVideo }          from '@/components/apple/DemoVideo'
-import { EmailHero }          from '@/components/features/EmailHero'
 import { AskHero }            from '@/components/features/AskHero'
 import { WhyNothingSection }  from '@/components/WhyNothingSection'
 import { PrivacySection }     from '@/components/PrivacySection'
@@ -109,8 +108,13 @@ export default function Home() {
           sub="Snip the message, add a line of your own intent, and the reply gets copied. Paste. Done."
         >
           <Reveal>
-            <MacWindow height="clamp(360px, 48vw, 486px)">
-              <EmailHero />
+            <MacWindow aspect="1706 / 930">
+              <DemoVideo
+                src="/videos/email-demo.mp4"
+                poster="/videos/email-demo-poster.webp"
+                label="email demo"
+                loop={false}
+              />
             </MacWindow>
           </Reveal>
         </Chapter>
