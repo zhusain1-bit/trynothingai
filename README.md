@@ -25,8 +25,16 @@ No other services required.
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `LOOPS_API_KEY` | No (but recommended for prod) | Your Loops API key from [app.loops.so/settings/api](https://app.loops.so/settings/api) |
+| `NEXT_PUBLIC_SUPABASE_URL` | Yes, for `/reset` | Supabase project URL. Supabase → Project Settings → API |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Yes, for `/reset` | Supabase **anon/publishable** key — RLS-gated and safe in the browser bundle. Never the service-role key. |
 
 Without `LOOPS_API_KEY`, waitlist signups are logged to the console and return success — the site works fully out of the box without any backend.
+
+The two `NEXT_PUBLIC_SUPABASE_*` vars power `/reset` (password recovery) and nothing else. Without
+them the page renders a calm "reset is unavailable" state rather than failing the build — so a
+preview deploy without them is safe, but **production needs them or password reset silently stops
+working**. They're documented here rather than in `.env.example` because `.gitignore` matches
+`.env*`, so that file is untracked.
 
 **Local setup:**
 ```bash
