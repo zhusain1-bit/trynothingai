@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 
@@ -7,22 +8,59 @@ export const metadata: Metadata = {
   description: 'How nothing.ai handles your data.',
 }
 
-const SECTIONS = [
+const link = { color: 'var(--mist)', textDecoration: 'underline' } as const
+
+const SECTIONS: { title: string; body: ReactNode }[] = [
   {
     title: 'What we collect',
-    body: "When you join the waitlist, we store your email address and — if you choose to share it — a one-line note about what you would use the product for. That is it.",
+    body: "When you join the waitlist, we store your email address and — if you choose to share it — a one-line note about what you would use the product for. If you create a nothing.ai account, we store your email address for sign-in and billing. That is it.",
   },
   {
     title: 'What we do with it',
-    body: "We use your email to send you one confirmation and to reach out when founding access opens. We don't sell it, share it with third parties, or add you to any other lists.",
+    body: "We use your email to confirm sign-ups, deliver receipts, and reach out about your access. We don't sell it, share it with third parties, or add you to any other lists.",
   },
   {
-    title: 'When the product launches',
-    body: "nothing.ai processes screenshots on your device. Nothing is sent to our servers unless you explicitly trigger an action (like adding a calendar event). Your screenshots are never used to train any model.",
+    title: 'The desktop app',
+    body: "nothing.ai runs on your device, and your captures are stored on your device. When you analyze a capture: on the bring-your-own-key tier it is sent directly from your device to Anthropic; on the hosted tier it passes through our server solely to reach Anthropic. Your screenshots are never used to train any model.",
+  },
+  {
+    title: 'Google Calendar',
+    body: (
+      <>
+        If you connect a Google account, nothing.ai asks for one permission: managing calendar
+        events (the <span className="font-mono">calendar.events</span> scope). It is used for
+        exactly one thing — creating the events you explicitly confirm in the app. The app never
+        reads, changes, or deletes anything already on your calendar, and your calendar data is
+        never shared with anyone. Your Google sign-in tokens are encrypted with Windows secure
+        storage and kept only on your device — they never touch our servers. Unplugging the
+        account inside the app deletes them immediately, and you can also revoke access at any
+        time at{' '}
+        <a href="https://myaccount.google.com/permissions" style={link}>
+          myaccount.google.com/permissions
+        </a>
+        .
+      </>
+    ),
+  },
+  {
+    title: 'Limited use',
+    body: (
+      <>
+        nothing.ai&apos;s use and transfer to any other app of information received from Google
+        APIs will adhere to the{' '}
+        <a
+          href="https://developers.google.com/terms/api-services-user-data-policy"
+          style={link}
+        >
+          Google API Services User Data Policy
+        </a>
+        , including the Limited Use requirements.
+      </>
+    ),
   },
   {
     title: 'Third-party services',
-    body: "We use Resend to deliver transactional emails. Your email address is stored with them for delivery purposes, subject to Resend's privacy policy.",
+    body: "We use Supabase for accounts, Stripe for payments (we never see your card number), Resend to deliver transactional emails, and Anthropic to analyze the captures you ask the app to read. Each holds only what it needs for that job, subject to its own privacy policy.",
   },
   {
     title: 'Analytics',
@@ -30,7 +68,7 @@ const SECTIONS = [
   },
   {
     title: 'Deleting your data',
-    body: "Email hi@trynothingai.com at any time and we will remove you from the waitlist immediately.",
+    body: "Email hi@trynothingai.com at any time and we will remove you from the waitlist, or delete your account and everything attached to it.",
   },
   {
     title: 'Contact',
@@ -79,7 +117,7 @@ export default function PrivacyPage() {
         ))}
 
         <p className="font-mono" style={{ fontSize: 11, color: 'var(--ghost2)', marginTop: 8 }}>
-          Last updated June 2026
+          Last updated July 2026
         </p>
       </main>
       <Footer />
