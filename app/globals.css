@@ -426,6 +426,45 @@ select:focus-visible,
 }
 .rail-dot[aria-current='true'] { background: var(--mist); width: 20px; }
 
+/* ─── Wall-of-love vertical marquee ──────────────────────────────────────
+   Track holds two identical copies; translateY(-50%) loops seamlessly ONLY
+   if each copy is exactly half the track — so the inter-card gap lives
+   inside .marquee-copy (gap + matching padding-bottom), never on the track. */
+@keyframes marquee-y {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+.marquee-viewport {
+  height: clamp(420px, 56vh, 600px);
+  overflow: hidden;
+  mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
+}
+.marquee-track {
+  display: flex;
+  flex-direction: column;
+  animation: marquee-y var(--marquee-dur, 48s) linear infinite;
+  will-change: transform;
+}
+.marquee-rev { animation-direction: reverse; }
+.marquee-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0 0 14px 0;
+  list-style: none;
+}
+.marquee-wall:hover .marquee-track { animation-play-state: paused; }
+
+/* Reduced motion → static grid: the global kill-switch alone would freeze
+   a clipped 600px strip mid-loop, so unclip and drop the duplicate copy. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .marquee-dup { display: none; }
+  .marquee-viewport { height: auto; overflow: visible; mask-image: none; -webkit-mask-image: none; }
+}
+
 /* Anchor offset below sticky local nav + smooth scroll */
 section[id] { scroll-margin-top: 64px; }
 @media (prefers-reduced-motion: no-preference) {

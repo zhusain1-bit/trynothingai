@@ -8,6 +8,7 @@ const LINKS = [
   { href: '#collections', label: 'collections' },
   { href: '#ask', label: 'ask' },
   { href: '#privacy', label: 'privacy' },
+  { href: '#reviews', label: 'reviews' },
 ]
 
 // Apple-style product local nav: transparent in place, gains the glass recipe

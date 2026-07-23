@@ -46,6 +46,7 @@ const COLUMNS: { title: string; links: { href: string; label: string; external?:
       { href: '#collections', label: 'collections' },
       { href: '#ask', label: 'ask' },
       { href: '#privacy', label: 'privacy' },
+      { href: '#reviews', label: 'reviews' },
     ],
   },
   {

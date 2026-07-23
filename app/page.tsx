@@ -12,6 +12,7 @@ import { DemoVideo }          from '@/components/apple/DemoVideo'
 import { AskHero }            from '@/components/features/AskHero'
 import { WhyNothingSection }  from '@/components/WhyNothingSection'
 import { PrivacySection }     from '@/components/PrivacySection'
+import { ReviewsSection }     from '@/components/ReviewsSection'
 import { WhyNotPhoneSection } from '@/components/WhyNotPhoneSection'
 import { WaitlistSection }    from '@/components/WaitlistSection'
 import { Footer }             from '@/components/Footer'
@@ -162,6 +163,9 @@ export default function Home() {
 
         {/* Privacy */}
         <PrivacySection />
+
+        {/* Wall of love */}
+        <ReviewsSection />
 
         {/* At-a-glance specs — Apple product pages close with one */}
         <Chapter
