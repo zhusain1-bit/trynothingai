@@ -8,7 +8,7 @@ import { Reveal }             from '@/components/apple/Reveal'
 import { StatGrid }           from '@/components/apple/StatGrid'
 import { CaptureBlock, DailyNoteBlock, AskBlock } from '@/components/light/FeatureBlocks'
 import { HighlightsRailMock }  from '@/components/light/HighlightsRailMock'
-import { PrivacySection }     from '@/components/PrivacySection'
+import { PrivacyColumns } from '@/components/light/PrivacyColumns'
 import { ReviewsSection }     from '@/components/ReviewsSection'
 import { WaitlistSection }    from '@/components/WaitlistSection'
 import { Footer }             from '@/components/Footer'
@@ -32,7 +32,7 @@ export default function Home() {
         <HighlightsRailMock />
 
         {/* Privacy */}
-        <PrivacySection />
+        <PrivacyColumns />
 
         {/* Wall of love */}
         <ReviewsSection />
