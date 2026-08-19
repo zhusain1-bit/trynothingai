@@ -1,8 +1,8 @@
 import { WarmPage }           from '@/components/light/WarmPage'
 import { Nav }                from '@/components/light/Nav'
 import { Hero }               from '@/components/light/Hero'
+import { ProblemStatement }   from '@/components/light/ProblemStatement'
 import { Fn }                 from '@/components/apple/Footnote'
-import { BrightenText }       from '@/components/apple/BrightenText'
 import { Chapter }            from '@/components/apple/Chapter'
 import { MacWindow }          from '@/components/apple/MacWindow'
 import { Reveal }             from '@/components/apple/Reveal'
@@ -26,12 +26,8 @@ export default function Home() {
         {/* Hero */}
         <Hero />
 
-        {/* Statement — the problem (scroll-linked word brightening) */}
-        <Chapter
-          tone="black"
-          headline={<BrightenText text="People screenshot things for a reason. And then they forget that reason." />}
-          sub="Everyone has thousands of dead screenshots — the show they meant to get tickets to, the jacket they meant to buy, the address they meant to save. The intent was real. It just got buried."
-        />
+        {/* Problem statement — absorbs the cross-device point (design spec §4) */}
+        <ProblemStatement />
 
         {/* Highlights rail */}
         <Chapter
