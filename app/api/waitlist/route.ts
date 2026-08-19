@@ -48,11 +48,8 @@ const WELCOME_HTML = (email: string) => `<!DOCTYPE html>
           <h1 style="margin:0 0 16px;font-size:28px;font-weight:600;letter-spacing:-.02em;line-height:1.2;color:#E9EBEF">
             you&rsquo;re on the list.
           </h1>
-          <p style="margin:0 0 12px;font-size:15px;line-height:1.6;color:#878C96">
-            founding access is open to a small group first. we&rsquo;ll reach out when it&rsquo;s your turn &mdash; no spam, just the one email that matters.
-          </p>
           <p style="margin:0 0 32px;font-size:15px;line-height:1.6;color:#878C96">
-            founding users get <span style="color:#E9EBEF;font-weight:500">50% off</span> at launch, locked in permanently.
+            we&rsquo;ll email you the moment it&rsquo;s ready &mdash; no spam, just the one email that matters.
           </p>
           <div style="height:1px;background:rgba(255,255,255,.08);margin:0 0 28px"></div>
           <p style="margin:0;font-size:11px;color:#5A5F69;letter-spacing:.04em;line-height:1.7">

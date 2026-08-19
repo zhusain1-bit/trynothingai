@@ -14,11 +14,15 @@ interface Props {
   delayMs?: number
 }
 
+// Every card shares one cycle length so the row sweeps in lockstep — the
+// per-card `delayMs` only offsets the steps (left→right), never the period,
+// which is what keeps the wave synchronized instead of drifting into flicker.
+const CYCLE_MS = 9000
+
 export function StripCard({ name, desc, thumbnail, toastText, ruleFlag, soon, delayMs = 0 }: Props) {
   const { ref, inView } = useInView()
   const [thumbVis, setThumbVis]  = useState(false)
   const [flagVis, setFlagVis]    = useState(false)
-  const [flashKey, setFlashKey]  = useState(0)
   const [toastVis, setToastVis]  = useState(false)
 
   function reset() { setThumbVis(false); setFlagVis(false); setToastVis(false) }
@@ -26,9 +30,8 @@ export function StripCard({ name, desc, thumbnail, toastText, ruleFlag, soon, de
   useAnimationLoop([
     { ms: 300  + delayMs, action: () => setThumbVis(true) },
     { ms: 1000 + delayMs, action: () => { if (ruleFlag) setFlagVis(true) } },
-    { ms: 1500 + delayMs, action: () => setFlashKey(k => k + 1) },
     { ms: 1800 + delayMs, action: () => setToastVis(true) },
-  ], 4600 + delayMs, reset, inView)
+  ], CYCLE_MS, reset, inView)
 
   return (
     <div
@@ -73,16 +76,6 @@ export function StripCard({ name, desc, thumbnail, toastText, ruleFlag, soon, de
             <span style={{ color: 'var(--phosphor)' }}>▸</span> {ruleFlag}
           </div>
         )}
-
-        {/* Flash */}
-        <div
-          key={flashKey}
-          style={{
-            position: 'absolute', inset: 0, background: '#fff', opacity: 0,
-            zIndex: 5,
-            animation: flashKey > 0 ? 'snipFlash .4s var(--ease)' : 'none',
-          }}
-        />
 
         {/* Toast */}
         <div

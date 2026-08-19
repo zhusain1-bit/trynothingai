@@ -53,7 +53,6 @@ const COLUMNS: { title: string; links: { href: string; label: string; external?:
     title: 'get it',
     links: [
       { href: '#waitlist', label: 'join waitlist' },
-      { href: '#waitlist', label: 'founding access — $5' },
     ],
   },
   {
@@ -81,18 +80,9 @@ export function Footer() {
           style={{ fontSize: 12, color: 'var(--ghost2)', lineHeight: 1.6, borderBottom: '1px solid var(--hairline)', listStyle: 'none' }}
         >
           <li id="footnote-1">
-            ¹ the $5 founding deposit is credited toward your launch purchase and refundable on
-            request — email hi@trynothingai.com any time before launch.{' '}
-            <a href="#fnref-1" aria-label="Back to reference 1" className="link-ghost" style={{ textDecoration: 'none' }}>↩</a>
-          </li>
-          <li id="footnote-2">
-            ² founding users get 50% off at launch, permanently.{' '}
-            <a href="#fnref-2" aria-label="Back to reference 2" className="link-ghost" style={{ textDecoration: 'none' }}>↩</a>
-          </li>
-          <li id="footnote-3">
-            ³ screenshots are processed on-device. image content is never transmitted to our
+            ¹ screenshots are processed on-device. image content is never transmitted to our
             servers or used to train models.{' '}
-            <a href="#fnref-3" aria-label="Back to reference 3" className="link-ghost" style={{ textDecoration: 'none' }}>↩</a>
+            <a href="#fnref-1" aria-label="Back to reference 1" className="link-ghost" style={{ textDecoration: 'none' }}>↩</a>
           </li>
           <li aria-hidden="true" style={{ marginTop: 4 }}>
             your life happens in pictures, not words. in moments, not generalizations.

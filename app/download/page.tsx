@@ -9,7 +9,7 @@ import { DownloadKick } from './DownloadKick'
 export const metadata: Metadata = {
   title: 'Download — nothing.ai',
   description:
-    'Download nothing.ai for Windows — the faceless desktop AI that makes your screenshots smarter. Free with your own API key.',
+    'Download nothing.ai for Windows — the faceless desktop AI that makes your screenshots smarter. 3-day free trial, then $9.99/mo.',
 }
 
 export default function DownloadPage() {
@@ -72,9 +72,7 @@ export default function DownloadPage() {
             >
               <span>Windows 10/11 · 64-bit</span>
               <span aria-hidden="true">·</span>
-              <span>free with your own API key</span>
-              <span aria-hidden="true">·</span>
-              <span className="tnum">hosted tier $9.99/mo — sign in inside the app</span>
+              <span className="tnum">3-day free trial, then $9.99/mo — sign in inside the app</span>
             </div>
           </Reveal>
 

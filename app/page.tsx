@@ -179,8 +179,8 @@ export default function Home() {
               items={[
                 { label: 'platform', stat: 'Windows first.', body: 'mac is next.' },
                 { label: 'summon', stat: '⊞ ⇧ S', body: 'one keystroke. no window, no app to open.' },
-                { label: 'processing', stat: <>On-device.<Fn n={3} refId="fnref-3" /></>, body: 'your screenshots never leave your machine.' },
-                { label: 'models', stat: 'Bring your own.', body: 'one memory, answered by whichever AI you prefer.' },
+                { label: 'processing', stat: <>On-device.<Fn n={1} refId="fnref-1" /></>, body: 'your screenshots never leave your machine.' },
+                { label: 'pricing', stat: '3 days free.', body: 'then $9.99/mo. cancel anytime.' },
               ]}
             />
           </Reveal>

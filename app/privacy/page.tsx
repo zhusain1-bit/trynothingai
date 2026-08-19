@@ -21,7 +21,7 @@ const SECTIONS: { title: string; body: ReactNode }[] = [
   },
   {
     title: 'The desktop app',
-    body: "nothing.ai runs on your device, and your captures are stored on your device. When you analyze a capture: on the bring-your-own-key tier it is sent directly from your device to Anthropic; on the hosted tier it passes through our server solely to reach Anthropic. Your screenshots are never used to train any model.",
+    body: "nothing.ai runs on your device, and your captures are stored on your device. When you analyze a capture, it passes through our server solely to reach Anthropic. Your screenshots are never used to train any model.",
   },
   {
     title: 'Google Calendar',
@@ -64,7 +64,7 @@ const SECTIONS: { title: string; body: ReactNode }[] = [
   },
   {
     title: 'Analytics',
-    body: "We use PostHog to measure anonymous usage — page visits, which link or platform sent you here, and whether you joined or placed a deposit. It runs without cookies and we don't track you across other sites. This data is never sold or shared, and is only used to understand what's working.",
+    body: "We use PostHog to measure anonymous usage — page visits, which link or platform sent you here, and whether you joined the waitlist. It runs without cookies and we don't track you across other sites. This data is never sold or shared, and is only used to understand what's working.",
   },
   {
     title: 'Deleting your data',

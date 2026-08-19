@@ -3,7 +3,7 @@ import { Reveal } from '@/components/apple/Reveal'
 
 type Review = { name: string; handle: string; quote: string }
 
-// Placeholder reviews — swap for real founding-user quotes at launch.
+// Placeholder reviews — swap for real user quotes at launch.
 const REVIEWS: Review[] = [
   { name: 'Maya Lindqvist', handle: 'mayabuilds', quote: 'screenshotted a flight confirmation at the gate. landed, and it was already on my calendar. i never opened anything!' },
   { name: 'Dev Anand', handle: 'devdoesthings', quote: 'the best part of nothing is that there’s nothing. no window, no chat. i press the hotkey and my problem is gone!' },
@@ -13,11 +13,11 @@ const REVIEWS: Review[] = [
   { name: 'Felix Braun', handle: 'felixbraun', quote: 'snipped three prices, asked which was cheapest. one line back! no tabs, no spreadsheet.' },
   { name: 'Priya Natarajan', handle: 'priyacodes', quote: 'on-device sold me. my screenshots are my whole life and they don’t go anywhere. obsessed!' },
   { name: 'Sam Whitfield', handle: 'samwhit', quote: 'i stopped writing things down. i just snip! it remembers the reason i took the picture.' },
-  { name: 'Lena Kowalski', handle: 'lenak', quote: 'put down the $5 without thinking. the demo where the reply is just… in your clipboard?? unreasonable!' },
+  { name: 'Lena Kowalski', handle: 'lenak', quote: 'signed up on a whim. the demo where the reply is just… in your clipboard?? unreasonable!' },
   { name: 'Marcus Hale', handle: 'marcushale', quote: 'my todo app is dead. i screenshot the thing, a reminder appears, i move on!' },
   { name: 'Yuki Tanaka', handle: 'yukibuilds', quote: '⊞ ⇧ S is the whole interface. honestly, it’s enough!' },
   { name: 'Omar El-Sayed', handle: 'omarelsayed', quote: 'asked it “when does my trial end” and it answered from a screenshot i forgot i took. slightly scary. mostly great!' },
-  { name: 'Claire Dubois', handle: 'clairedubois', quote: 'bring-your-own-model was the unlock! one memory, whatever brain i want on top.' },
+  { name: 'Claire Dubois', handle: 'clairedubois', quote: 'snip a trial screen and it reminds me before i’m charged. it’s paid for itself already!' },
   { name: 'Tomás Rivera', handle: 'tomasrivera', quote: 'i keep trying to explain it and the pitch is just: it does something, then it disappears. 10/10!' },
   { name: 'Nina Vasiliev', handle: 'ninavasiliev', quote: 'the name is accurate. it adds nothing to my screen, and that’s the best feature of anything i’ve installed this year!' },
 ]
@@ -81,7 +81,7 @@ export function ReviewsSection() {
       defer
       eyebrow="wall of love"
       headline={<>People screenshot. <span className="em">People talk.</span></>}
-      sub="founding users, in their own words."
+      sub="early users, in their own words."
     >
       <Reveal>
         <div

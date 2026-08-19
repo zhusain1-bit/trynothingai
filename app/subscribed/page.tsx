@@ -41,7 +41,7 @@ export default function SubscribedPage() {
 
         <p style={{ fontSize: 15, color: 'var(--ghost)', lineHeight: 1.65, maxWidth: 400 }}>
           Your <strong style={{ color: 'var(--mist)' }}>nothing.ai</strong> subscription is active. Head back to the
-          app — your captures now run on nothing.ai&rsquo;s servers, no API key needed. Reopen Settings if it still
+          app — your captures now run on nothing.ai&rsquo;s servers. Reopen Settings if it still
           shows the old state.
         </p>
 

@@ -1,13 +1,10 @@
 'use client'
 
 import { useState, useId, useEffect } from 'react'
-import { capture, getSource, buildDepositUrl } from '@/lib/posthog'
+import { capture, getSource } from '@/lib/posthog'
 import { WAITLIST_COUNT } from '@/lib/constants'
-import { Fn } from '@/components/apple/Footnote'
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
-
-const STRIPE_URL = process.env.NEXT_PUBLIC_STRIPE_DEPOSIT_URL ?? null
 
 export function WaitlistSection() {
   const emailId   = useId()
@@ -19,7 +16,6 @@ export function WaitlistSection() {
   const [errMsg,     setErrMsg]     = useState('')
   const [showFollow, setShowFollow] = useState(false)
   const [followSent, setFollowSent] = useState(false)
-  const [depositHref, setDepositHref] = useState<string | null>(STRIPE_URL)
 
   // Fade in the follow-up field 400ms after success
   useEffect(() => {
@@ -27,14 +23,6 @@ export function WaitlistSection() {
     const t = setTimeout(() => setShowFollow(true), 400)
     return () => clearTimeout(t)
   }, [formState])
-
-  // Upgrade the deposit link to the source-attributed URL after mount.
-  // Server renders the bare STRIPE_URL; building the attributed URL only client-side
-  // avoids a hydration mismatch on the href attribute.
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: hydration-safe href upgrade must run once after mount
-    if (STRIPE_URL) setDepositHref(buildDepositUrl(STRIPE_URL))
-  }, [])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -86,7 +74,7 @@ export function WaitlistSection() {
         ✓
       </div>
       <p className="font-semibold" style={{ fontSize: 16, color: 'var(--mist)' }}>you&rsquo;re in.</p>
-      <p className="font-mono" style={{ fontSize: 11.5, color: 'var(--ghost2)' }}>we&rsquo;ll reach out when founding access opens.</p>
+      <p className="font-mono" style={{ fontSize: 11.5, color: 'var(--ghost2)' }}>we&rsquo;ll email you the moment it&rsquo;s ready.</p>
 
       {/* Follow-up context field */}
       {!followSent && showFollow && (
@@ -130,9 +118,9 @@ export function WaitlistSection() {
       noValidate
       aria-label="Waitlist signup"
     >
-      <div className="font-semibold" style={{ fontSize: 17, color: 'var(--mist)' }}>join the waitlist</div>
+      <div className="font-semibold" style={{ fontSize: 17, color: 'var(--mist)' }}>get notified</div>
       <p style={{ fontSize: 13.5, color: 'var(--ghost)', lineHeight: 1.5 }}>
-        free. we&rsquo;ll email you when founding access opens.
+        free. we&rsquo;ll email you the moment it&rsquo;s ready.
       </p>
       <div className="flex flex-col gap-[5px]">
         <label htmlFor={emailId} className="font-mono" style={{ fontSize: 11, letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--ghost2)' }}>
@@ -166,11 +154,11 @@ export function WaitlistSection() {
         className="btn-phosphor justify-center py-[10px]"
         style={{ fontSize: 13.5, opacity: (formState === 'loading' || !email.trim()) ? 0.45 : 1, cursor: (formState === 'loading' || !email.trim()) ? 'not-allowed' : 'pointer' }}
       >
-        {formState === 'loading' ? 'sending…' : 'get founding access'}
+        {formState === 'loading' ? 'sending…' : 'notify me'}
       </button>
 
       <p className="font-mono text-center" style={{ fontSize: 11.5, color: 'var(--ghost2)' }}>
-        no charge now · founding users get 50% off at launch
+        free · no spam · just the one email that matters
       </p>
     </form>
   )
@@ -179,49 +167,24 @@ export function WaitlistSection() {
     <section
       id="waitlist"
       className="w-full mx-auto px-4 flex flex-col items-center gap-[40px]"
-      style={{ maxWidth: STRIPE_URL ? 880 : 520 }}
+      style={{ maxWidth: 520 }}
       aria-labelledby="waitlist-heading"
     >
       <div className="text-center flex flex-col items-center gap-[14px]">
-        <span className="eyebrow">founding access</span>
+        <span className="eyebrow">stay in the loop</span>
         <h2 id="waitlist-heading" className="headline-l" style={{ color: 'var(--mist)' }}>
-          Be first.
+          Be first to know.
         </h2>
         <p className="copy-l" style={{ maxWidth: 460 }}>
-          no charge now · founding users get 50% off at launch.<Fn n={2} />
+          we&rsquo;ll email you the moment it&rsquo;s ready.
         </p>
         <p className="font-mono" style={{ fontSize: 12, color: 'var(--ghost2)' }}>
-          {WAITLIST_COUNT} already on the founding list
+          {WAITLIST_COUNT} already on the list
         </p>
       </div>
 
-      {/* Two ways to get it — Apple "which one is right for you" layout */}
-      <div className={`w-full grid grid-cols-1 gap-[14px] ${STRIPE_URL ? 'md:grid-cols-2' : ''}`}>
+      <div className="w-full grid grid-cols-1 gap-[14px]">
         {signupCard}
-
-        {STRIPE_URL && (
-          <div className="surface w-full p-[26px] flex flex-col gap-[14px]">
-            <div className="font-semibold tnum" style={{ fontSize: 17, color: 'var(--mist)' }}>
-              $5 founding access<Fn n={1} />
-            </div>
-            <p style={{ fontSize: 13.5, color: 'var(--ghost)', lineHeight: 1.5 }}>
-              lock founding access now. credited toward your launch purchase, locks 50% off, refundable on request.
-            </p>
-            <a
-              href={depositHref ?? STRIPE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cta-link"
-              style={{ fontSize: 15, marginTop: 'auto' }}
-              onClick={() => { capture('deposit_click', { source: getSource(), location: 'waitlist_section' }); capture('deposit_started', { source: getSource(), location: 'waitlist_section' }) }}
-            >
-              skip the line
-            </a>
-            <p className="font-mono" style={{ fontSize: 11.5, color: 'var(--ghost2)' }}>
-              goes toward your launch purchase · locks 50% off · refundable on request
-            </p>
-          </div>
-        )}
       </div>
     </section>
   )

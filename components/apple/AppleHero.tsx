@@ -22,7 +22,7 @@ export function AppleHero() {
               </a>
             </div>
             <p className="font-mono" style={{ fontSize: 12, color: 'var(--ghost2)', marginTop: 10 }}>
-              free with your own API key · or nothing.ai hosted for $9.99/mo
+              3-day free trial, then $9.99/mo
             </p>
           </div>
         }

@@ -85,15 +85,3 @@ export function capture(event: string, props?: Record<string, unknown>) {
   if (typeof window === 'undefined' || !process.env.NEXT_PUBLIC_POSTHOG_KEY) return
   posthog.capture(event, props)
 }
-
-/** Build a Stripe deposit URL with source attribution appended */
-export function buildDepositUrl(base: string): string {
-  if (typeof window === 'undefined') return base
-  const source = getSource()
-  const params = new URLSearchParams()
-  if (source && source !== 'direct') params.set('client_reference_id', source)
-  const utm = new URLSearchParams(window.location.search).get('utm_source')
-  if (utm) params.set('utm_source', utm)
-  const qs = params.toString()
-  return qs ? `${base}${base.includes('?') ? '&' : '?'}${qs}` : base
-}

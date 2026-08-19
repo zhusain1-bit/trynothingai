@@ -101,12 +101,6 @@ body {
   50% { opacity: 0; }
 }
 
-@keyframes snipFlash {
-  0%   { opacity: 0; }
-  24%  { opacity: .7; }
-  100% { opacity: 0; }
-}
-
 @keyframes presskey {
   0%   { transform: scale(1); }
   40%  { transform: scale(0.96); box-shadow: 0 0 14px var(--phosphor-glow); }
@@ -225,10 +219,6 @@ summary {
   transition: color 0.2s;
 }
 .link-ghost:hover { color: var(--mist); }
-
-/* Deposit link hover */
-.link-deposit { color: var(--mist); transition: color 0.2s; }
-.link-deposit:hover { color: #fff; }
 
 /* Step hover transition */
 .step-hover { transition: background 0.2s; }

@@ -41,7 +41,7 @@ export default function ConfirmedPage() {
 
         <p style={{ fontSize: 15, color: 'var(--ghost)', lineHeight: 1.65, maxWidth: 400 }}>
           Your email is verified. Head back to the <strong style={{ color: 'var(--mist)' }}>nothing.ai</strong> app,
-          open Settings, and sign in with your email and password to start using nothing.ai without your own API key.
+          open Settings, and sign in with your email and password to start using nothing.ai.
         </p>
 
         <Link href="/" className="btn-phosphor" style={{ fontSize: 13, marginTop: 4, minHeight: 44 }}>

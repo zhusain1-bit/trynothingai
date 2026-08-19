@@ -87,7 +87,7 @@ export default function Image() {
             trynothingai.com
           </div>
           <div style={{ display: 'flex', fontSize: 24, color: '#878C96' }}>
-            founding access · 50% off at launch
+            3-day free trial · $9.99/mo
           </div>
         </div>
       </div>
