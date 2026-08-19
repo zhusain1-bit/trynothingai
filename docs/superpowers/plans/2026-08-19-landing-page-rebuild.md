@@ -35,11 +35,9 @@
 **Interfaces:**
 - Produces: CSS custom properties `--warm-ground`, `--warm-alt`, `--ink`, `--ink-2`, `--warm-border`, `--amber`, `--ease-warm`; Tailwind `@theme` tokens `--color-warm-ground`, `--color-warm-alt`, `--color-ink`, `--color-ink-2`, `--color-warm-border`, `--color-amber`; CSS classes `.reveal-light`, `.btn-warm`, `.card-warm`, `.link-warm`; font CSS variable `--font-instrument-serif` on `<html>`; `Reveal` component gains `variant?: 'apple' | 'light'` (default `'apple'` — every existing call site is unaffected).
 
-- [ ] **Step 1: Create the feature branch**
+- [ ] **Step 1: Confirm the feature branch**
 
-```bash
-git checkout -b rebuild/light-theme
-```
+The executing agent's workspace is already an isolated git worktree checked out on branch `rebuild/light-theme` (created before this task started). Confirm with `git branch --show-current` — expected output: `rebuild/light-theme`. Do not create a new branch.
 
 - [ ] **Step 2: Add warm design tokens to `app/globals.css`**
 
@@ -757,11 +755,11 @@ In `app/page.tsx`, change the imports at the top of the file — remove:
 
 ```tsx
 import { Nav }                from '@/components/Nav'
-import { Fn }                 from '@/components/apple/Footnote'
-import { BrightenText }       from '@/components/apple/BrightenText'
 import { LocalNav }           from '@/components/apple/LocalNav'
 import { AppleHero }          from '@/components/apple/AppleHero'
 ```
+
+**Do not remove the `Fn` or `BrightenText` imports in this task** — both are still referenced by JSX further down in the file that this task does not touch (`Fn` by the "at a glance" section, removed only in Task 10; `BrightenText` by the problem-statement section, removed only in Task 4). Removing them now would leave the file broken until those later tasks land.
 
 and add:
 
@@ -908,10 +906,16 @@ Add the import at the top of `app/page.tsx`:
 import { ProblemStatement } from '@/components/light/ProblemStatement'
 ```
 
+Remove the now-unused `BrightenText` import (this is the task that makes it dead — the problem-statement block that used it was just replaced above, and no other code in the file references it):
+
+```tsx
+import { BrightenText }       from '@/components/apple/BrightenText'
+```
+
 - [ ] **Step 3: Typecheck, lint, and manually verify**
 
 Run: `npx tsc --noEmit && npm run lint`
-Expected: no errors (the `BrightenText` import is still present but now unused in this section — leave its top-level import alone for now if other code in the file still references it; TypeScript will only error on an unused import if the project's `noUnusedLocals` is on — check `tsconfig.json`; if it errors, remove the now-dead `import { BrightenText }` line).
+Expected: no errors.
 
 Run: `npm run dev`, open `http://localhost:3000`. Expected: hero → new light problem-statement section (serif line + subline, centered, reveals on scroll) → then the old dark theme continues below.
 
@@ -1122,7 +1126,9 @@ Add the import at the top of `app/page.tsx`:
 import { CaptureBlock, DailyNoteBlock, AskBlock } from '@/components/light/FeatureBlocks'
 ```
 
-Remove these now-unused imports from the top of `app/page.tsx` (all only used by the block just deleted): `Chapter`, `MacWindow`, `StatGrid`, `HighlightsRail`, `DemoVideo`, `AskHero`, `Fn` (if not used elsewhere in the file — check before removing).
+Remove these now-unused imports from the top of `app/page.tsx`: `MacWindow`, `HighlightsRail`, `DemoVideo`, `AskHero`.
+
+**Do not remove `Chapter`, `StatGrid`, or `Fn`** — all three are still used by the "at a glance" section further down in the file, which this task does not touch (it's removed only in Task 10, where those imports finally become dead).
 
 - [ ] **Step 4: Typecheck, lint, and manually verify**
 
