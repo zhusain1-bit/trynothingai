@@ -7,6 +7,7 @@ import { Chapter }            from '@/components/apple/Chapter'
 import { Reveal }             from '@/components/apple/Reveal'
 import { StatGrid }           from '@/components/apple/StatGrid'
 import { CaptureBlock, DailyNoteBlock, AskBlock } from '@/components/light/FeatureBlocks'
+import { HighlightsRailMock }  from '@/components/light/HighlightsRailMock'
 import { WhyNothingSection }  from '@/components/WhyNothingSection'
 import { PrivacySection }     from '@/components/PrivacySection'
 import { ReviewsSection }     from '@/components/ReviewsSection'
@@ -30,6 +31,7 @@ export default function Home() {
         <CaptureBlock />
         <DailyNoteBlock />
         <AskBlock />
+        <HighlightsRailMock />
 
         {/* Cross-device */}
         <WhyNotPhoneSection />
