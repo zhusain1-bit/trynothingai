@@ -1,3 +1,8 @@
+// ARCHIVED 2026-08-19 — not rendered anywhere. Cut from the light rebuild
+// per docs/superpowers/specs/2026-08-19-landing-page-rebuild-design.md
+// (no reference sites carry a manifesto section). Kept as source material
+// for the hero subhead copy later.
+
 'use client'
 
 import { useState, useEffect, useRef, type RefObject } from 'react'

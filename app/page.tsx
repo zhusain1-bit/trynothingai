@@ -8,10 +8,8 @@ import { Reveal }             from '@/components/apple/Reveal'
 import { StatGrid }           from '@/components/apple/StatGrid'
 import { CaptureBlock, DailyNoteBlock, AskBlock } from '@/components/light/FeatureBlocks'
 import { HighlightsRailMock }  from '@/components/light/HighlightsRailMock'
-import { WhyNothingSection }  from '@/components/WhyNothingSection'
 import { PrivacySection }     from '@/components/PrivacySection'
 import { ReviewsSection }     from '@/components/ReviewsSection'
-import { WhyNotPhoneSection } from '@/components/WhyNotPhoneSection'
 import { WaitlistSection }    from '@/components/WaitlistSection'
 import { Footer }             from '@/components/Footer'
 
@@ -32,12 +30,6 @@ export default function Home() {
         <DailyNoteBlock />
         <AskBlock />
         <HighlightsRailMock />
-
-        {/* Cross-device */}
-        <WhyNotPhoneSection />
-
-        {/* Brand manifesto */}
-        <WhyNothingSection />
 
         {/* Privacy */}
         <PrivacySection />

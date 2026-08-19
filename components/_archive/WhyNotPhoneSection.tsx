@@ -1,3 +1,7 @@
+// ARCHIVED 2026-08-19 — not rendered anywhere. Its point was absorbed into
+// components/light/ProblemStatement.tsx as one line instead of a full
+// section (design spec §4). Kept as original phrasing to work from.
+
 import { Chapter } from '@/components/apple/Chapter'
 import { Reveal } from '@/components/apple/Reveal'
 
