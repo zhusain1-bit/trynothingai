@@ -460,3 +460,94 @@ section[id] { scroll-margin-top: 64px; }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
 }
+
+/* ─── Warm rebuild tokens (light system) ──────────────────────────────
+   Additive only — the dark tokens above stay untouched for /reset. */
+:root {
+  --warm-ground: #FAF8F5;
+  --warm-alt: #F2EFE9;
+  --ink: #1A1A1A;
+  --ink-2: #6B6B6B;
+  --warm-border: #E5E0D8;
+  --amber: #C2410C;
+  --ease-warm: cubic-bezier(0.16, 1, 0.3, 1);
+}
+@theme {
+  --color-warm-ground: #FAF8F5;
+  --color-warm-alt: #F2EFE9;
+  --color-ink: #1A1A1A;
+  --color-ink-2: #6B6B6B;
+  --color-warm-border: #E5E0D8;
+  --color-amber: #C2410C;
+}
+
+/* ─── Warm reveal system — 400ms, 12px translate, 60ms stagger ───────── */
+.reveal-light {
+  transition: opacity .4s var(--ease-warm), transform .4s var(--ease-warm);
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+@media (scripting: enabled) {
+  .reveal-light { opacity: 0; transform: translateY(12px); }
+  .reveal-light.is-visible { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-light { opacity: 1; transform: none; }
+}
+
+/* ─── Warm micro-interactions ─────────────────────────────────────────── */
+.btn-warm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: var(--amber);
+  color: #FFF7F0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(26,26,26,.08);
+  transition: transform .15s var(--ease-warm), box-shadow .15s var(--ease-warm), background .15s var(--ease-warm);
+}
+.btn-warm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -8px rgba(194,65,12,.45);
+  background: #A8380A;
+}
+.btn-warm:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+.btn-warm:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.card-warm {
+  transition: box-shadow .2s var(--ease-warm);
+}
+.card-warm:hover {
+  box-shadow: 0 16px 40px -20px rgba(26,26,26,.25);
+}
+
+.link-warm {
+  position: relative;
+  color: var(--ink);
+  text-decoration: none;
+  padding-bottom: 1px;
+}
+.link-warm::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -2px;
+  height: 1px;
+  background: var(--amber);
+  transition: right .2s var(--ease-warm);
+}
+.link-warm:hover::after { right: 0; }

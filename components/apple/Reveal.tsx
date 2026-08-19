@@ -8,21 +8,24 @@ export function Reveal({
   delay = 0,
   index,
   blur = false,
+  variant = 'apple',
   className = '',
 }: {
   children: React.ReactNode
   /** explicit transition-delay in ms (overrides index stagger) */
   delay?: number
-  /** stagger slot: delay = index * 70ms via the --i CSS var */
+  /** stagger slot: delay = index * 70ms (apple) or 60ms (light) via the --i CSS var */
   index?: number
-  /** blur-materialize variant — headlines/window blocks only (raster cost) */
+  /** blur-materialize variant — apple variant only, headlines/window blocks */
   blur?: boolean
+  /** 'apple' (default, existing dark-theme timing) or 'light' (warm rebuild timing) */
+  variant?: 'apple' | 'light'
   className?: string
 }) {
-  const { ref, inView } = useInView(0.2)
+  const { ref, inView } = useInView(variant === 'light' ? 0.15 : 0.2)
   const [settled, setSettled] = useState(false)
 
-  const base = blur ? 'reveal-blur' : 'reveal'
+  const base = variant === 'light' ? 'reveal-light' : (blur ? 'reveal-blur' : 'reveal')
   const cls = [
     base,
     inView ? 'is-visible' : '',
