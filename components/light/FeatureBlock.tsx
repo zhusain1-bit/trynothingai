@@ -23,7 +23,7 @@ export function FeatureBlock({
     >
       <Reveal variant="light" index={0}>
         <div style={{ maxWidth: 440 }}>
-          <span className="font-mono" style={{ fontSize: 12, letterSpacing: '.12em', textTransform: 'uppercase', color: '#C2410C' }}>
+          <span className="font-mono" style={{ fontSize: 12, letterSpacing: '.12em', textTransform: 'uppercase', color: '#6B6B6B' }}>
             {eyebrow}
           </span>
           <h3
