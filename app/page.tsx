@@ -9,7 +9,6 @@ import { StatGrid }           from '@/components/apple/StatGrid'
 import { CaptureBlock, DailyNoteBlock, AskBlock } from '@/components/light/FeatureBlocks'
 import { HighlightsRailMock }  from '@/components/light/HighlightsRailMock'
 import { PrivacyColumns } from '@/components/light/PrivacyColumns'
-import { ReviewsSection }     from '@/components/ReviewsSection'
 import { WaitlistSection }    from '@/components/WaitlistSection'
 import { Footer }             from '@/components/Footer'
 
@@ -34,8 +33,10 @@ export default function Home() {
         {/* Privacy */}
         <PrivacyColumns />
 
-        {/* Wall of love */}
-        <ReviewsSection />
+        {/* Social proof — intentionally empty. The previous 14 testimonials
+            here were fabricated quotes attributed to people who don't exist
+            and have been removed sitewide (design spec §4, item 9). Fill
+            with real quotes/logos once available — do not invent content. */}
 
         {/* At-a-glance specs — Apple product pages close with one */}
         <Chapter
