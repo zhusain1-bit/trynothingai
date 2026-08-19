@@ -1,8 +1,8 @@
-import { Nav }                from '@/components/Nav'
+import { WarmPage }           from '@/components/light/WarmPage'
+import { Nav }                from '@/components/light/Nav'
+import { Hero }               from '@/components/light/Hero'
 import { Fn }                 from '@/components/apple/Footnote'
 import { BrightenText }       from '@/components/apple/BrightenText'
-import { LocalNav }           from '@/components/apple/LocalNav'
-import { AppleHero }          from '@/components/apple/AppleHero'
 import { Chapter }            from '@/components/apple/Chapter'
 import { MacWindow }          from '@/components/apple/MacWindow'
 import { Reveal }             from '@/components/apple/Reveal'
@@ -19,13 +19,12 @@ import { Footer }             from '@/components/Footer'
 
 export default function Home() {
   return (
-    <>
+    <WarmPage>
       <Nav />
-      <LocalNav />
-      <main id="main-content" style={{ background: 'var(--void)' }}>
+      <main id="main-content">
 
         {/* Hero */}
-        <AppleHero />
+        <Hero />
 
         {/* Statement — the problem (scroll-linked word brightening) */}
         <Chapter
@@ -193,6 +192,6 @@ export default function Home() {
 
         <Footer />
       </main>
-    </>
+    </WarmPage>
   )
 }
