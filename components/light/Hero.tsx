@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { HeroLoop } from './HeroLoop'
+import { HeroAnimation } from './HeroAnimation'
 
 export function Hero() {
   return (
@@ -40,7 +40,7 @@ export function Hero() {
         className="w-full load-hero-anim"
         style={{ marginTop: 40, maxWidth: 640, borderRadius: 12, overflow: 'hidden', boxShadow: '0 24px 48px -12px rgba(26,26,26,0.18)' }}
       >
-        <HeroLoop />
+        <HeroAnimation />
       </div>
     </section>
   )

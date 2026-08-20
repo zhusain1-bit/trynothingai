@@ -579,6 +579,20 @@ section[id] { scroll-margin-top: 64px; }
   .feature-block-media { position: sticky; top: 6rem; align-self: start; }
 }
 
+/* ─── Hero animation card drift — scattered-phase only, low amplitude ── */
+@keyframes hero-anim-drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25%      { transform: translate(2px, -3px) rotate(.6deg); }
+  50%      { transform: translate(-2px, 2px) rotate(-.6deg); }
+  75%      { transform: translate(1px, 3px) rotate(.4deg); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-anim-drift {
+    animation: hero-anim-drift var(--drift-duration, 8s) ease-in-out infinite;
+    animation-delay: var(--drift-delay, 0s);
+  }
+}
+
 /* ─── Warm micro-interactions ─────────────────────────────────────────── */
 .btn-warm {
   display: inline-flex;
