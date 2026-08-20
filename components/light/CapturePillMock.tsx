@@ -29,18 +29,18 @@ export function CapturePillMock({
         maxWidth: 420,
         height: 46,
         padding: '0 16px',
-        background: 'rgba(31,31,31,0.96)',
+        background: 'rgba(28,26,24,0.96)',
         backdropFilter: 'blur(6px)',
         boxShadow: '0 8px 24px rgba(0,0,0,0.24)',
       }}
     >
       <span aria-hidden="true" style={{ width: 16, height: 16, borderRadius: 4, background: 'rgba(255,255,255,.35)', flexShrink: 0 }} />
       {state === 'time-bound' && (
-        <span className="font-mono pill-chip-enter" style={{ fontSize: 12, color: '#F4B183', whiteSpace: 'nowrap' }}>
+        <span className="font-mono pill-chip-enter" style={{ fontSize: 12, color: 'var(--app-accent)', whiteSpace: 'nowrap' }}>
           {timeLabel} ·
         </span>
       )}
-      <span style={{ flex: 1, fontSize: 13, color: 'rgba(255,255,255,.55)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+      <span style={{ flex: 1, fontSize: 13, color: 'var(--app-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
         {placeholder}
       </span>
       <span aria-hidden="true" style={{ width: 12, height: 12, borderRadius: '50%', border: '1px solid rgba(255,255,255,.3)', flexShrink: 0 }} />

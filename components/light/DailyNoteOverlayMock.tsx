@@ -25,7 +25,7 @@ const PANEL_STYLE: React.CSSProperties = {
   width: 'min(420px, 90%)',
   maxHeight: 420,
   borderRadius: 14,
-  background: '#1F1F1F',
+  background: 'var(--app-surface)',
   boxShadow: '0 24px 60px -16px rgba(0,0,0,.6)',
   display: 'flex',
   flexDirection: 'column',
@@ -40,12 +40,12 @@ function SearchField({ value, placeholder }: { value: string; placeholder: strin
         style={{
           height: 44,
           borderRadius: 8,
-          background: '#2A2A2A',
+          background: 'var(--app-surface-elevated)',
           display: 'flex',
           alignItems: 'center',
           padding: '0 14px',
           fontSize: 13,
-          color: showingPlaceholder ? '#6B6B6B' : '#E5E5E5',
+          color: showingPlaceholder ? 'var(--app-muted)' : 'var(--app-text)',
         }}
       >
         {showingPlaceholder ? placeholder : value}
@@ -82,22 +82,22 @@ function EntryRow({
         className="flex items-center gap-3 entry-row-land"
         style={{ padding: '10px 16px', borderBottom: '1px solid rgba(255,255,255,.06)', ...(index !== undefined ? ({ '--i': index } as React.CSSProperties) : {}) }}
       >
-        <span aria-hidden="true" style={{ width: thumbSize, height: thumbSize, borderRadius: 6, background: '#3A3A3A', flexShrink: 0 }} />
+        <span aria-hidden="true" style={{ width: thumbSize, height: thumbSize, borderRadius: 6, background: 'var(--app-surface-elevated)', flexShrink: 0 }} />
         {view !== 'strip' ? (
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ display: 'flex', gap: 8, alignItems: 'baseline' }}>
               {view === 'search' && entry.date && (
-                <span className="font-mono" style={{ fontSize: 10, color: '#6B6B6B' }}>{entry.date}</span>
+                <span className="font-mono" style={{ fontSize: 10, color: 'var(--app-muted)' }}>{entry.date}</span>
               )}
-              <span className="font-mono" style={{ fontSize: 11, color: '#8A8A8A' }}>{entry.time}</span>
+              <span className="font-mono" style={{ fontSize: 11, color: 'var(--app-muted)' }}>{entry.time}</span>
             </div>
-            <p style={{ fontSize: 13, color: '#E5E5E5', margin: '2px 0 0', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <p style={{ fontSize: 13, color: 'var(--app-text)', margin: '2px 0 0', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {entry.group ? `${entry.group.rangeLabel} · ${entry.group.count} from ${entry.summary}` : entry.summary}
             </p>
-            {entry.annotation && <p style={{ fontSize: 11, color: '#8A8A8A', margin: '2px 0 0' }}>{entry.annotation}</p>}
+            {entry.annotation && <p style={{ fontSize: 11, color: 'var(--app-muted)', margin: '2px 0 0' }}>{entry.annotation}</p>}
           </div>
         ) : (
-          <span className="font-mono" style={{ fontSize: 11, color: '#8A8A8A' }}>{entry.time}</span>
+          <span className="font-mono" style={{ fontSize: 11, color: 'var(--app-muted)' }}>{entry.time}</span>
         )}
       </div>
       {entry.group?.items && (
@@ -115,7 +115,7 @@ function EntryRow({
           }}
         >
           {entry.group.items.map(item => (
-            <li key={item} style={{ fontSize: 11, color: '#8A8A8A', padding: '4px 16px 4px 0' }}>{item}</li>
+            <li key={item} style={{ fontSize: 11, color: 'var(--app-muted)', padding: '4px 16px 4px 0' }}>{item}</li>
           ))}
         </ul>
       )}
@@ -197,8 +197,8 @@ export function DailyNoteOverlayMock({
                 borderRadius: 999,
                 border: 'none',
                 cursor: 'pointer',
-                background: view === v ? '#3A3A3A' : 'transparent',
-                color: view === v ? '#E5E5E5' : '#8A8A8A',
+                background: view === v ? 'var(--app-surface-elevated)' : 'transparent',
+                color: view === v ? 'var(--app-text)' : 'var(--app-muted)',
               }}
             >
               {v}
@@ -227,8 +227,8 @@ export function DailyNoteOverlayMock({
         <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
           {closeoutItems.map(item => (
             <li key={item.id} className="flex items-center justify-between gap-3" style={{ padding: '10px 16px', borderBottom: '1px solid rgba(255,255,255,.06)' }}>
-              <span style={{ fontSize: 13, color: '#E5E5E5' }}>{item.summary}</span>
-              <div className="flex gap-2 font-mono" style={{ fontSize: 10, color: '#8A8A8A' }}>
+              <span style={{ fontSize: 13, color: 'var(--app-text)' }}>{item.summary}</span>
+              <div className="flex gap-2 font-mono" style={{ fontSize: 10, color: 'var(--app-muted)' }}>
                 <span>done</span><span>snooze</span><span>dismiss</span>
               </div>
             </li>

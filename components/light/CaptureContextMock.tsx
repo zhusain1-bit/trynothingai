@@ -20,8 +20,8 @@ function Avatar({ name }: { name: string }) {
         width: 24,
         height: 24,
         borderRadius: '50%',
-        background: '#3A3A3A',
-        color: 'rgba(255,255,255,.5)',
+        background: 'var(--app-surface-elevated)',
+        color: 'var(--app-muted)',
         fontSize: 10,
         display: 'flex',
         alignItems: 'center',
@@ -49,8 +49,8 @@ export function CaptureContextMock() {
         >
           <Avatar name={m.name} />
           <div>
-            <div className="font-mono" style={{ fontSize: 10, color: 'rgba(255,255,255,.4)' }}>{m.name}</div>
-            <div style={{ fontSize: 13, color: '#E5E5E5', marginTop: 2 }}>{m.text}</div>
+            <div className="font-mono" style={{ fontSize: 10, color: 'var(--app-muted)' }}>{m.name}</div>
+            <div style={{ fontSize: 13, color: 'var(--app-text)', marginTop: 2 }}>{m.text}</div>
           </div>
         </div>
       ))}

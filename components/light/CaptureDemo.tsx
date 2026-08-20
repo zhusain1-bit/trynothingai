@@ -53,7 +53,7 @@ export function CaptureDemo() {
       <div
         aria-hidden="true"
         className={`absolute font-mono capture-demo-press${displayPhase === 'press' ? ' active' : ''}`}
-        style={{ top: '42%', left: '50%', fontSize: 16, letterSpacing: 1.5, color: 'rgba(255,255,255,.85)', opacity: 0 }}
+        style={{ top: '42%', left: '50%', fontSize: 16, letterSpacing: 1.5, color: 'var(--app-accent)', opacity: 0 }}
       >
         Ctrl ⇧ Space
       </div>

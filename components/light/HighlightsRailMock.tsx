@@ -9,10 +9,10 @@ export function HighlightsRailMock() {
           <div style={{ maxWidth: 420, margin: '0 auto' }}>
             <MockFrame chrome layered>
               <div style={{ width: '100%' }}>
-                <span className="font-mono" style={{ fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: '#F4B183' }}>
+                <span className="font-mono" style={{ fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--app-accent)' }}>
                   email → clipboard
                 </span>
-                <p style={{ fontSize: 14, color: '#E5E5E5', marginTop: 10, lineHeight: 1.5 }}>
+                <p style={{ fontSize: 14, color: 'var(--app-text)', marginTop: 10, lineHeight: 1.5 }}>
                   Screenshot an email, the reply&rsquo;s in your clipboard.
                 </p>
               </div>

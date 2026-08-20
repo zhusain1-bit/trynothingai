@@ -60,7 +60,7 @@ export function MockFrame({
       style={{
         boxShadow: '0 24px 48px -12px rgba(26,26,26,0.18)',
         transform: [baseTransform, tiltTransform].filter(Boolean).join(' ') || undefined,
-        background: '#0F0F0F',
+        background: 'var(--app-chrome)',
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',

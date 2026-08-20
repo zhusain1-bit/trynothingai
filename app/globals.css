@@ -490,6 +490,20 @@ section[id] { scroll-margin-top: 64px; }
   --color-amber: #C2410C;
 }
 
+/* ─── App-surface tokens (dark) — the mocked product UI (capture pill,
+   daily-note overlay, hero's converged timeline) uses a warm dark surface,
+   distinct from the warm LIGHT site tokens above. The light-site/dark-app
+   contrast is deliberate: scattered captures render light (the outside
+   world), the resolved daily note renders dark (the product itself). ──── */
+:root {
+  --app-chrome: #17140F;
+  --app-surface: #1C1A18;
+  --app-surface-elevated: #26231F;
+  --app-muted: #6B6B6B;
+  --app-text: #E5E5E5;
+  --app-accent: #C2410C;
+}
+
 /* ─── Warm reveal system — 600ms, 16px translate, 60ms stagger ───────── */
 .reveal-light {
   transition: opacity .6s var(--ease-warm), transform .6s var(--ease-warm);
