@@ -22,9 +22,9 @@ export function CapturePillMock({
       className="absolute left-1/2 flex items-center gap-2 rounded-full"
       style={{
         bottom: 80,
-        transform: `translateX(-50%) translateY(${visible ? '0' : '8px'})`,
+        transform: `translateX(-50%) translateY(${visible ? '0' : '12px'})`,
         opacity: visible ? 1 : 0,
-        transition: 'opacity .3s ease, transform .3s ease',
+        transition: 'opacity .35s var(--ease-warm), transform .35s var(--ease-warm)',
         minWidth: 280,
         maxWidth: 420,
         height: 46,
@@ -36,7 +36,7 @@ export function CapturePillMock({
     >
       <span aria-hidden="true" style={{ width: 16, height: 16, borderRadius: 4, background: 'rgba(255,255,255,.35)', flexShrink: 0 }} />
       {state === 'time-bound' && (
-        <span className="font-mono" style={{ fontSize: 12, color: '#F4B183', whiteSpace: 'nowrap' }}>
+        <span className="font-mono pill-chip-enter" style={{ fontSize: 12, color: '#F4B183', whiteSpace: 'nowrap' }}>
           {timeLabel} ·
         </span>
       )}

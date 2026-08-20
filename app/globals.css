@@ -593,6 +593,35 @@ section[id] { scroll-margin-top: 64px; }
   }
 }
 
+/* ─── In-block demo animations (phase 5) ───────────────────────────── */
+@keyframes entry-row-land { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: no-preference) {
+  .entry-row-land { animation: entry-row-land .3s var(--ease-warm) both; animation-delay: calc(var(--i, 0) * 80ms); }
+}
+
+@keyframes capture-press {
+  0%   { opacity: 0; transform: translate(-50%,-50%) scale(1); }
+  20%  { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  55%  { transform: translate(-50%,-50%) scale(0.94); }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .capture-demo-press.active { animation: capture-press 400ms var(--ease-warm) both; }
+}
+
+@keyframes chip-slide-in { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+@media (prefers-reduced-motion: no-preference) {
+  .pill-chip-enter { animation: chip-slide-in 250ms var(--ease-warm) 150ms both; }
+}
+
+@keyframes ask-row-flash {
+  0%   { background: rgba(194,65,12,.28); }
+  100% { background: transparent; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ask-row-match { animation: ask-row-flash 400ms var(--ease-warm) both; }
+}
+
 /* ─── Warm micro-interactions ─────────────────────────────────────────── */
 .btn-warm {
   display: inline-flex;
