@@ -78,9 +78,12 @@ export function DailyNoteBlock() {
 
   // Group row lands last (~last row's stagger delay, 6*80ms=480ms, +300ms
   // land duration), briefly expands to show what it contains, re-collapses,
-  // then holds for the rest of the 4s note-visible window.
+  // then holds for the rest of the 4s note-visible window. Skipped entirely
+  // under reduced motion (not just sped up) -- the expand/re-collapse is
+  // motion, not a state the settled view depends on.
   useEffect(() => {
-    if (mode !== 'note') {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (mode !== 'note' || prefersReduced) {
       const t = setTimeout(() => setExpandedGroupId(undefined), 0)
       return () => clearTimeout(t)
     }

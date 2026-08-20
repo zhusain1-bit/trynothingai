@@ -50,6 +50,7 @@ export function StepRail() {
       <div style={{ position: 'relative', paddingLeft: 16 }}>
         <div
           aria-hidden="true"
+          className="rail-indicator"
           style={{
             position: 'absolute',
             left: 0,
@@ -57,7 +58,6 @@ export function StepRail() {
             width: 3,
             borderRadius: 2,
             background: '#C2410C',
-            transition: 'transform .35s var(--ease-warm), height .35s var(--ease-warm), opacity .2s ease',
             height: indicator ? indicator.height : 0,
             transform: `translateY(${indicator ? indicator.top : 0}px)`,
             opacity: indicator ? 1 : 0,

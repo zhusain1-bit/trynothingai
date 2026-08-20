@@ -620,6 +620,7 @@ section[id] { scroll-margin-top: 64px; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .ask-row-match { animation: ask-row-flash 400ms var(--ease-warm) both; }
+  .ask-row-collapse { transition: max-height .25s var(--ease-warm) calc(var(--i, 0) * 40ms), opacity .25s var(--ease-warm) calc(var(--i, 0) * 40ms); }
 }
 
 /* ─── Warm micro-interactions ─────────────────────────────────────────── */
@@ -685,6 +686,13 @@ section[id] { scroll-margin-top: 64px; }
 /* Rail item hover — separate from its scroll-driven active/inactive color */
 .rail-item:hover {
   color: #1A1A1A !important;
+}
+
+/* Sliding rail indicator — snaps instantly under reduced motion rather than
+   sliding (no transition property at all, so height/transform/opacity
+   changes apply on the next paint with no interpolation). */
+@media (prefers-reduced-motion: no-preference) {
+  .rail-indicator { transition: transform .35s var(--ease-warm), height .35s var(--ease-warm), opacity .2s ease; }
 }
 
 /* Mock frame 3D tilt on hover — lerped via JS (MockFrameTilt), disabled on

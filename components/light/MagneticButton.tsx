@@ -12,6 +12,7 @@ export function MagneticButton({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (window.matchMedia('(pointer: coarse)').matches) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let raf = 0
 
     function onPointerMove(e: PointerEvent) {

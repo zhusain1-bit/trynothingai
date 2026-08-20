@@ -73,10 +73,11 @@ function EntryRow({
 }) {
   const thumbSize = view === 'strip' ? 44 : 32
   const searchRowStyle: React.CSSProperties = view === 'search'
-    ? { maxHeight: collapsed ? 0 : 60, opacity: collapsed ? 0 : 1, overflow: 'hidden', transition: `max-height .25s var(--ease-warm) calc(var(--i, 0) * 40ms), opacity .25s var(--ease-warm) calc(var(--i, 0) * 40ms)` }
+    ? { maxHeight: collapsed ? 0 : 60, opacity: collapsed ? 0 : 1, overflow: 'hidden', ...(index !== undefined ? ({ '--i': index } as React.CSSProperties) : {}) }
     : {}
+  const liClassName = [view === 'search' ? 'ask-row-collapse' : '', matched ? 'ask-row-match' : ''].filter(Boolean).join(' ')
   return (
-    <li style={searchRowStyle} className={matched ? 'ask-row-match' : ''}>
+    <li style={searchRowStyle} className={liClassName}>
       <div
         className="flex items-center gap-3 entry-row-land"
         style={{ padding: '10px 16px', borderBottom: '1px solid rgba(255,255,255,.06)', ...(index !== undefined ? ({ '--i': index } as React.CSSProperties) : {}) }}
