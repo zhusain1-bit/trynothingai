@@ -6,7 +6,6 @@ const ITEMS = [
   { id: 'capture', label: 'capture' },
   { id: 'daily-note', label: 'daily note' },
   { id: 'ask', label: 'ask' },
-  { id: 'projects', label: 'projects' },
 ]
 
 // Tracks which feature block is centered in the viewport (rootMargin
