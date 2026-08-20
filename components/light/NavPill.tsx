@@ -1,20 +1,33 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+// Scroll-state (background/shadow past 80px) is IntersectionObserver-driven,
+// not a scroll listener: a 1x1px sentinel sits at document-relative top:80px
+// (position:absolute with no positioned ancestor scrolls normally with the
+// page — only position:fixed would ignore scroll). `scrolled` toggles both
+// ways as the sentinel enters/leaves the viewport, unlike the shared
+// useInView hook, which is a deliberate one-way latch for its reveal-once
+// consumers elsewhere and isn't a fit here — this is its own small observer,
+// not a second *kind* of scroll-trigger mechanism (still IntersectionObserver
+// only, zero scroll event listeners).
 export function NavPill() {
+  const sentinelRef = useRef<HTMLDivElement>(null)
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    function onScroll() { setScrolled(window.scrollY > 80) }
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const el = sentinelRef.current
+    if (!el) return
+    const obs = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting), { threshold: 0 })
+    obs.observe(el)
+    return () => obs.disconnect()
   }, [])
 
   return (
-    <div className="sticky top-0 z-50" style={{ padding: '12px 12px 0' }}>
+    <>
+      <div ref={sentinelRef} aria-hidden="true" style={{ position: 'absolute', top: 80, left: 0, width: 1, height: 1, pointerEvents: 'none' }} />
+      <div className="sticky top-0 z-50" style={{ padding: '12px 12px 0' }}>
       <header
         className="nav-pill"
         style={{
@@ -47,5 +60,6 @@ export function NavPill() {
         <span className="nav-progress" aria-hidden="true" />
       </header>
     </div>
+    </>
   )
 }
