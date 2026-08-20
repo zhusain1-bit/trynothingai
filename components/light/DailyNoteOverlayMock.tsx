@@ -54,7 +54,9 @@ function SearchField({ value, placeholder }: { value: string; placeholder: strin
   )
 }
 
-function EntryRow({
+// Exported so HeroAnimation can reuse the exact same row rendering for its
+// converged state, instead of a hero-only lookalike.
+export function EntryRow({
   entry,
   view,
   index,

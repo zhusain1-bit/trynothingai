@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useInView } from '@/components/features/useInView'
 import { useAnimationLoop } from '@/components/features/useAnimationLoop'
+import { EntryRow } from './DailyNoteOverlayMock'
 
 // Placeholder mock UI — not real screenshots; permanent supporting graphic
 // language (simple vector suggestions with real text at small size), not a
@@ -33,27 +34,35 @@ const CARDS: CardDef[] = [
   { id: 'doc',      width: 100, scattered: { x: 18,  y: 278, rotate: 3 },  time: '4:00 PM',  summary: 'inspection notes',          driftDuration: 7.2, driftDelay: -1.5, parallaxFactor: 10 },
 ]
 
-// ─── Converged timeline layout — computed once against a 640×400 reference
-// canvas (matches Hero.tsx's maxWidth:640 wrapper + this component's own
-// 16:10 aspect ratio). Row height is intentionally smaller than any
-// scattered card so all 8 fit centered with margin instead of clipping.
+// ─── Converged timeline layout — the payoff frame reuses the actual
+// EntryRow component from DailyNoteOverlayMock (same rendering used in the
+// feature blocks below), scaled down uniformly to fit 8 rows in the hero's
+// small frame rather than a hero-only row design. Computed once against a
+// 640×400 reference canvas (matches Hero.tsx's maxWidth:640 wrapper + this
+// component's own 16:10 aspect ratio).
 const REF_W = 640
 const REF_H = 400
-const ROW_H = 32
-const ROW_GAP = 13
-const ROW_W = 260
-const TIMESTAMP_COL_W = 38
+const ROW_UNSCALED_W = 380
+const ROW_UNSCALED_H = 53 // EntryRow's natural rendered height in 'note' view
+const COLUMN_PAD = 8
+const SCALE = 0.78
 const N = CARDS.length
-const COLUMN_HEIGHT_PX = N * ROW_H + (N - 1) * ROW_GAP
-const COLUMN_TOP_PX = (REF_H - COLUMN_HEIGHT_PX) / 2
-const COLUMN_LEFT_PCT = ((REF_W - ROW_W) / 2 / REF_W) * 100
-const BACKDROP_PAD = 14
-const BACKDROP_LEFT_PCT = ((REF_W - (ROW_W + BACKDROP_PAD * 2)) / 2 / REF_W) * 100
-const BACKDROP_TOP_PCT = ((COLUMN_TOP_PX - BACKDROP_PAD) / REF_H) * 100
-const SPINE_LEFT_PCT = ((REF_W - ROW_W) / 2 + TIMESTAMP_COL_W + 5) / REF_W * 100
+const COLUMN_UNSCALED_HEIGHT = N * ROW_UNSCALED_H + COLUMN_PAD * 2
+const COLUMN_SCALED_WIDTH = (ROW_UNSCALED_W + COLUMN_PAD * 2) * SCALE
+const COLUMN_SCALED_HEIGHT = COLUMN_UNSCALED_HEIGHT * SCALE
+const COLUMN_LEFT_PX = (REF_W - COLUMN_SCALED_WIDTH) / 2
+const COLUMN_TOP_PX = (REF_H - COLUMN_SCALED_HEIGHT) / 2
+const COLUMN_LEFT_PCT = (COLUMN_LEFT_PX / REF_W) * 100
+const COLUMN_TOP_PCT = (COLUMN_TOP_PX / REF_H) * 100
 
-function rowTopPct(i: number) {
-  return ((COLUMN_TOP_PX + i * (ROW_H + ROW_GAP)) / REF_H) * 100
+// Approximate target for each detail card's convergence motion — doesn't
+// need to be pixel-exact since the card fades out as it arrives, just close
+// enough that "card flies toward its row" reads as connected motion.
+function rowTargetPx(i: number) {
+  return {
+    x: COLUMN_LEFT_PX + COLUMN_PAD * SCALE,
+    y: COLUMN_TOP_PX + (COLUMN_PAD + i * ROW_UNSCALED_H) * SCALE,
+  }
 }
 
 // The detailed, light-mode representation — a "captured screen from another
@@ -141,29 +150,6 @@ function DetailCard({ id }: { id: CardId }) {
   )
 }
 
-function TypedTimestamp({ text, active }: { text: string; active: boolean }) {
-  const [typed, setTyped] = useState('')
-  useEffect(() => {
-    if (!active) {
-      const t = setTimeout(() => setTyped(''), 0)
-      return () => clearTimeout(t)
-    }
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const timers: ReturnType<typeof setTimeout>[] = []
-    if (prefersReduced) {
-      timers.push(setTimeout(() => setTyped(text), 0))
-      return () => timers.forEach(clearTimeout)
-    }
-    timers.push(setTimeout(() => {
-      for (let i = 1; i <= text.length; i++) {
-        timers.push(setTimeout(() => setTyped(text.slice(0, i)), i * 50))
-      }
-    }, 200))
-    return () => timers.forEach(clearTimeout)
-  }, [active, text])
-  return <>{typed}</>
-}
-
 type Phase = 'scattered' | 'converging' | 'held' | 'dispersing'
 
 export function HeroAnimation() {
@@ -187,9 +173,22 @@ export function HeroAnimation() {
 
   function reset() { setPhase('scattered'); setLandedIds(new Set()) }
 
+  // Landing steps for each card are folded into this SAME steps array rather
+  // than a separate useEffect keyed on `phase`. They previously lived in a
+  // `useEffect(..., [phase])` whose cleanup fired the instant `phase` became
+  // 'held' at ms:11000 -- cancelling any landing timer scheduled after that
+  // point (the last few cards land at 8000+3000+i*60, i.e. past 11000ms) and
+  // leaving most cards stuck as full-size detail cards forever. Owning every
+  // timer for one cycle in useAnimationLoop's own effect (keyed on
+  // [enabled, totalMs], not `phase`) means a phase change no longer cancels
+  // pending landings.
   useAnimationLoop(
     [
       { ms: 8000, action: () => setPhase('converging') },
+      ...CARDS.map((c, i) => ({
+        ms: 8000 + 3000 + i * 60,
+        action: () => setLandedIds(prev => new Set(prev).add(c.id)),
+      })),
       { ms: 11000, action: () => setPhase('held') },
       { ms: 14000, action: () => setPhase('dispersing') },
     ],
@@ -197,14 +196,6 @@ export function HeroAnimation() {
     reset,
     inView && !reducedMotion,
   )
-
-  useEffect(() => {
-    if (phase !== 'converging') return
-    const timers = CARDS.map((c, i) =>
-      setTimeout(() => setLandedIds(prev => new Set(prev).add(c.id)), 3000 + i * 60),
-    )
-    return () => timers.forEach(clearTimeout)
-  }, [phase])
 
   // Cursor parallax on the light detail cards only — one shared rAF loop,
   // direct style mutation, lerp 0.08/frame. Disabled during converging/held
@@ -253,16 +244,21 @@ export function HeroAnimation() {
 
   return (
     <div ref={containerRef} className="relative w-full" style={{ aspectRatio: '16 / 10', background: 'var(--warm-alt)' }}>
-      {/* Grounding backdrop for the dark timeline column — fades in with it
-          so the resolved daily note doesn't read as a hole in the ground. */}
+      {/* Converged panel — the actual EntryRow component from
+          DailyNoteOverlayMock, scaled down to fit 8 rows in this frame.
+          Each row mounts (and plays EntryRow's own entry-row-land fade+rise)
+          exactly when its card lands, so the column assembles one row at a
+          time; the panel itself fades in/out around them. */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
-          left: `${BACKDROP_LEFT_PCT}%`,
-          top: `${BACKDROP_TOP_PCT}%`,
-          width: ROW_W + BACKDROP_PAD * 2,
-          height: COLUMN_HEIGHT_PX + BACKDROP_PAD * 2,
+          left: `${COLUMN_LEFT_PCT}%`,
+          top: `${COLUMN_TOP_PCT}%`,
+          width: ROW_UNSCALED_W + COLUMN_PAD * 2,
+          transformOrigin: 'top left',
+          transform: `scale(${SCALE})`,
+          padding: COLUMN_PAD,
           borderRadius: 14,
           background: 'var(--app-surface)',
           border: '1px solid var(--warm-border)',
@@ -270,69 +266,25 @@ export function HeroAnimation() {
           opacity: showBackdrop ? 1 : 0,
           transition: `opacity ${phase === 'converging' ? '600ms' : phase === 'dispersing' ? '400ms' : '300ms'} var(--ease-warm)`,
         }}
-      />
-
-      {/* Spine — faint vertical line through the timestamp column, like the
-          spine of a daily note. */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          left: `${SPINE_LEFT_PCT}%`,
-          top: `${rowTopPct(0)}%`,
-          width: 1,
-          height: COLUMN_HEIGHT_PX,
-          background: 'rgba(107,107,107,.3)',
-          opacity: showBackdrop ? 1 : 0,
-          transition: `opacity ${phase === 'converging' ? '600ms' : phase === 'dispersing' ? '400ms' : '300ms'} var(--ease-warm)`,
-        }}
-      />
-
-      {/* Converged timeline rows — dark, fixed slot per card, fade in as
-          each one lands. Never move; only cross-fade with their DetailCard
-          counterpart below. */}
-      {CARDS.map((c, i) => {
-        const landed = reducedMotion || landedIds.has(c.id)
-        return (
-          <div
-            key={`row-${c.id}`}
-            aria-hidden="true"
-            className="absolute flex items-center"
-            style={{
-              left: `${COLUMN_LEFT_PCT}%`,
-              top: `${rowTopPct(i)}%`,
-              width: ROW_W,
-              height: ROW_H,
-              gap: 10,
-              padding: '0 10px',
-              borderRadius: 6,
-              background: 'var(--app-surface)',
-              opacity: landed ? 1 : 0,
-              transform: `scale(${landed ? 1 : 0.96})`,
-              transition: 'opacity 300ms var(--ease-warm), transform 300ms var(--ease-warm)',
-            }}
-          >
-            <span className="font-mono" style={{ width: TIMESTAMP_COL_W, textAlign: 'right', fontSize: 9, color: 'var(--app-accent)', flexShrink: 0 }}>
-              <TypedTimestamp text={c.time} active={landed} />
-            </span>
-            <span style={{ fontSize: 9, color: 'var(--app-text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {c.summary}
-            </span>
-          </div>
-        )
-      })}
+      >
+        <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+          {CARDS.map((c, i) => {
+            const landed = reducedMotion || landedIds.has(c.id)
+            if (!landed) return null
+            return <EntryRow key={c.id} entry={{ id: c.id, time: c.time, summary: c.summary }} view="note" index={i} />
+          })}
+        </ul>
+      </div>
 
       {/* Scattered / dispersing detail cards — light, varied sizes, the
           "captured screens from other apps." Cross-fade to invisible once
           their timeline row has landed; reappear as they scatter back out. */}
       {CARDS.map((c, i) => {
-        // Detail cards animate toward their own row's slot (not a shared
-        // center point) so the motion reads as "this card flies to its spot
-        // and dissolves into the row," not "cards converge, then a
+        // Detail cards animate toward their own row's approximate slot (not
+        // a shared center point) so the motion reads as "this card flies to
+        // its spot and dissolves into the row," not "cards converge, then a
         // disconnected row appears elsewhere."
-        const rowLeftPx = (REF_W - ROW_W) / 2
-        const rowTopPx = COLUMN_TOP_PX + i * (ROW_H + ROW_GAP)
-        const pos = showConverged ? { x: rowLeftPx, y: rowTopPx } : c.scattered
+        const pos = showConverged ? rowTargetPx(i) : c.scattered
         const rotate = showConverged ? 0 : c.scattered.rotate
         const landed = reducedMotion || landedIds.has(c.id)
         return (
