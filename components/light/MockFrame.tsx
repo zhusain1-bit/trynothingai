@@ -1,3 +1,7 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+
 export function MockFrame({
   children,
   className = '',
@@ -18,12 +22,44 @@ export function MockFrame({
   layered?: boolean
   minHeight?: number
 }) {
+  const frameRef = useRef<HTMLDivElement>(null)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [tiltDisabled, setTiltDisabled] = useState(true)
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setTiltDisabled(
+        window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      )
+    }, 0)
+    return () => clearTimeout(t)
+  }, [])
+
+  function onPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (tiltDisabled) return
+    const rect = frameRef.current?.getBoundingClientRect()
+    if (!rect) return
+    const px = (e.clientX - rect.left) / rect.width - 0.5
+    const py = (e.clientY - rect.top) / rect.height - 0.5
+    setTilt({ x: -py * 3, y: px * 3 })
+  }
+
+  function onPointerLeave() {
+    setTilt({ x: 0, y: 0 })
+  }
+
+  const baseTransform = rotate ? `rotate(${rotate}deg)` : ''
+  const tiltTransform = tiltDisabled ? '' : `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`
+
   const inner = (
     <div
-      className={`overflow-hidden rounded-[12px] ${className}`}
+      ref={frameRef}
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
+      className={`overflow-hidden rounded-[12px] mock-frame-tilt ${className}`}
       style={{
         boxShadow: '0 24px 48px -12px rgba(26,26,26,0.18)',
-        transform: rotate ? `rotate(${rotate}deg)` : undefined,
+        transform: [baseTransform, tiltTransform].filter(Boolean).join(' ') || undefined,
         background: '#0F0F0F',
         position: 'relative',
         display: 'flex',

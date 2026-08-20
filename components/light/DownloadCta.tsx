@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Reveal } from '@/components/apple/Reveal'
+import { MagneticButton } from './MagneticButton'
 
 export function DownloadCta() {
   return (
@@ -11,9 +12,13 @@ export function DownloadCta() {
         <p style={{ fontSize: 16, color: '#6B6B6B', marginTop: 12 }}>
           Free while in early access.
         </p>
-        <Link href="/download" className="btn-warm" style={{ display: 'inline-flex', marginTop: 24, padding: '16px 36px', fontSize: 16 }}>
-          Download for Windows
-        </Link>
+        <div style={{ marginTop: 24 }}>
+          <MagneticButton>
+            <Link href="/download" className="btn-warm" style={{ display: 'inline-flex', padding: '16px 36px', fontSize: 16 }}>
+              Download for Windows
+            </Link>
+          </MagneticButton>
+        </div>
         <p className="font-mono" style={{ fontSize: 12, color: '#6B6B6B', marginTop: 14 }}>
           macOS coming soon
         </p>

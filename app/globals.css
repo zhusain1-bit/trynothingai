@@ -624,6 +624,7 @@ section[id] { scroll-margin-top: 64px; }
 
 /* ─── Warm micro-interactions ─────────────────────────────────────────── */
 .btn-warm {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -638,12 +639,34 @@ section[id] { scroll-margin-top: 64px; }
   cursor: pointer;
   text-decoration: none;
   box-shadow: 0 1px 2px rgba(26,26,26,.08);
-  transition: transform .15s var(--ease-warm), box-shadow .15s var(--ease-warm), background .15s var(--ease-warm);
+  transition: transform .15s var(--ease-warm), background .15s var(--ease-warm);
+}
+/* Shadow "deepens" via a layered pseudo-element's opacity, not an animated
+   box-shadow — animate transform/opacity only, per this pass's motion rules. */
+.btn-warm::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 10px 24px -8px rgba(194,65,12,.45);
+  opacity: 0;
+  transition: opacity .15s var(--ease-warm);
+  pointer-events: none;
 }
 .btn-warm:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px -8px rgba(194,65,12,.45);
   background: #A8380A;
+}
+.btn-warm:hover::after {
+  opacity: 1;
+}
+.btn-warm:active {
+  transform: scale(.98);
+  transition-duration: 80ms;
+}
+.btn-warm:hover:active {
+  transform: translateY(-2px) scale(.98);
+  transition-duration: 80ms;
 }
 .btn-warm:focus-visible {
   outline: 2px solid var(--amber);
@@ -657,6 +680,29 @@ section[id] { scroll-margin-top: 64px; }
 
 .card-warm {
   transition: box-shadow .2s var(--ease-warm);
+}
+
+/* Rail item hover — separate from its scroll-driven active/inactive color */
+.rail-item:hover {
+  color: #1A1A1A !important;
+}
+
+/* Mock frame 3D tilt on hover — lerped via JS (MockFrameTilt), disabled on
+   touch and reduced-motion (both gated in the wrapper component). */
+.mock-frame-tilt {
+  transition: transform .15s var(--ease-warm);
+  transform-style: preserve-3d;
+}
+
+/* ─── Page transitions — native View Transitions API only, no framework
+   config change (unverified whether this Next.js version exposes a flag
+   for it — this CSS is inert, harmless progressive enhancement either way:
+   browsers/frameworks that don't trigger document.startViewTransition()
+   around the navigation simply never read these names). Nav pill keeps a
+   shared name so it persists across the transition instead of cross-
+   fading/re-animating with the rest of the page. ────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .view-transition-nav { view-transition-name: nav-pill; }
 }
 .card-warm:hover {
   box-shadow: 0 16px 40px -20px rgba(26,26,26,.25);

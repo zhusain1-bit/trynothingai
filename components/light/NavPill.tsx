@@ -29,7 +29,7 @@ export function NavPill() {
       <div ref={sentinelRef} aria-hidden="true" style={{ position: 'absolute', top: 80, left: 0, width: 1, height: 1, pointerEvents: 'none' }} />
       <div className="sticky top-0 z-50" style={{ padding: '12px 12px 0' }}>
       <header
-        className="nav-pill load-nav"
+        className="nav-pill load-nav view-transition-nav"
         style={{
           display: 'flex',
           alignItems: 'center',
