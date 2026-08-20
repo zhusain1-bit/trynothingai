@@ -479,6 +479,7 @@ section[id] { scroll-margin-top: 64px; }
   --warm-border: #E5E0D8;
   --amber: #C2410C;
   --ease-warm: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-entrance: cubic-bezier(.22, 1, .36, 1);
 }
 @theme {
   --color-warm-ground: #FAF8F5;
@@ -489,17 +490,56 @@ section[id] { scroll-margin-top: 64px; }
   --color-amber: #C2410C;
 }
 
-/* ─── Warm reveal system — 400ms, 12px translate, 60ms stagger ───────── */
+/* ─── Warm reveal system — 600ms, 16px translate, 60ms stagger ───────── */
 .reveal-light {
-  transition: opacity .4s var(--ease-warm), transform .4s var(--ease-warm);
+  transition: opacity .6s var(--ease-warm), transform .6s var(--ease-warm);
   transition-delay: calc(var(--i, 0) * 60ms);
 }
+.reveal-light.panel {
+  transition: opacity .6s var(--ease-warm), transform .6s var(--ease-warm);
+}
 @media (scripting: enabled) {
-  .reveal-light { opacity: 0; transform: translateY(12px); }
+  .reveal-light { opacity: 0; transform: translateY(16px); }
   .reveal-light.is-visible { opacity: 1; transform: none; }
+  .reveal-light.panel { transform: translateY(16px) scale(.98); }
+  .reveal-light.panel.is-visible { transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal-light { opacity: 1; transform: none; }
+}
+
+/* ─── Nav pill (floating, scroll-progress line, CTA hover) ────────────── */
+.nav-pill { position: relative; overflow: hidden; }
+.nav-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--amber);
+  pointer-events: none;
+}
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .nav-progress {
+      width: 100%;
+      transform-origin: left;
+      transform: scaleX(0);
+      animation: nav-progress-scale linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+@keyframes nav-progress-scale {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.nav-cta.btn-warm {
+  transition: transform .15s var(--ease-warm), box-shadow .15s var(--ease-warm), background .15s var(--ease-warm);
+}
+.nav-cta.btn-warm:hover {
+  background: #A8380A;
+  transform: translateY(-1px);
 }
 
 /* ─── Warm micro-interactions ─────────────────────────────────────────── */

@@ -9,6 +9,7 @@ export function Reveal({
   index,
   blur = false,
   variant = 'apple',
+  panel = false,
   className = '',
 }: {
   children: React.ReactNode
@@ -20,6 +21,8 @@ export function Reveal({
   blur?: boolean
   /** 'apple' (default, existing dark-theme timing) or 'light' (warm rebuild timing) */
   variant?: 'apple' | 'light'
+  /** light variant only — adds a 0.98→1 scale settle, for rounded-panel sections */
+  panel?: boolean
   className?: string
 }) {
   const { ref, inView } = useInView(variant === 'light' ? 0.15 : 0.2)
@@ -28,6 +31,7 @@ export function Reveal({
   const base = variant === 'light' ? 'reveal-light' : (blur ? 'reveal-blur' : 'reveal')
   const cls = [
     base,
+    variant === 'light' && panel ? 'panel' : '',
     inView ? 'is-visible' : '',
     blur && settled ? 'is-settled' : '',
     className,

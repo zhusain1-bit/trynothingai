@@ -8,7 +8,7 @@ import { Reveal } from '@/components/apple/Reveal'
 export function ProblemStatement() {
   return (
     <section className="flex flex-col items-center text-center px-6" style={{ padding: 'clamp(64px,10vw,140px) 24px', background: '#FAF8F5' }}>
-      <Reveal variant="light">
+      <Reveal variant="light" panel>
         <h2
           style={{
             fontFamily: 'var(--font-instrument-serif), Georgia, serif',
@@ -21,7 +21,7 @@ export function ProblemStatement() {
           [Placeholder — you screenshot things for a reason, then forget the reason.]
         </h2>
       </Reveal>
-      <Reveal variant="light" delay={80}>
+      <Reveal variant="light" panel delay={80}>
         <p style={{ fontSize: 18, lineHeight: 1.5, color: '#6B6B6B', marginTop: 20, maxWidth: 640 }}>
           [Placeholder — your phone already turns a screenshot with a time in it into a calendar
           event. Work happens on your computer — Slack, docs, tabs — and that&rsquo;s where it gets lost.]

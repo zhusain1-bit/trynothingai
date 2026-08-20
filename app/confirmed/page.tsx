@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { WarmPage } from '@/components/light/WarmPage'
-import { Nav } from '@/components/light/Nav'
+import { NavPill } from '@/components/light/NavPill'
 import { Footer } from '@/components/light/Footer'
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function ConfirmedPage() {
   return (
     <WarmPage>
-      <Nav />
+      <NavPill />
       <main
         className="w-full max-w-[560px] mx-auto px-6 pt-[140px] pb-[100px] flex flex-col items-center text-center gap-[20px]"
         id="main-content"

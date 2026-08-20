@@ -1,5 +1,5 @@
 import { WarmPage }           from '@/components/light/WarmPage'
-import { Nav }                from '@/components/light/Nav'
+import { NavPill }            from '@/components/light/NavPill'
 import { Hero }               from '@/components/light/Hero'
 import { ProblemStatement }   from '@/components/light/ProblemStatement'
 import { CaptureBlock, DailyNoteBlock, AskBlock } from '@/components/light/FeatureBlocks'
@@ -11,7 +11,7 @@ import { Footer }             from '@/components/light/Footer'
 export default function Home() {
   return (
     <WarmPage>
-      <Nav />
+      <NavPill />
       <main id="main-content">
 
         {/* Hero */}

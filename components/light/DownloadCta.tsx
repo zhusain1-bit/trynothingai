@@ -5,7 +5,7 @@ import { Reveal } from '@/components/apple/Reveal'
 export function DownloadCta() {
   return (
     <section style={{ padding: 'clamp(64px,10vw,120px) 24px', background: '#FAF8F5', textAlign: 'center' }}>
-      <Reveal variant="light">
+      <Reveal variant="light" panel>
         <h2 style={{ fontFamily: 'var(--font-instrument-serif), Georgia, serif', fontSize: 'clamp(32px,4.5vw,48px)', color: '#1A1A1A' }}>
           [Placeholder — download CTA headline]
         </h2>

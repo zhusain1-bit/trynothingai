@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { WarmPage } from '@/components/light/WarmPage'
-import { Nav } from '@/components/light/Nav'
+import { NavPill } from '@/components/light/NavPill'
 import { Footer } from '@/components/light/Footer'
 
 export const metadata: Metadata = {
@@ -80,7 +80,7 @@ const SECTIONS: { title: string; body: ReactNode }[] = [
 export default function PrivacyPage() {
   return (
     <WarmPage>
-      <Nav />
+      <NavPill />
       <main
         className="w-full max-w-[640px] mx-auto px-6 pt-[120px] pb-[80px] flex flex-col gap-[40px]"
         id="main-content"

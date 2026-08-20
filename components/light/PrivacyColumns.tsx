@@ -20,7 +20,7 @@ export function PrivacyColumns() {
         </Reveal>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6" style={{ marginTop: 24 }}>
           {COLUMNS.map((c, i) => (
-            <Reveal key={c.title} variant="light" index={i}>
+            <Reveal key={c.title} variant="light" panel index={i}>
               <div className="card-warm" style={{ background: '#FAF8F5', border: '1px solid #E5E0D8', borderRadius: 12, padding: 24, height: '100%' }}>
                 <h3 style={{ fontSize: 16, fontWeight: 600, color: '#1A1A1A' }}>{c.title}</h3>
                 <p style={{ fontSize: 14, color: '#6B6B6B', marginTop: 8, lineHeight: 1.6 }}>{c.body}</p>

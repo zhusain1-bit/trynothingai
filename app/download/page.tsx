@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { WarmPage } from '@/components/light/WarmPage'
-import { Nav } from '@/components/light/Nav'
+import { NavPill } from '@/components/light/NavPill'
 import { Footer } from '@/components/light/Footer'
 import { Reveal } from '@/components/apple/Reveal'
 import { InstallSteps } from '@/components/light/InstallSteps'
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function DownloadPage() {
   return (
     <WarmPage>
-      <Nav />
+      <NavPill />
       <main id="main-content">
         <section
           className="flex flex-col items-center text-center"
