@@ -8,7 +8,7 @@ export function Hero() {
       style={{ paddingTop: 'clamp(64px,10vw,120px)', paddingBottom: 'clamp(48px,8vw,96px)', background: '#FAF8F5' }}
     >
       <span className="font-mono" style={{ fontSize: 12, letterSpacing: '.14em', textTransform: 'uppercase', color: '#6B6B6B' }}>
-        [placeholder eyebrow — final copy pending]
+        Windows · early access
       </span>
       <h1
         style={{
@@ -21,10 +21,10 @@ export function Hero() {
           maxWidth: 820,
         }}
       >
-        [Placeholder headline — describes the outcome, not the mechanism. Final copy pending.]
+        Screenshot it now. Deal with it later.
       </h1>
       <p style={{ fontSize: 18, lineHeight: 1.6, color: '#6B6B6B', marginTop: 18, maxWidth: 560 }}>
-        [Placeholder one-line subhead — final copy pending.]
+        One key captures anything on your screen. At 5pm your day is written, and nothing you meant to come back to got lost.
       </p>
       <div className="flex flex-col items-center gap-3" style={{ marginTop: 28 }}>
         <Link href="/download" className="btn-warm" style={{ padding: '14px 28px', fontSize: 15 }}>
@@ -33,6 +33,7 @@ export function Hero() {
         <a href="#capture" className="link-warm" style={{ fontSize: 13, color: '#6B6B6B' }}>
           see how it works
         </a>
+        <span className="font-mono" style={{ fontSize: 12, color: '#6B6B6B' }}>macOS coming soon</span>
       </div>
       <div
         className="w-full"

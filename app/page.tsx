@@ -5,6 +5,7 @@ import { ProblemStatement }   from '@/components/light/ProblemStatement'
 import { CaptureBlock, DailyNoteBlock, AskBlock } from '@/components/light/FeatureBlocks'
 import { HighlightsRailMock }  from '@/components/light/HighlightsRailMock'
 import { PrivacyColumns } from '@/components/light/PrivacyColumns'
+import { SocialProofPlaceholder } from '@/components/light/SocialProofPlaceholder'
 import { DownloadCta }        from '@/components/light/DownloadCta'
 import { Footer }             from '@/components/light/Footer'
 
@@ -29,10 +30,11 @@ export default function Home() {
         {/* Privacy */}
         <PrivacyColumns />
 
-        {/* Social proof — intentionally empty. The previous 14 testimonials
-            here were fabricated quotes attributed to people who don't exist
-            and have been removed sitewide (design spec §4, item 9). Fill
-            with real quotes/logos once available — do not invent content. */}
+        {/* Social proof — placeholder only (<!-- PLACEHOLDER -->), generic and
+            non-attributed. The previous 14 testimonials here were fabricated
+            quotes attributed to people who don't exist and were removed
+            sitewide (design spec §4, item 9) — not reintroducing that. */}
+        <SocialProofPlaceholder />
 
         {/* Download CTA */}
         <DownloadCta />

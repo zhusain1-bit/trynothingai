@@ -1,4 +1,5 @@
 import { Reveal } from '@/components/apple/Reveal'
+import { MockFrame } from './MockFrame'
 
 export function FeatureBlock({
   id,
@@ -43,21 +44,10 @@ export function FeatureBlock({
         </div>
       </Reveal>
       <Reveal variant="light" index={1}>
-        <div
-          className="card-warm"
-          style={{
-            borderRadius: 12,
-            overflow: 'hidden',
-            boxShadow: '0 24px 48px -12px rgba(26,26,26,0.18)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: '#0F0F0F',
-            minHeight: 320,
-            padding: 24,
-          }}
-        >
-          {media}
+        <div className="card-warm">
+          <MockFrame chrome layered minHeight={320}>
+            {media}
+          </MockFrame>
         </div>
       </Reveal>
     </section>

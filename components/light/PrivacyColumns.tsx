@@ -1,12 +1,10 @@
+import Link from 'next/link'
 import { Reveal } from '@/components/apple/Reveal'
 
 const COLUMNS = [
-  { title: 'stays on your machine', body: 'it sees your screen, so it runs locally. nothing is sent to a server unless you choose to.' },
-  { title: 'never trained on', body: "what you capture is yours. we don't see it, we don't use it, we don't improve our model with it." },
-  {
-    title: 'you control retention',
-    body: '[Placeholder — non-numeric retention language pending final policy copy. Do not state a specific day count (e.g. "90 days") until real policy language is supplied.]',
-  },
+  { title: 'stored on your machine', body: "Screenshots are saved locally by default. You choose how long they're kept." },
+  { title: 'never used for training', body: "What you capture is never used to train any model, ours or anyone else's." },
+  { title: 'pause anytime', body: 'One toggle stops all capture. Block specific apps so it never sees them.' },
 ]
 
 export function PrivacyColumns() {
@@ -14,8 +12,18 @@ export function PrivacyColumns() {
     <section id="privacy" style={{ padding: 'clamp(64px,10vw,120px) 24px', background: '#F2EFE9' }}>
       <div style={{ maxWidth: 960, margin: '0 auto' }}>
         <Reveal variant="light">
-          <h2 className="font-mono" style={{ fontSize: 12, letterSpacing: '.12em', textTransform: 'uppercase', color: '#6B6B6B' }}>
+          <span className="font-mono" style={{ fontSize: 12, letterSpacing: '.12em', textTransform: 'uppercase', color: '#6B6B6B' }}>
             privacy
+          </span>
+          <h2
+            style={{
+              fontFamily: 'var(--font-instrument-serif), Georgia, serif',
+              fontSize: 'clamp(26px,3.2vw,34px)',
+              color: '#1A1A1A',
+              marginTop: 8,
+            }}
+          >
+            Your screen, your call.
           </h2>
         </Reveal>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6" style={{ marginTop: 24 }}>
@@ -28,6 +36,12 @@ export function PrivacyColumns() {
             </Reveal>
           ))}
         </div>
+        <Reveal variant="light">
+          <p style={{ fontSize: 13, color: '#6B6B6B', marginTop: 20, textAlign: 'center' }}>
+            Captures are processed by a model provider and not retained after processing.{' '}
+            <Link href="/privacy" className="link-warm" style={{ color: '#1A1A1A' }}>Full detail in our privacy policy.</Link>
+          </p>
+        </Reveal>
       </div>
     </section>
   )
