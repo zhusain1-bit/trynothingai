@@ -566,6 +566,19 @@ section[id] { scroll-margin-top: 64px; }
   .load-line-mask > span { transform: none; }
 }
 
+/* ─── Sticky media (feature blocks) — disabled below 768px ────────────
+   .feature-block gets real height beyond the media's own size so sticky
+   has room to hold; grid's default align-items:stretch makes both column
+   cells fill that height, .feature-block-text re-centers its content
+   inside the now-tall cell, .feature-block-media anchors near the nav
+   (top:6rem) and holds via align-self:start (un-stretched, so there's
+   room for it to move within its tall cell as the page scrolls). */
+@media (min-width: 768px) {
+  .feature-block { min-height: 100vh; }
+  .feature-block-text { display: flex; align-items: center; height: 100%; }
+  .feature-block-media { position: sticky; top: 6rem; align-self: start; }
+}
+
 /* ─── Warm micro-interactions ─────────────────────────────────────────── */
 .btn-warm {
   display: inline-flex;

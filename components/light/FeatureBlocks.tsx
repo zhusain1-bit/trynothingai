@@ -5,6 +5,7 @@ import { FeatureBlock } from './FeatureBlock'
 import { CapturePillMock } from './CapturePillMock'
 import { CaptureContextMock } from './CaptureContextMock'
 import { DailyNoteOverlayMock, type NoteEntry, type CloseoutItem } from './DailyNoteOverlayMock'
+import { StepRail } from './StepRail'
 
 const DAILY_ENTRIES: NoteEntry[] = [
   { id: 'd1', time: '8:45 AM', summary: 'morning standup notes' },
@@ -82,5 +83,21 @@ export function AskBlock() {
       body="Search across every day. You get the actual entries back, with the original screenshot — not a chatbot's summary of them."
       media={<DailyNoteOverlayMock mode="search" entries={ASK_ENTRIES} searchQuery="the address tyler sent" />}
     />
+  )
+}
+
+// Grid wrapper: rail column (sticky, hidden below 1024px) beside the three
+// stacked blocks. FeatureBlock no longer self-centers (that moved here) so
+// the rail and the blocks share one page-width column together.
+export function FeatureBlocksSection() {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-[140px_1fr] gap-6 px-6" style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <StepRail />
+      <div>
+        <CaptureBlock />
+        <DailyNoteBlock />
+        <AskBlock />
+      </div>
+    </div>
   )
 }

@@ -2,7 +2,7 @@ import { WarmPage }           from '@/components/light/WarmPage'
 import { NavPill }            from '@/components/light/NavPill'
 import { Hero }               from '@/components/light/Hero'
 import { ProblemStatement }   from '@/components/light/ProblemStatement'
-import { CaptureBlock, DailyNoteBlock, AskBlock } from '@/components/light/FeatureBlocks'
+import { FeatureBlocksSection } from '@/components/light/FeatureBlocks'
 import { HighlightsRailMock }  from '@/components/light/HighlightsRailMock'
 import { PrivacyColumns } from '@/components/light/PrivacyColumns'
 import { SocialProofPlaceholder } from '@/components/light/SocialProofPlaceholder'
@@ -21,10 +21,9 @@ export default function Home() {
         {/* Problem statement — absorbs the cross-device point (design spec §4) */}
         <ProblemStatement />
 
-        {/* Feature blocks — capture, daily note, ask (design spec §4) */}
-        <CaptureBlock />
-        <DailyNoteBlock />
-        <AskBlock />
+        {/* Feature blocks — capture, daily note, ask (design spec §4), with
+            the sticky step rail beside them (full animation pass §7) */}
+        <FeatureBlocksSection />
         <HighlightsRailMock />
 
         {/* Privacy */}

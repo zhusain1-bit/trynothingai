@@ -1,5 +1,5 @@
 import { Reveal } from '@/components/apple/Reveal'
-import { MockFrame } from './MockFrame'
+import { PinnedMockFrame } from './PinnedMockFrame'
 
 export function FeatureBlock({
   id,
@@ -19,10 +19,10 @@ export function FeatureBlock({
   return (
     <section
       id={id}
-      className={`w-full grid grid-cols-1 md:grid-cols-2 gap-10 items-center px-6 ${reverse ? 'md:[&>*:first-child]:order-2' : ''}`}
-      style={{ maxWidth: 1080, margin: '0 auto', padding: 'clamp(64px,10vw,120px) 24px' }}
+      className={`w-full grid grid-cols-1 md:grid-cols-2 gap-10 feature-block ${reverse ? 'md:[&>*:first-child]:order-2' : ''}`}
+      style={{ padding: 'clamp(64px,10vw,120px) 24px' }}
     >
-      <Reveal variant="light" index={0}>
+      <Reveal variant="light" index={0} className="feature-block-text">
         <div style={{ maxWidth: 440 }}>
           <span className="font-mono" style={{ fontSize: 12, letterSpacing: '.12em', textTransform: 'uppercase', color: '#6B6B6B' }}>
             {eyebrow}
@@ -43,11 +43,11 @@ export function FeatureBlock({
           </p>
         </div>
       </Reveal>
-      <Reveal variant="light" index={1}>
+      <Reveal variant="light" index={1} className="feature-block-media">
         <div className="card-warm">
-          <MockFrame chrome layered minHeight={320}>
+          <PinnedMockFrame minHeight={320}>
             {media}
-          </MockFrame>
+          </PinnedMockFrame>
         </div>
       </Reveal>
     </section>
