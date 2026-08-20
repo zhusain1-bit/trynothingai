@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
-import { Nav } from '@/components/Nav'
-import { Footer } from '@/components/Footer'
+import { WarmPage } from '@/components/light/WarmPage'
+import { Nav } from '@/components/light/Nav'
+import { Footer } from '@/components/light/Footer'
 
 export const metadata: Metadata = {
   title: 'Privacy — nothing.ai',
   description: 'How nothing.ai handles your data.',
 }
 
-const link = { color: 'var(--mist)', textDecoration: 'underline' } as const
+const link = { color: '#C2410C', textDecoration: 'underline' } as const
 
 const SECTIONS: { title: string; body: ReactNode }[] = [
   {
@@ -78,7 +79,7 @@ const SECTIONS: { title: string; body: ReactNode }[] = [
 
 export default function PrivacyPage() {
   return (
-    <>
+    <WarmPage>
       <Nav />
       <main
         className="w-full max-w-[640px] mx-auto px-6 pt-[120px] pb-[80px] flex flex-col gap-[40px]"
@@ -87,17 +88,17 @@ export default function PrivacyPage() {
         <div>
           <span
             className="font-mono uppercase tracking-[.18em]"
-            style={{ fontSize: 11, color: 'var(--ghost2)' }}
+            style={{ fontSize: 11, color: '#6B6B6B' }}
           >
             privacy
           </span>
           <h1
             className="mt-[12px] font-semibold tracking-tight"
-            style={{ fontSize: 'clamp(28px,4vw,40px)', color: 'var(--mist)' }}
+            style={{ fontSize: 'clamp(28px,4vw,40px)', color: '#1A1A1A' }}
           >
             How we handle your data.
           </h1>
-          <p className="mt-[14px]" style={{ fontSize: 15, color: 'var(--ghost)', lineHeight: 1.65 }}>
+          <p className="mt-[14px]" style={{ fontSize: 15, color: '#6B6B6B', lineHeight: 1.65 }}>
             Short version: we collect as little as possible and keep it simple.
           </p>
         </div>
@@ -106,21 +107,21 @@ export default function PrivacyPage() {
           <div key={section.title}>
             <h2
               className="font-semibold"
-              style={{ fontSize: 17, color: 'var(--mist)', marginBottom: 8 }}
+              style={{ fontSize: 17, color: '#1A1A1A', marginBottom: 8 }}
             >
               {section.title}
             </h2>
-            <p style={{ fontSize: 14.5, color: 'var(--ghost)', lineHeight: 1.65 }}>
+            <p style={{ fontSize: 14.5, color: '#6B6B6B', lineHeight: 1.65 }}>
               {section.body}
             </p>
           </div>
         ))}
 
-        <p className="font-mono" style={{ fontSize: 11, color: 'var(--ghost2)', marginTop: 8 }}>
+        <p className="font-mono" style={{ fontSize: 11, color: '#6B6B6B', marginTop: 8 }}>
           Last updated July 2026
         </p>
       </main>
       <Footer />
-    </>
+    </WarmPage>
   )
 }
