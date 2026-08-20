@@ -542,6 +542,30 @@ section[id] { scroll-margin-top: 64px; }
   transform: translateY(-1px);
 }
 
+/* ─── Page-load sequence — fires once on mount, no scroll dependency ──── */
+@keyframes load-fade-down  { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes load-fade-up    { from { opacity: 0; transform: translateY(var(--rise, 8px)); } to { opacity: 1; transform: translateY(0); } }
+@keyframes load-fade-in    { from { opacity: 0; } to { opacity: 1; } }
+@keyframes load-line-mask  { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .load-nav        { animation: load-fade-down .5s var(--ease-entrance) 100ms both; }
+  .load-eyebrow     { animation: load-fade-up .4s var(--ease-entrance) 200ms both; --rise: 8px; }
+  .load-line-mask   { overflow: hidden; display: block; }
+  .load-line-mask > span { display: block; animation: load-line-mask .7s var(--ease-entrance) both; animation-delay: calc(300ms + var(--i, 0) * 90ms); }
+  .load-subhead     { animation: load-fade-up .5s var(--ease-entrance) 600ms both; --rise: 10px; }
+  .load-cta         { animation: load-fade-up .45s var(--ease-entrance) 700ms both; --rise: 8px; }
+  .load-secondary   { animation: load-fade-up .45s var(--ease-entrance) 760ms both; --rise: 8px; }
+  .load-macos       { animation: load-fade-in .4s var(--ease-entrance) 850ms both; }
+  .load-hero-anim   { animation: load-fade-in .4s var(--ease-entrance) 500ms both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .load-nav, .load-eyebrow, .load-subhead, .load-cta, .load-secondary, .load-macos, .load-hero-anim {
+    opacity: 1; transform: none;
+  }
+  .load-line-mask > span { transform: none; }
+}
+
 /* ─── Warm micro-interactions ─────────────────────────────────────────── */
 .btn-warm {
   display: inline-flex;
