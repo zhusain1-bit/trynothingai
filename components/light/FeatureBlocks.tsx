@@ -17,8 +17,8 @@ const CLOSEOUT_ITEMS: CloseoutItem[] = [
 ]
 
 const ASK_ENTRIES: NoteEntry[] = [
-  { id: 'a1', time: '2:05 PM', summary: 'the address tyler sent — office lease' },
-  { id: 'a2', time: 'Mon 11:20 AM', summary: 'tyler — moving checklist' },
+  { id: 'a1', time: '2:05 PM', date: 'Today', summary: 'the address tyler sent — office lease' },
+  { id: 'a2', time: '11:20 AM', date: 'Mon', summary: 'tyler — moving checklist' },
 ]
 
 // Placeholder copy on all three blocks — final copy pending.

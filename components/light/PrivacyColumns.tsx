@@ -14,9 +14,9 @@ export function PrivacyColumns() {
     <section id="privacy" style={{ padding: 'clamp(64px,10vw,120px) 24px', background: '#F2EFE9' }}>
       <div style={{ maxWidth: 960, margin: '0 auto' }}>
         <Reveal variant="light">
-          <span className="font-mono" style={{ fontSize: 12, letterSpacing: '.12em', textTransform: 'uppercase', color: '#6B6B6B' }}>
+          <h2 className="font-mono" style={{ fontSize: 12, letterSpacing: '.12em', textTransform: 'uppercase', color: '#6B6B6B' }}>
             privacy
-          </span>
+          </h2>
         </Reveal>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6" style={{ marginTop: 24 }}>
           {COLUMNS.map((c, i) => (

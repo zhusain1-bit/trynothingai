@@ -26,7 +26,7 @@ export function FeatureBlock({
           <span className="font-mono" style={{ fontSize: 12, letterSpacing: '.12em', textTransform: 'uppercase', color: '#6B6B6B' }}>
             {eyebrow}
           </span>
-          <h3
+          <h2
             style={{
               fontFamily: 'var(--font-instrument-serif), Georgia, serif',
               fontSize: 'clamp(28px,3.4vw,36px)',
@@ -36,7 +36,7 @@ export function FeatureBlock({
             }}
           >
             {heading}
-          </h3>
+          </h2>
           <p style={{ fontSize: 16, lineHeight: 1.6, color: '#6B6B6B', marginTop: 14 }}>
             {body}
           </p>

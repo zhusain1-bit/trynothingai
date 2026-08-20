@@ -23,16 +23,15 @@ export default function ConfirmedPage() {
           style={{
             width: 40,
             height: 40,
-            border: '1.5px solid #C2410C',
-            color: '#C2410C',
-            boxShadow: '0 0 0 rgba(0,0,0,0)',
+            border: '1.5px solid #1A1A1A',
+            color: '#1A1A1A',
             fontSize: 18,
           }}
         >
           ✓
         </div>
 
-        <span className="font-mono uppercase tracking-[.2em]" style={{ fontSize: 11, color: '#C2410C' }}>
+        <span className="font-mono uppercase tracking-[.2em]" style={{ fontSize: 11, color: '#6B6B6B' }}>
           email confirmed
         </span>
 

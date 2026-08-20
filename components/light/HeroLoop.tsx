@@ -82,6 +82,7 @@ export function HeroLoop() {
       <CapturePillMock state="time-bound" timeLabel="4:00 PM" visible={phase === 'pill'} />
 
       <div
+        inert
         className="absolute flex items-center justify-center"
         style={{ inset: 0, opacity: phase === 'note' ? 1 : 0, transition: 'opacity .5s ease', pointerEvents: 'none' }}
       >

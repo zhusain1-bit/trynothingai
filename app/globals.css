@@ -40,11 +40,11 @@
 /* ─── Base ──────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { color-scheme: dark; }
+html { color-scheme: light; }
 
 body {
-  background: var(--void);
-  color: var(--mist);
+  background: var(--warm-ground);
+  color: var(--ink);
   font-family: var(--font-inter, 'Inter', system-ui, sans-serif);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -233,6 +233,14 @@ select:focus-visible,
 [tabindex]:focus-visible {
   outline: 2px solid var(--phosphor);
   outline-offset: 2px;
+}
+
+/* Light-page focus contrast: the phosphor periwinkle used above is ~1.68:1
+   against the warm light backgrounds — below the WCAG 3:1 focus-indicator
+   minimum. Scoped to .warm-page (see components/light/WarmPage.tsx) so the
+   dark /reset route keeps the phosphor default. */
+.warm-page :focus-visible {
+  outline-color: #1A1A1A;
 }
 
 /* Animate-in helpers */

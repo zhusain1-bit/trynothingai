@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'How nothing.ai handles your data.',
 }
 
-const link = { color: '#C2410C', textDecoration: 'underline' } as const
+const link = { color: '#1A1A1A', textDecoration: 'underline' } as const
 
 const SECTIONS: { title: string; body: ReactNode }[] = [
   {

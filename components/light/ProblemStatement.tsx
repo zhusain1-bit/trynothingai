@@ -9,7 +9,7 @@ export function ProblemStatement() {
   return (
     <section className="flex flex-col items-center text-center px-6" style={{ padding: 'clamp(64px,10vw,140px) 24px', background: '#FAF8F5' }}>
       <Reveal variant="light">
-        <p
+        <h2
           style={{
             fontFamily: 'var(--font-instrument-serif), Georgia, serif',
             fontSize: 'clamp(28px,4vw,40px)',
@@ -19,7 +19,7 @@ export function ProblemStatement() {
           }}
         >
           [Placeholder — you screenshot things for a reason, then forget the reason.]
-        </p>
+        </h2>
       </Reveal>
       <Reveal variant="light" delay={80}>
         <p style={{ fontSize: 18, lineHeight: 1.5, color: '#6B6B6B', marginTop: 20, maxWidth: 640 }}>

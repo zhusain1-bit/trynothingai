@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
+import { DarkPage } from '@/components/DarkPage'
 import { ResetClient } from './ResetClient'
 
 export const metadata: Metadata = {
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function ResetPage() {
   return (
-    <>
+    <DarkPage>
       <Nav />
       <main
         className="w-full max-w-[560px] mx-auto px-6 pt-[140px] pb-[100px] flex flex-col items-center text-center gap-[20px]"
@@ -20,6 +21,6 @@ export default function ResetPage() {
         <ResetClient />
       </main>
       <Footer />
-    </>
+    </DarkPage>
   )
 }

@@ -6,6 +6,7 @@ import { useInView } from '@/components/features/useInView'
 export type NoteEntry = {
   id: string
   time: string
+  date?: string
   summary: string
   annotation?: string
   group?: { rangeLabel: string; count: number }
@@ -61,8 +62,8 @@ function EntryRow({ entry, view }: { entry: NoteEntry; view: 'note' | 'strip' | 
       {view !== 'strip' ? (
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: 'flex', gap: 8, alignItems: 'baseline' }}>
-            {view === 'search' && (
-              <span className="font-mono" style={{ fontSize: 10, color: '#6B6B6B' }}>{entry.time.split(' ')[0]}</span>
+            {view === 'search' && entry.date && (
+              <span className="font-mono" style={{ fontSize: 10, color: '#6B6B6B' }}>{entry.date}</span>
             )}
             <span className="font-mono" style={{ fontSize: 11, color: '#8A8A8A' }}>{entry.time}</span>
           </div>
@@ -123,7 +124,7 @@ export function DailyNoteOverlayMock({
   const rowView: 'note' | 'strip' | 'search' = mode === 'search' ? 'search' : view
 
   return (
-    <div ref={ref} style={PANEL_STYLE} role="img" aria-label="Daily note overlay — placeholder mock of the nothing.ai overlay">
+    <div ref={ref} style={PANEL_STYLE}>
       <SearchField value={searchValue} placeholder="search or ask" />
 
       {(mode === 'note' || mode === 'strip') && (
