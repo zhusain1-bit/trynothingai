@@ -46,6 +46,7 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
       { href: '#capture', label: 'capture' },
       { href: '#daily-note', label: 'daily note' },
       { href: '#ask', label: 'ask' },
+      { href: '#projects', label: 'projects' },
       { href: '#privacy', label: 'privacy' },
     ],
   },

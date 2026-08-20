@@ -43,6 +43,16 @@ const ASK_ENTRIES: NoteEntry[] = [
   { id: 'a8', time: '2:05 PM', date: 'Today', summary: 'the address tyler sent — office lease' },
 ]
 
+// Chronological across 3 days, matching PROJECTS_BLOCK's "2-3 days' worth"
+// in-block loop.
+const PROJECT_ENTRIES: NoteEntry[] = [
+  { id: 'p1', time: '9:15 AM', date: 'Tue, Aug 12', summary: 'listing photos — kitchen + backyard' },
+  { id: 'p2', time: '2:40 PM', date: 'Tue, Aug 12', summary: 'inspection report PDF' },
+  { id: 'p3', time: '10:05 AM', date: 'Thu, Aug 14', summary: 'comps from the agent' },
+  { id: 'p4', time: '4:20 PM', date: 'Thu, Aug 14', summary: 'offer terms — redline', annotation: 'counter due Mon' },
+  { id: 'p5', time: '11:30 AM', date: 'Mon, Aug 18', summary: 'appraisal scheduling email' },
+]
+
 export function CaptureBlock() {
   return (
     <FeatureBlock
@@ -120,7 +130,38 @@ export function AskBlock() {
   )
 }
 
-// Grid wrapper: rail column (sticky, hidden below 1024px) beside the three
+export function ProjectsBlock() {
+  const [cycleKey, setCycleKey] = useState(0)
+
+  // Same pattern as DailyNoteBlock: remount on each tick to replay the
+  // grouped-by-day entry-row-land stagger, skipped under reduced motion.
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReduced) return
+    const t = setInterval(() => setCycleKey(k => k + 1), 4000)
+    return () => clearInterval(t)
+  }, [])
+
+  return (
+    <FeatureBlock
+      id="projects"
+      eyebrow="projects"
+      heading="Everything about one thing, in one place."
+      body="Name a project — 543 East, Q3 refi — and captures land there as well as in your day. Two months of screenshots about one deal, in order, without filing anything."
+      media={
+        <DailyNoteOverlayMock
+          key={cycleKey}
+          mode="project"
+          entries={PROJECT_ENTRIES}
+          projectName="543 East"
+          captureCount={34}
+        />
+      }
+    />
+  )
+}
+
+// Grid wrapper: rail column (sticky, hidden below 1024px) beside the four
 // stacked blocks. FeatureBlock no longer self-centers (that moved here) so
 // the rail and the blocks share one page-width column together.
 export function FeatureBlocksSection() {
@@ -131,6 +172,7 @@ export function FeatureBlocksSection() {
         <CaptureBlock />
         <DailyNoteBlock />
         <AskBlock />
+        <ProjectsBlock />
       </div>
     </div>
   )

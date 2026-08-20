@@ -14,7 +14,7 @@ export type NoteEntry = {
 
 export type CloseoutItem = { id: string; summary: string }
 
-export type DailyNoteMode = 'note' | 'strip' | 'closeout' | 'search'
+export type DailyNoteMode = 'note' | 'strip' | 'closeout' | 'search' | 'project'
 
 // Placeholder mock UI — not a real screenshot. All four modes share this
 // panel's chrome, dimensions, and entry-row renderer on purpose: only the
@@ -63,7 +63,7 @@ function EntryRow({
   matched = false,
 }: {
   entry: NoteEntry
-  view: 'note' | 'strip' | 'search'
+  view: 'note' | 'strip' | 'search' | 'project'
   index?: number
   expanded?: boolean
   /** search mode only — narrowed out as a non-match; stays mounted, collapses via transition */
@@ -123,6 +123,21 @@ function EntryRow({
   )
 }
 
+// Project mode: entries carry the same `date` field search mode uses for its
+// badge, but here it drives grouping instead — preserves first-seen order
+// per date rather than re-sorting, since PROJECT_ENTRIES is already
+// chronological.
+function groupByDate(entries: NoteEntry[]) {
+  const groups: { date: string; items: NoteEntry[] }[] = []
+  for (const e of entries) {
+    const date = e.date ?? ''
+    let g = groups.find(g => g.date === date)
+    if (!g) { g = { date, items: [] }; groups.push(g) }
+    g.items.push(e)
+  }
+  return groups
+}
+
 function useTypedQuery(query: string, active: boolean) {
   const [typed, setTyped] = useState('')
   const [done, setDone] = useState(false)
@@ -154,6 +169,8 @@ export function DailyNoteOverlayMock({
   closeoutItems = [],
   searchQuery = 'the address tyler sent',
   expandedGroupId,
+  projectName,
+  captureCount,
 }: {
   mode: DailyNoteMode
   entries?: NoteEntry[]
@@ -161,6 +178,9 @@ export function DailyNoteOverlayMock({
   searchQuery?: string
   /** note mode only — briefly expands a group row's `items` to show what it contains */
   expandedGroupId?: string
+  /** project mode only */
+  projectName?: string
+  captureCount?: number
 }) {
   const [view, setView] = useState<'note' | 'strip'>('note')
   const { ref, inView } = useInView(0.3)
@@ -182,7 +202,14 @@ export function DailyNoteOverlayMock({
 
   return (
     <div ref={ref} style={PANEL_STYLE}>
-      <SearchField value={searchValue} placeholder="search or ask" />
+      {mode === 'project' ? (
+        <div style={{ padding: '16px 16px 10px', display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: 14, fontWeight: 600, color: '#E5E5E5' }}>{projectName}</span>
+          <span className="font-mono" style={{ fontSize: 11, color: '#8A8A8A' }}>{captureCount} captures</span>
+        </div>
+      ) : (
+        <SearchField value={searchValue} placeholder="search or ask" />
+      )}
 
       {(mode === 'note' || mode === 'strip') && (
         <div className="flex items-center gap-2" style={{ padding: '0 16px 8px' }}>
@@ -222,6 +249,29 @@ export function DailyNoteOverlayMock({
           ))}
         </ul>
       )}
+
+      {mode === 'project' && (() => {
+        let i = 0
+        return (
+          <ul style={{ listStyle: 'none', margin: 0, padding: 0, overflowY: 'auto' }}>
+            {groupByDate(entries).flatMap(g => {
+              const sepIndex = i++
+              const rows = g.items.map(e => <EntryRow key={e.id} entry={e} view="project" index={i++} />)
+              return [
+                <li key={`sep-${g.date}`} className="entry-row-land" style={{ '--i': sepIndex } as React.CSSProperties}>
+                  <div
+                    className="font-mono"
+                    style={{ padding: '10px 16px 4px', fontSize: 10, letterSpacing: '.08em', textTransform: 'uppercase', color: '#6B6B6B' }}
+                  >
+                    {g.date}
+                  </div>
+                </li>,
+                ...rows,
+              ]
+            })}
+          </ul>
+        )
+      })()}
 
       {mode === 'closeout' && (
         <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>

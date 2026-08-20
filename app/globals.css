@@ -508,6 +508,37 @@ section[id] { scroll-margin-top: 64px; }
   .reveal-light { opacity: 1; transform: none; }
 }
 
+/* ─── Hero asymmetric layout — text left, media bleeds past the right edge
+   on tablet+ (Granola-style: the product visual runs off the page). Mobile
+   stacks single-column, text first, no bleed. hero-media-inner keeps a
+   fixed width (matching HeroAnimation's own hand-tuned card canvas) rather
+   than stretching to its grid cell — pushed right via margin-left so the
+   already-right-heavy converged card column clears the section's edge. ── */
+.hero-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.hero-text { text-align: left; }
+.hero-media { position: relative; width: 100%; }
+.hero-media-inner { width: min(640px, 100%); margin: 0 auto; }
+@media (min-width: 768px) {
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    align-items: center;
+    gap: 16px;
+    overflow: visible;
+  }
+  .hero-media { overflow: visible; }
+  .hero-media-inner {
+    width: 640px;
+    margin-left: 22%;
+  }
+}
+
 /* ─── Nav pill (floating, scroll-progress line, CTA hover) ────────────── */
 .nav-pill { position: relative; overflow: hidden; }
 .nav-progress {
