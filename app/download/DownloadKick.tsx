@@ -25,15 +25,15 @@ export function DownloadKick() {
       <a ref={anchorRef} href="/download/latest" className="sr-only" tabIndex={-1} aria-hidden="true">
         download installer
       </a>
-      <p className="font-mono" style={{ fontSize: 12, color: 'var(--ghost2)' }} aria-live="polite">
+      <p className="font-mono" style={{ fontSize: 12, color: '#6B6B6B' }} aria-live="polite">
         {kicked
           ? 'downloading — check your browser’s downloads.'
           : 'your download will begin in a moment…'}
       </p>
       <a
         href="/download/latest"
-        className="cta-link"
-        style={{ fontSize: 15 }}
+        className="link-warm"
+        style={{ fontSize: 15, color: '#C2410C' }}
         onClick={() => capture('download_started', { trigger: 'manual', source: getSource() })}
       >
         download didn&rsquo;t start? get it manually
