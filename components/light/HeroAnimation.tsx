@@ -240,14 +240,14 @@ export function HeroAnimation() {
             const landed = reducedMotion || landedIds.has(c.id)
             if (!landed) return null
             return (
-              <motion.li
+              <EntryRow
                 key={c.id}
                 layoutId={`hero-card-${c.id}`}
-                layout
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <EntryRow entry={{ id: c.id, time: c.time, summary: c.summary }} view="note" index={i} />
-              </motion.li>
+                entry={{ id: c.id, time: c.time, summary: c.summary }}
+                view="note"
+                index={i}
+              />
             )
           })}
         </ul>
@@ -272,10 +272,9 @@ export function HeroAnimation() {
                 left: 0,
                 top: 0,
                 width: c.width,
-                transform: `translate(${c.scattered.x}px, ${c.scattered.y}px) rotate(${c.scattered.rotate}deg)`,
               }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, x: c.scattered.x, y: c.scattered.y, rotate: c.scattered.rotate }}
+              animate={{ opacity: 1, x: c.scattered.x, y: c.scattered.y, rotate: c.scattered.rotate }}
               exit={{ opacity: 0, transition: { duration: 0.25 } }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >

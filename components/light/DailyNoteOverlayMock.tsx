@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { motion, type Transition } from 'motion/react'
 import { useInView } from '@/components/features/useInView'
 
 export type NoteEntry = {
@@ -63,6 +64,8 @@ export function EntryRow({
   expanded = false,
   collapsed = false,
   matched = false,
+  layoutId,
+  transition,
 }: {
   entry: NoteEntry
   view: 'note' | 'strip' | 'search'
@@ -72,6 +75,9 @@ export function EntryRow({
   collapsed?: boolean
   /** search mode only — briefly flashes once the search has settled on this row as a match */
   matched?: boolean
+  /** shared-layout transition id — when set, the root <li> becomes a Motion FLIP participant (e.g. HeroAnimation's convergence). Omitted by every other caller, in which case this renders as an ordinary <li>. */
+  layoutId?: string
+  transition?: Transition
 }) {
   const thumbSize = view === 'strip' ? 44 : 32
   const searchRowStyle: React.CSSProperties = view === 'search'
@@ -79,7 +85,7 @@ export function EntryRow({
     : {}
   const liClassName = [view === 'search' ? 'ask-row-collapse' : '', matched ? 'ask-row-match' : ''].filter(Boolean).join(' ')
   return (
-    <li style={searchRowStyle} className={liClassName}>
+    <motion.li style={searchRowStyle} className={liClassName} layoutId={layoutId} layout={!!layoutId} transition={transition}>
       <div
         className="flex items-center gap-3 entry-row-land"
         style={{ padding: '10px 16px', borderBottom: '1px solid rgba(255,255,255,.06)', ...(index !== undefined ? ({ '--i': index } as React.CSSProperties) : {}) }}
@@ -121,7 +127,7 @@ export function EntryRow({
           ))}
         </ul>
       )}
-    </li>
+    </motion.li>
   )
 }
 
