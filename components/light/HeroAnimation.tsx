@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
 import { useInView } from '@/components/features/useInView'
 import { useAnimationLoop } from '@/components/features/useAnimationLoop'
 import { EntryRow } from './DailyNoteOverlayMock'
@@ -33,37 +34,6 @@ const CARDS: CardDef[] = [
   { id: 'calendar', width: 88,  scattered: { x: 228, y: 258, rotate: -5 }, time: '3:40 PM',  summary: 'Thu 4:00 PM tour',          driftDuration: 8.5, driftDelay: -2.5, parallaxFactor: 4 },
   { id: 'doc',      width: 100, scattered: { x: 18,  y: 278, rotate: 3 },  time: '4:00 PM',  summary: 'inspection notes',          driftDuration: 7.2, driftDelay: -1.5, parallaxFactor: 10 },
 ]
-
-// ─── Converged timeline layout — the payoff frame reuses the actual
-// EntryRow component from DailyNoteOverlayMock (same rendering used in the
-// feature blocks below), scaled down uniformly to fit 8 rows in the hero's
-// small frame rather than a hero-only row design. Computed once against a
-// 640×400 reference canvas (matches Hero.tsx's maxWidth:640 wrapper + this
-// component's own 16:10 aspect ratio).
-const REF_W = 640
-const REF_H = 400
-const ROW_UNSCALED_W = 380
-const ROW_UNSCALED_H = 53 // EntryRow's natural rendered height in 'note' view
-const COLUMN_PAD = 8
-const SCALE = 0.78
-const N = CARDS.length
-const COLUMN_UNSCALED_HEIGHT = N * ROW_UNSCALED_H + COLUMN_PAD * 2
-const COLUMN_SCALED_WIDTH = (ROW_UNSCALED_W + COLUMN_PAD * 2) * SCALE
-const COLUMN_SCALED_HEIGHT = COLUMN_UNSCALED_HEIGHT * SCALE
-const COLUMN_LEFT_PX = (REF_W - COLUMN_SCALED_WIDTH) / 2
-const COLUMN_TOP_PX = (REF_H - COLUMN_SCALED_HEIGHT) / 2
-const COLUMN_LEFT_PCT = (COLUMN_LEFT_PX / REF_W) * 100
-const COLUMN_TOP_PCT = (COLUMN_TOP_PX / REF_H) * 100
-
-// Approximate target for each detail card's convergence motion — doesn't
-// need to be pixel-exact since the card fades out as it arrives, just close
-// enough that "card flies toward its row" reads as connected motion.
-function rowTargetPx(i: number) {
-  return {
-    x: COLUMN_LEFT_PX + COLUMN_PAD * SCALE,
-    y: COLUMN_TOP_PX + (COLUMN_PAD + i * ROW_UNSCALED_H) * SCALE,
-  }
-}
 
 // The detailed, light-mode representation — a "captured screen from another
 // app." Real text at small size for the labeled specifics (names, amounts,
@@ -239,30 +209,28 @@ export function HeroAnimation() {
     }
   }, [phase, reducedMotion, containerRef])
 
-  const showConverged = reducedMotion || phase === 'converging' || phase === 'held'
   const showBackdrop = reducedMotion || phase === 'converging' || phase === 'held'
 
   return (
     <div ref={containerRef} className="relative w-full" style={{ aspectRatio: '16 / 10', background: 'var(--warm-alt)' }}>
-      {/* Converged panel — the actual EntryRow component from
-          DailyNoteOverlayMock, scaled down to fit 8 rows in this frame.
-          Each row mounts (and plays EntryRow's own entry-row-land fade+rise)
-          exactly when its card lands, so the column assembles one row at a
-          time; the panel itself fades in/out around them. */}
+      {/* Converged panel — centered backdrop. Rows inside share a layoutId
+          with their scattered detail card, so Motion computes the FLIP
+          transition from each card's real rendered rect to each row's real
+          rendered rect — replaces the old rowTargetPx/COLUMN_* approximate
+          math, which is what caused cards to visibly pile up mid-flight. */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
-          left: `${COLUMN_LEFT_PCT}%`,
-          top: `${COLUMN_TOP_PCT}%`,
-          width: ROW_UNSCALED_W + COLUMN_PAD * 2,
-          transformOrigin: 'top left',
-          transform: `scale(${SCALE})`,
-          padding: COLUMN_PAD,
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 'min(380px, 86%)',
           borderRadius: 14,
           background: 'var(--app-surface)',
           border: '1px solid var(--warm-border)',
           boxShadow: '0 24px 56px -20px rgba(194,65,12,.18)',
+          padding: 8,
           opacity: showBackdrop ? 1 : 0,
           transition: `opacity ${phase === 'converging' ? '600ms' : phase === 'dispersing' ? '400ms' : '300ms'} var(--ease-warm)`,
         }}
@@ -271,57 +239,69 @@ export function HeroAnimation() {
           {CARDS.map((c, i) => {
             const landed = reducedMotion || landedIds.has(c.id)
             if (!landed) return null
-            return <EntryRow key={c.id} entry={{ id: c.id, time: c.time, summary: c.summary }} view="note" index={i} />
+            return (
+              <motion.li
+                key={c.id}
+                layoutId={`hero-card-${c.id}`}
+                layout
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <EntryRow entry={{ id: c.id, time: c.time, summary: c.summary }} view="note" index={i} />
+              </motion.li>
+            )
           })}
         </ul>
       </div>
 
-      {/* Scattered / dispersing detail cards — light, varied sizes, the
-          "captured screens from other apps." Cross-fade to invisible once
-          their timeline row has landed; reappear as they scatter back out. */}
-      {CARDS.map((c, i) => {
-        // Detail cards animate toward their own row's approximate slot (not
-        // a shared center point) so the motion reads as "this card flies to
-        // its spot and dissolves into the row," not "cards converge, then a
-        // disconnected row appears elsewhere."
-        const pos = showConverged ? rowTargetPx(i) : c.scattered
-        const rotate = showConverged ? 0 : c.scattered.rotate
-        const landed = reducedMotion || landedIds.has(c.id)
-        return (
-          <div
-            key={`card-${c.id}`}
-            className="absolute"
-            style={{
-              left: 0,
-              top: 0,
-              width: c.width,
-              transform: `translate(${pos.x}px, ${pos.y}px) rotate(${rotate}deg)`,
-              opacity: landed ? 0 : 1,
-              transition: `transform ${phase === 'converging' ? '3000ms' : phase === 'dispersing' ? '2000ms' : '0ms'} var(--ease-warm), opacity 300ms var(--ease-warm)`,
-            }}
-          >
-            <div ref={el => { parallaxRefs.current[c.id] = el }} style={{ transform: 'translate(0,0)' }}>
-              <div
-                className="hero-anim-drift"
-                style={{ '--drift-duration': `${c.driftDuration}s`, '--drift-delay': `${c.driftDelay}s`, animationPlayState: phase === 'scattered' ? 'running' : 'paused' } as React.CSSProperties}
-              >
+      {/* Scattered / dispersing detail cards — each always renders at its
+          own scattered position (drift + cursor parallax on top, both
+          unchanged below) until its `landed` flag flips true, at which
+          point it unmounts and its layoutId partner above takes over the
+          FLIP transition automatically. */}
+      <AnimatePresence>
+        {CARDS.map(c => {
+          const landed = reducedMotion || landedIds.has(c.id)
+          if (landed) return null
+          return (
+            <motion.div
+              key={`card-${c.id}`}
+              layoutId={`hero-card-${c.id}`}
+              layout
+              className="absolute"
+              style={{
+                left: 0,
+                top: 0,
+                width: c.width,
+                transform: `translate(${c.scattered.x}px, ${c.scattered.y}px) rotate(${c.scattered.rotate}deg)`,
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 0.25 } }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div ref={el => { parallaxRefs.current[c.id] = el }} style={{ transform: 'translate(0,0)' }}>
                 <div
-                  style={{
-                    width: c.width,
-                    borderRadius: 10,
-                    background: '#fff',
-                    border: '1px solid var(--warm-border)',
-                    boxShadow: '0 4px 12px rgba(26,26,26,.10)',
-                    overflow: 'hidden',
-                  }}
+                  className="hero-anim-drift"
+                  style={{ '--drift-duration': `${c.driftDuration}s`, '--drift-delay': `${c.driftDelay}s`, animationPlayState: phase === 'scattered' ? 'running' : 'paused' } as React.CSSProperties}
                 >
-                  <DetailCard id={c.id} />
+                  <div
+                    style={{
+                      width: c.width,
+                      borderRadius: 10,
+                      background: '#fff',
+                      border: '1px solid var(--warm-border)',
+                      boxShadow: '0 4px 12px rgba(26,26,26,.10)',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <DetailCard id={c.id} />
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        )
-      })}
+            </motion.div>
+          )
+        })}
+      </AnimatePresence>
     </div>
   )
 }
