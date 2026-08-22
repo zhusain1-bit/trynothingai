@@ -88,7 +88,7 @@ function DetailCard({ id }: { id: CardId }) {
     return (
       <div style={{ padding: 8 }}>
         <div aria-hidden="true" style={{ height: 40, borderRadius: 6, background: 'linear-gradient(135deg,#E5E0D8,#D8D4CC)' }} />
-        <p style={{ fontSize: 9, color: '#1A1A1A', margin: '6px 0 0', whiteSpace: 'nowrap' }}>543 East 6th · $2.4M</p>
+        <p style={{ fontSize: 9, color: '#1A1A1A', margin: '6px 0 0', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>543 East 6th · $2.4M</p>
       </div>
     )
   }
