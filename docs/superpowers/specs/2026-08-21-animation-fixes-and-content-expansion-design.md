@@ -96,14 +96,23 @@ as explicitly not part of the shipped product.
 ## Part 2 — Scoped Motion adoption (Hero convergence only)
 
 Add the `motion` package (npm; the maintained successor to Framer Motion — import from
-`motion/react`), scoped **only** to `HeroAnimation.tsx`'s converging/held/dispersing card
+`motion/react`), scoped to `HeroAnimation.tsx`'s converging/held/dispersing card
 choreography (§1b). Replace the hand-computed `rowTargetPx`/`COLUMN_*` transform math with
 `layout` animations (and `AnimatePresence` for the detail-card → `EntryRow` handoff), so the
 library computes each card's from/to transform via FLIP instead of the current manual pixel math
 — this removes the entire class of bug in §1b rather than re-tuning numbers that will drift again
 at the next breakpoint or copy change.
 
-Explicitly **not** touched: `CaptureDemo.tsx`, `DailyNoteOverlayMock.tsx`'s stagger, `StepRail.tsx`,
+**Amendment (post-implementation, final review):** giving `EntryRow` (in `DailyNoteOverlayMock.tsx`)
+its own `layoutId`-sharing `motion.li` root — rather than wrapping it externally in a separate
+`motion.li`, which produces invalid `<li><li>` markup — means `motion/react` is imported by two
+files, not one: `HeroAnimation.tsx` and `DailyNoteOverlayMock.tsx`. `EntryRow`'s new `layoutId`/
+`transition` props are optional and no-op when absent, so its only other call site (inside
+`DailyNoteOverlayMock` itself) is behaviorally unaffected — confirmed by task review. The original
+"scoped only to `HeroAnimation.tsx`" framing below no longer holds literally; the *behavioral*
+scope (only the hero's convergence choreography actually animates) is unchanged.
+
+Explicitly **not** touched: `CaptureDemo.tsx`, `StepRail.tsx`,
 `Reveal.tsx`, or any scroll-triggered reveal. Those work correctly today on the existing
 `useAnimationLoop`/CSS-transition system and don't have this bug's root cause (they don't do
 multi-object position math) — converting them would be scope creep with no bug to justify it.

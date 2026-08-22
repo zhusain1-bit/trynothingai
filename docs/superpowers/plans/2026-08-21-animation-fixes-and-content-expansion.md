@@ -4,7 +4,7 @@
 
 **Goal:** Fix three concrete rendering bugs in the homepage animations, adopt the `motion` library scoped to just the hero's convergence choreography, correct stale privacy/pricing copy against the shipped v0.1.10 product, and add four new homepage sections (pricing, trust signals, feature grid, FAQ).
 
-**Architecture:** No new routes. All work is edits to existing components in `components/light/`, `app/page.tsx`, `app/privacy/page.tsx`, `app/download/page.tsx`, plus four new section components wired into the existing single-page homepage. One new npm dependency (`motion`), scoped to one file.
+**Architecture:** No new routes. All work is edits to existing components in `components/light/`, `app/page.tsx`, `app/privacy/page.tsx`, `app/download/page.tsx`, plus four new section components wired into the existing single-page homepage. One new npm dependency (`motion`). *(Post-implementation amendment: originally scoped to touch only `HeroAnimation.tsx`; a Task 5 fix round found that wrapping `EntryRow` externally produced invalid `<li><li>` markup, so `EntryRow` itself gained optional, no-op-when-absent `layoutId`/`transition` props instead — `motion/react` is now imported by both `HeroAnimation.tsx` and `DailyNoteOverlayMock.tsx`, though only the hero's convergence choreography actually animates. See spec §2's amendment.)*
 
 **Tech Stack:** Next.js 16, React 19, TypeScript, Tailwind v4 (inline styles are this codebase's dominant pattern — follow it, don't introduce Tailwind classes for new layout that doesn't already use them), `motion` (new).
 
