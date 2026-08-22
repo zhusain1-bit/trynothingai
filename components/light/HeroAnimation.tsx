@@ -231,6 +231,8 @@ export function HeroAnimation() {
           border: '1px solid var(--warm-border)',
           boxShadow: '0 24px 56px -20px rgba(194,65,12,.18)',
           padding: 8,
+          maxHeight: 'calc(100% - 16px)',
+          overflow: 'hidden',
           opacity: showBackdrop ? 1 : 0,
           transition: `opacity ${phase === 'converging' ? '600ms' : phase === 'dispersing' ? '400ms' : '300ms'} var(--ease-warm)`,
         }}

@@ -48,7 +48,7 @@ export function CaptureDemo() {
   const displayPhase = reducedMotion ? 'pill' : phase
 
   return (
-    <div ref={ref} className="relative w-full" style={{ aspectRatio: '16/10' }}>
+    <div ref={ref} className="relative w-full" style={{ aspectRatio: '16/10', minHeight: 248 }}>
       <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column' }}>
         <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
           <CaptureContextMock />
