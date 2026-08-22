@@ -8,6 +8,7 @@ import { TrustStrip }         from '@/components/light/TrustStrip'
 import { MoreFeaturesGrid }   from '@/components/light/MoreFeaturesGrid'
 import { PrivacyColumns } from '@/components/light/PrivacyColumns'
 import { SocialProofPlaceholder } from '@/components/light/SocialProofPlaceholder'
+import { FaqSection }         from '@/components/light/FaqSection'
 import { DownloadCta }        from '@/components/light/DownloadCta'
 import { Footer }             from '@/components/light/Footer'
 
@@ -44,6 +45,9 @@ export default function Home() {
             quotes attributed to people who don't exist and were removed
             sitewide (design spec §4, item 9) — not reintroducing that. */}
         <SocialProofPlaceholder />
+
+        {/* FAQ */}
+        <FaqSection />
 
         {/* Download CTA */}
         <DownloadCta />
