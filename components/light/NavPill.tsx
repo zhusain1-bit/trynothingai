@@ -52,6 +52,8 @@ export function NavPill() {
         </Link>
         <nav className="hidden sm:flex items-center gap-6" aria-label="Primary">
           <a href="#capture" className="link-warm" style={{ fontSize: 14 }}>Features</a>
+          <a href="#pricing" className="link-warm" style={{ fontSize: 14 }}>Pricing</a>
+          <a href="#faq" className="link-warm" style={{ fontSize: 14 }}>FAQ</a>
           <a href="/privacy" className="link-warm" style={{ fontSize: 14 }}>Privacy</a>
         </nav>
         <a href="/download" className="btn-warm nav-cta" style={{ padding: '9px 18px', fontSize: 13 }}>
