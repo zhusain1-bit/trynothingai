@@ -3,6 +3,7 @@ import { NavPill }            from '@/components/light/NavPill'
 import { Hero }               from '@/components/light/Hero'
 import { ProblemStatement }   from '@/components/light/ProblemStatement'
 import { FeatureBlocksSection } from '@/components/light/FeatureBlocks'
+import { PricingSection }     from '@/components/light/PricingSection'
 import { PrivacyColumns } from '@/components/light/PrivacyColumns'
 import { SocialProofPlaceholder } from '@/components/light/SocialProofPlaceholder'
 import { DownloadCta }        from '@/components/light/DownloadCta'
@@ -23,6 +24,9 @@ export default function Home() {
         {/* Feature blocks — capture, daily note, ask (design spec §4), with
             the sticky step rail beside them (full animation pass §7) */}
         <FeatureBlocksSection />
+
+        {/* Pricing */}
+        <PricingSection />
 
         {/* Privacy */}
         <PrivacyColumns />
