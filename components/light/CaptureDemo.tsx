@@ -49,7 +49,15 @@ export function CaptureDemo() {
 
   return (
     <div ref={ref} className="relative w-full" style={{ aspectRatio: '16/10' }}>
-      <CaptureContextMock />
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column' }}>
+        <div style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
+          <CaptureContextMock />
+        </div>
+        {/* Reserved footer strip — CapturePillMock anchors inside this fixed-
+            height band, so it can never overlap the message rows above it
+            regardless of the container's actual rendered width/height. */}
+        <div style={{ flexShrink: 0, height: 72 }} />
+      </div>
       <div
         aria-hidden="true"
         className={`absolute font-mono capture-demo-press${displayPhase === 'press' ? ' active' : ''}`}

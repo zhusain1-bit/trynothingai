@@ -21,7 +21,7 @@ export function CapturePillMock({
       aria-label="Capture pill — placeholder mock of the nothing.ai capture UI"
       className="absolute left-1/2 flex items-center gap-2 rounded-full"
       style={{
-        bottom: 80,
+        bottom: 16,
         transform: `translateX(-50%) translateY(${visible ? '0' : '12px'})`,
         opacity: visible ? 1 : 0,
         transition: 'opacity .35s var(--ease-warm), transform .35s var(--ease-warm)',
