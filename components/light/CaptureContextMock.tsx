@@ -8,7 +8,6 @@ const MESSAGES: Message[] = [
   { id: 'm1', name: 'Priya', text: 'pushed the deck to the shared drive' },
   { id: 'm2', name: 'Jon', text: 'looks good — one typo on slide 4' },
   { id: 'm3', name: 'Priya', text: 'tour at 4?', highlighted: true },
-  { id: 'm4', name: 'Jon', text: 'works for me' },
 ]
 
 function Avatar({ name }: { name: string }) {
