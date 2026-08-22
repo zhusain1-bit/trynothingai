@@ -5,6 +5,7 @@ import { ProblemStatement }   from '@/components/light/ProblemStatement'
 import { FeatureBlocksSection } from '@/components/light/FeatureBlocks'
 import { PricingSection }     from '@/components/light/PricingSection'
 import { TrustStrip }         from '@/components/light/TrustStrip'
+import { MoreFeaturesGrid }   from '@/components/light/MoreFeaturesGrid'
 import { PrivacyColumns } from '@/components/light/PrivacyColumns'
 import { SocialProofPlaceholder } from '@/components/light/SocialProofPlaceholder'
 import { DownloadCta }        from '@/components/light/DownloadCta'
@@ -31,6 +32,9 @@ export default function Home() {
 
         {/* Trust signals */}
         <TrustStrip />
+
+        {/* More under the hood */}
+        <MoreFeaturesGrid />
 
         {/* Privacy */}
         <PrivacyColumns />
