@@ -9,8 +9,6 @@ export const metadata: Metadata = {
   description: 'How nothing.ai handles your data.',
 }
 
-const link = { color: '#1A1A1A', textDecoration: 'underline' } as const
-
 const SECTIONS: { title: string; body: ReactNode }[] = [
   {
     title: 'What we collect',
@@ -23,41 +21,6 @@ const SECTIONS: { title: string; body: ReactNode }[] = [
   {
     title: 'The desktop app',
     body: "nothing.ai runs on your device, and your captures are stored on your device. When you analyze a capture, it passes through our server solely to reach Anthropic. Your screenshots are never used to train any model.",
-  },
-  {
-    title: 'Google Calendar',
-    body: (
-      <>
-        If you connect a Google account, nothing.ai asks for one permission: managing calendar
-        events (the <span className="font-mono">calendar.events</span> scope). It is used for
-        exactly one thing — creating the events you explicitly confirm in the app. The app never
-        reads, changes, or deletes anything already on your calendar, and your calendar data is
-        never shared with anyone. Your Google sign-in tokens are encrypted with Windows secure
-        storage and kept only on your device — they never touch our servers. Unplugging the
-        account inside the app deletes them immediately, and you can also revoke access at any
-        time at{' '}
-        <a href="https://myaccount.google.com/permissions" style={link}>
-          myaccount.google.com/permissions
-        </a>
-        .
-      </>
-    ),
-  },
-  {
-    title: 'Limited use',
-    body: (
-      <>
-        nothing.ai&apos;s use and transfer to any other app of information received from Google
-        APIs will adhere to the{' '}
-        <a
-          href="https://developers.google.com/terms/api-services-user-data-policy"
-          style={link}
-        >
-          Google API Services User Data Policy
-        </a>
-        , including the Limited Use requirements.
-      </>
-    ),
   },
   {
     title: 'Third-party services',
@@ -118,7 +81,7 @@ export default function PrivacyPage() {
         ))}
 
         <p className="font-mono" style={{ fontSize: 11, color: '#6B6B6B', marginTop: 8 }}>
-          Last updated July 2026
+          Last updated August 2026
         </p>
       </main>
       <Footer />
