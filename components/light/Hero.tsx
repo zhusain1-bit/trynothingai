@@ -8,7 +8,7 @@ export function Hero() {
       style={{ paddingTop: 'clamp(64px,10vw,120px)', paddingBottom: 'clamp(48px,8vw,96px)', background: '#FAF8F5' }}
     >
       <span className="font-mono load-eyebrow" style={{ fontSize: 12, letterSpacing: '.14em', textTransform: 'uppercase', color: '#6B6B6B' }}>
-        Windows · $9.99/mo
+        Windows · 40 free captures
       </span>
       <h1
         style={{

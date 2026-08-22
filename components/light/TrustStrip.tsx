@@ -1,10 +1,10 @@
 import { Reveal } from '@/components/apple/Reveal'
 
 const SIGNALS = [
-  { label: 'Signed & notarized installer' },
+  { label: 'Signed installer' },
   { label: 'Auto-updates' },
-  { label: 'Captures stored on-device' },
-  { label: 'Never used for training' },
+  { label: 'No taskbar entry' },
+  { label: 'Windows 10/11' },
 ]
 
 export function TrustStrip() {
