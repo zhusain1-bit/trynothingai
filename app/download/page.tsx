@@ -11,7 +11,7 @@ import { DownloadKick } from './DownloadKick'
 export const metadata: Metadata = {
   title: 'Download — nothing.ai',
   description:
-    'Download nothing.ai for Windows — the faceless desktop AI that makes your screenshots smarter. 3-day free trial, then $9.99/mo.',
+    'Download nothing.ai for Windows — the faceless desktop AI that makes your screenshots smarter. 40 free captures, then $9.99/mo.',
 }
 
 export default function DownloadPage() {
@@ -54,7 +54,7 @@ export default function DownloadPage() {
             <div className="font-mono flex flex-wrap items-center justify-center gap-x-[18px] gap-y-[6px]" style={{ fontSize: 12, color: '#6B6B6B', marginTop: 'clamp(36px, 5vw, 56px)' }}>
               <span>Windows 10/11 · 64-bit</span>
               <span aria-hidden="true">·</span>
-              <span>3-day free trial, then $9.99/mo — sign in inside the app</span>
+              <span>40 free captures, then $9.99/mo — sign in inside the app</span>
             </div>
           </Reveal>
 

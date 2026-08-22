@@ -10,7 +10,7 @@ export function DownloadCta() {
           Stop losing the things you meant to come back to.
         </h2>
         <p style={{ fontSize: 16, color: '#6B6B6B', marginTop: 12 }}>
-          Free while in early access.
+          40 free captures, then $9.99/mo — cancel anytime.
         </p>
         <div style={{ marginTop: 24 }}>
           <MagneticButton>

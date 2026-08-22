@@ -45,7 +45,7 @@ export default function Image() {
             trynothingai.com
           </div>
           <div style={{ display: 'flex', fontSize: 22, color: '#6B6B6B' }}>
-            3-day free trial · $9.99/mo
+            40 free captures · $9.99/mo
           </div>
         </div>
       </div>
