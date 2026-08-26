@@ -10,6 +10,7 @@ export function MockFrame({
   chromeTitle,
   layered = false,
   minHeight,
+  dark = false,
 }: {
   children: React.ReactNode
   className?: string
@@ -21,6 +22,8 @@ export function MockFrame({
   /** offset, rotated accent-tinted card behind the frame, for depth */
   layered?: boolean
   minHeight?: number
+  /** literal dark chrome (for mocks of a screen other than nothing.ai's own light UI, e.g. CaptureDemo) instead of the light --app-chrome default */
+  dark?: boolean
 }) {
   const frameRef = useRef<HTMLDivElement>(null)
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
@@ -60,7 +63,7 @@ export function MockFrame({
       style={{
         boxShadow: '0 24px 48px -12px rgba(26,26,26,0.18)',
         transform: [baseTransform, tiltTransform].filter(Boolean).join(' ') || undefined,
-        background: 'var(--app-chrome)',
+        background: dark ? '#17140F' : 'var(--app-chrome)',
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
@@ -68,11 +71,11 @@ export function MockFrame({
     >
       {chrome && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '10px 14px', flexShrink: 0 }}>
-          <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: '50%', background: 'rgba(255,255,255,.18)' }} />
-          <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: '50%', background: 'rgba(255,255,255,.18)' }} />
-          <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: '50%', background: 'rgba(255,255,255,.18)' }} />
+          <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: '50%', background: dark ? 'rgba(255,255,255,.18)' : 'rgba(26,26,26,.14)' }} />
+          <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: '50%', background: dark ? 'rgba(255,255,255,.18)' : 'rgba(26,26,26,.14)' }} />
+          <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: '50%', background: dark ? 'rgba(255,255,255,.18)' : 'rgba(26,26,26,.14)' }} />
           {chromeTitle && (
-            <span className="font-mono" style={{ marginLeft: 8, fontSize: 11, color: 'rgba(255,255,255,.4)' }}>
+            <span className="font-mono" style={{ marginLeft: 8, fontSize: 11, color: dark ? 'rgba(255,255,255,.4)' : 'rgba(26,26,26,.45)' }}>
               {chromeTitle}
             </span>
           )}

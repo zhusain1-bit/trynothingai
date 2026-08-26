@@ -7,7 +7,7 @@ import { MockFrame } from './MockFrame'
 // the viewport, the mock scales 0.96->1, driven by IntersectionObserver's
 // intersectionRatio (21 threshold steps, not a scroll listener) rather than
 // per-frame scroll math.
-export function PinnedMockFrame({ children, minHeight }: { children: React.ReactNode; minHeight?: number }) {
+export function PinnedMockFrame({ children, minHeight, dark }: { children: React.ReactNode; minHeight?: number; dark?: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   const [scale, setScale] = useState(1)
 
@@ -27,7 +27,7 @@ export function PinnedMockFrame({ children, minHeight }: { children: React.React
 
   return (
     <div ref={ref} style={{ transform: `scale(${scale})`, transition: 'transform .2s linear' }}>
-      <MockFrame chrome layered minHeight={minHeight}>
+      <MockFrame chrome layered minHeight={minHeight} dark={dark}>
         {children}
       </MockFrame>
     </div>

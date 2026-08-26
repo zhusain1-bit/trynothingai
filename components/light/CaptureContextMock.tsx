@@ -1,6 +1,14 @@
 // Placeholder mock UI — not a real screenshot. The static "screen behind the
 // pill" for the Capture feature block: a Slack-like conversation so the
 // CapturePillMock sits over a real screen, not a void.
+//
+// Colors here are literal, not the shared --app-* tokens: this represents
+// some OTHER dark app the user is capturing from, not nothing.ai's own UI
+// (which is light — see the --app-* token comment in globals.css), so it
+// must stay dark regardless of what those tokens are set to.
+const DARK_SURFACE_ELEVATED = '#26231F'
+const DARK_MUTED = 'rgba(255,255,255,.5)'
+const DARK_TEXT = 'rgba(255,255,255,.92)'
 
 type Message = { id: string; name: string; text: string; highlighted?: boolean }
 
@@ -19,8 +27,8 @@ function Avatar({ name }: { name: string }) {
         width: 24,
         height: 24,
         borderRadius: '50%',
-        background: 'var(--app-surface-elevated)',
-        color: 'var(--app-muted)',
+        background: DARK_SURFACE_ELEVATED,
+        color: DARK_MUTED,
         fontSize: 10,
         display: 'flex',
         alignItems: 'center',
@@ -48,8 +56,8 @@ export function CaptureContextMock() {
         >
           <Avatar name={m.name} />
           <div>
-            <div className="font-mono" style={{ fontSize: 10, color: 'var(--app-muted)' }}>{m.name}</div>
-            <div style={{ fontSize: 13, color: 'var(--app-text)', marginTop: 2 }}>{m.text}</div>
+            <div className="font-mono" style={{ fontSize: 10, color: DARK_MUTED }}>{m.name}</div>
+            <div style={{ fontSize: 13, color: DARK_TEXT, marginTop: 2 }}>{m.text}</div>
           </div>
         </div>
       ))}

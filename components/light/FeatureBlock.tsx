@@ -8,6 +8,7 @@ export function FeatureBlock({
   body,
   media,
   reverse = false,
+  mediaDark = false,
 }: {
   id?: string
   eyebrow: string
@@ -15,6 +16,8 @@ export function FeatureBlock({
   body: string
   media: React.ReactNode
   reverse?: boolean
+  /** the media is a mock of some OTHER dark screen (e.g. CaptureDemo's capture-pill-over-a-screenshot), not nothing.ai's own light UI */
+  mediaDark?: boolean
 }) {
   return (
     <section
@@ -45,7 +48,7 @@ export function FeatureBlock({
       </Reveal>
       <Reveal variant="light" index={1} className="feature-block-media">
         <div className="card-warm">
-          <PinnedMockFrame minHeight={320}>
+          <PinnedMockFrame minHeight={320} dark={mediaDark}>
             {media}
           </PinnedMockFrame>
         </div>

@@ -27,7 +27,7 @@ const PANEL_STYLE: React.CSSProperties = {
   maxHeight: 420,
   borderRadius: 14,
   background: 'var(--app-surface)',
-  boxShadow: '0 24px 60px -16px rgba(0,0,0,.6)',
+  boxShadow: '0 24px 60px -16px rgba(26,26,26,.18)',
   display: 'flex',
   flexDirection: 'column',
   overflow: 'hidden',
@@ -85,10 +85,10 @@ export function EntryRow({
     : {}
   const liClassName = [view === 'search' ? 'ask-row-collapse' : '', matched ? 'ask-row-match' : ''].filter(Boolean).join(' ')
   return (
-    <motion.li style={searchRowStyle} className={liClassName} layoutId={layoutId} layout={!!layoutId} transition={transition}>
+    <motion.li style={searchRowStyle} className={liClassName} layoutId={layoutId} layout={layoutId ? 'position' : false} transition={transition}>
       <div
         className="flex items-center gap-3 entry-row-land"
-        style={{ padding: '10px 16px', borderBottom: '1px solid rgba(255,255,255,.06)', ...(index !== undefined ? ({ '--i': index } as React.CSSProperties) : {}) }}
+        style={{ padding: '10px 16px', borderBottom: '1px solid rgba(26,26,26,.08)', ...(index !== undefined ? ({ '--i': index } as React.CSSProperties) : {}) }}
       >
         <span aria-hidden="true" style={{ width: thumbSize, height: thumbSize, borderRadius: 6, background: 'var(--app-surface-elevated)', flexShrink: 0 }} />
         {view !== 'strip' ? (
@@ -234,7 +234,7 @@ export function DailyNoteOverlayMock({
       {mode === 'closeout' && (
         <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
           {closeoutItems.map(item => (
-            <li key={item.id} className="flex items-center justify-between gap-3" style={{ padding: '10px 16px', borderBottom: '1px solid rgba(255,255,255,.06)' }}>
+            <li key={item.id} className="flex items-center justify-between gap-3" style={{ padding: '10px 16px', borderBottom: '1px solid rgba(26,26,26,.08)' }}>
               <span style={{ fontSize: 13, color: 'var(--app-text)' }}>{item.summary}</span>
               <div className="flex gap-2 font-mono" style={{ fontSize: 10, color: 'var(--app-muted)' }}>
                 <span>done</span><span>snooze</span><span>dismiss</span>

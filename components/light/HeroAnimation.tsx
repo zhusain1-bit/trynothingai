@@ -160,7 +160,12 @@ export function HeroAnimation() {
         action: () => setLandedIds(prev => new Set(prev).add(c.id)),
       })),
       { ms: 11000, action: () => setPhase('held') },
-      { ms: 14000, action: () => setPhase('dispersing') },
+      // Clearing landedIds here (not just in reset()) unmounts every EntryRow
+      // and remounts every scattered card in the same tick the panel starts
+      // fading out -- their shared layoutId reverse-FLIPs them back apart,
+      // so "dispersing" is actually visible instead of leaving a ~2s blank
+      // gap between the panel fading out and reset() at ms:16000.
+      { ms: 14000, action: () => { setPhase('dispersing'); setLandedIds(new Set()) } },
     ],
     16000,
     reset,
@@ -268,34 +273,41 @@ export function HeroAnimation() {
             <motion.div
               key={`card-${c.id}`}
               layoutId={`hero-card-${c.id}`}
-              layout
+              layout="position"
               className="absolute"
               style={{
                 left: 0,
                 top: 0,
                 width: c.width,
               }}
-              initial={{ opacity: 0, x: c.scattered.x, y: c.scattered.y, rotate: c.scattered.rotate }}
-              animate={{ opacity: 1, x: c.scattered.x, y: c.scattered.y, rotate: c.scattered.rotate }}
+              initial={{ opacity: 0, x: c.scattered.x, y: c.scattered.y }}
+              animate={{ opacity: 1, x: c.scattered.x, y: c.scattered.y }}
               exit={{ opacity: 0, transition: { duration: 0.25 } }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div ref={el => { parallaxRefs.current[c.id] = el }} style={{ transform: 'translate(0,0)' }}>
-                <div
-                  className="hero-anim-drift"
-                  style={{ '--drift-duration': `${c.driftDuration}s`, '--drift-delay': `${c.driftDelay}s`, animationPlayState: phase === 'scattered' ? 'running' : 'paused' } as React.CSSProperties}
-                >
+              {/* Static rotate lives on its own wrapper, outside Motion's
+                  layoutId tracking -- mixing rotation into the same motion
+                  values as the layoutId FLIP (which also has to interpolate
+                  a large width/height change) sheared the card during
+                  convergence instead of a clean glide. */}
+              <div style={{ transform: `rotate(${c.scattered.rotate}deg)` }}>
+                <div ref={el => { parallaxRefs.current[c.id] = el }} style={{ transform: 'translate(0,0)' }}>
                   <div
-                    style={{
-                      width: c.width,
-                      borderRadius: 10,
-                      background: '#fff',
-                      border: '1px solid var(--warm-border)',
-                      boxShadow: '0 4px 12px rgba(26,26,26,.10)',
-                      overflow: 'hidden',
-                    }}
+                    className="hero-anim-drift"
+                    style={{ '--drift-duration': `${c.driftDuration}s`, '--drift-delay': `${c.driftDelay}s`, animationPlayState: phase === 'scattered' ? 'running' : 'paused' } as React.CSSProperties}
                   >
-                    <DetailCard id={c.id} />
+                    <div
+                      style={{
+                        width: c.width,
+                        borderRadius: 10,
+                        background: '#fff',
+                        border: '1px solid var(--warm-border)',
+                        boxShadow: '0 4px 12px rgba(26,26,26,.10)',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <DetailCard id={c.id} />
+                    </div>
                   </div>
                 </div>
               </div>

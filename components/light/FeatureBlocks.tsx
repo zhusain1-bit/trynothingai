@@ -51,6 +51,7 @@ export function CaptureBlock() {
       heading="One key. Nothing to open."
       body="See something you can't deal with right now? Press the key. It's saved, timestamped, and out of your head. No picker, no folder, no decision."
       media={<CaptureDemo />}
+      mediaDark
     />
   )
 }
