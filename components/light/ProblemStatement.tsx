@@ -20,9 +20,9 @@ export function ProblemStatement() {
       </Reveal>
       <Reveal variant="light" panel delay={80}>
         <p style={{ fontSize: 18, lineHeight: 1.5, color: '#6B6B6B', marginTop: 20, maxWidth: 640 }}>
-          Your phone already turns a screenshot with a time in it into a calendar event. Your
-          computer doesn&rsquo;t — and your computer is where the work is. Slack, docs, tabs,
-          half-read emails. That&rsquo;s where things get lost.
+          A LinkedIn profile, a receipt, a stat from a report — each one has real data in it: a
+          name, a number, a link. Copying it into a spreadsheet by hand is the annoying part, so
+          it doesn&rsquo;t happen. That data just dies in your screenshots folder.
         </p>
       </Reveal>
     </section>

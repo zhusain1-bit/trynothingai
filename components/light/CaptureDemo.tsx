@@ -63,9 +63,9 @@ export function CaptureDemo() {
         className={`absolute font-mono capture-demo-press${displayPhase === 'press' ? ' active' : ''}`}
         style={{ top: '42%', left: '50%', fontSize: 16, letterSpacing: 1.5, color: 'var(--app-accent)', opacity: 0 }}
       >
-        Ctrl ⇧ Space
+        Alt N
       </div>
-      <CapturePillMock state="time-bound" timeLabel="4:00 PM" visible={displayPhase === 'pill'} />
+      <CapturePillMock projectName="LinkedIn CRM Task3" visible={displayPhase === 'pill'} />
     </div>
   )
 }

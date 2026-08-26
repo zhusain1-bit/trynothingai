@@ -3,7 +3,7 @@ import { Reveal } from '@/components/apple/Reveal'
 const STEPS = [
   { label: '01 · run', stat: 'Open the installer.', body: 'NothingAI-Setup.exe — from your downloads bar or folder.' },
   { label: '02 · smartscreen', stat: '"More info" → "Run anyway."', body: 'Windows warns about apps it hasn’t seen before. nothing.ai is safe — it runs entirely on your machine.' },
-  { label: '03 · summon', stat: 'Press ⊞ ⇧ S.', body: 'that’s it. snip anything — it reads it and acts. no window to find.' },
+  { label: '03 · summon', stat: 'Press Alt+N or Alt+S.', body: 'instant capture or region-select — it reads it and files the row. no window to find for capture; open the app anytime to see your tables.' },
 ]
 
 export function InstallSteps() {

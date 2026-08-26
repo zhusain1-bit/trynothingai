@@ -1,66 +1,35 @@
 // Placeholder mock UI — not a real screenshot. The static "screen behind the
-// pill" for the Capture feature block: a Slack-like conversation so the
-// CapturePillMock sits over a real screen, not a void.
+// pill" for the Capture feature block: a LinkedIn-profile-like page, so the
+// CapturePillMock (capturing into "LinkedIn CRM Task3") sits over a screen
+// that actually matches the project it names — and sets up the same Jordan
+// Ellis example the Extraction block's video demo (02-profile-to-crm-row)
+// pays off.
 //
-// Colors here are literal, not the shared --app-* tokens: this represents
-// some OTHER dark app the user is capturing from, not nothing.ai's own UI
-// (which is light — see the --app-* token comment in globals.css), so it
-// must stay dark regardless of what those tokens are set to.
-const DARK_SURFACE_ELEVATED = '#26231F'
-const DARK_MUTED = 'rgba(255,255,255,.5)'
-const DARK_TEXT = 'rgba(255,255,255,.92)'
-
-type Message = { id: string; name: string; text: string; highlighted?: boolean }
-
-const MESSAGES: Message[] = [
-  { id: 'm1', name: 'Priya', text: 'pushed the deck to the shared drive' },
-  { id: 'm2', name: 'Jon', text: 'looks good — one typo on slide 4' },
-  { id: 'm3', name: 'Priya', text: 'tour at 4?', highlighted: true },
-]
-
-function Avatar({ name }: { name: string }) {
-  return (
-    <span
-      aria-hidden="true"
-      className="font-mono"
-      style={{
-        width: 24,
-        height: 24,
-        borderRadius: '50%',
-        background: DARK_SURFACE_ELEVATED,
-        color: DARK_MUTED,
-        fontSize: 10,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexShrink: 0,
-      }}
-    >
-      {name[0]}
-    </span>
-  )
-}
-
+// Light-toned on purpose: this mocks a real LinkedIn-style webpage (which is
+// a light UI), not a dark app — only the CapturePillMock overlay on top of
+// it is a literal dark floating pill (matches the real capture-pill
+// screenshot), the page behind it should not read as "dark mode."
 export function CaptureContextMock() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: '100%' }}>
-      {MESSAGES.map(m => (
-        <div
-          key={m.id}
-          className="flex items-start gap-2"
+    <div style={{ width: '100%', borderRadius: 8, overflow: 'hidden', background: '#fff', border: '1px solid #E5E0D8' }}>
+      <div aria-hidden="true" style={{ height: 56, background: 'linear-gradient(135deg,#BFDCD3,#E7D9B8)' }} />
+      <div style={{ padding: '0 14px 12px' }}>
+        <span
+          aria-hidden="true"
+          className="font-mono"
           style={{
-            padding: '6px 8px',
-            borderRadius: 8,
-            background: m.highlighted ? 'rgba(194,65,12,.14)' : 'transparent',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            width: 38, height: 38, borderRadius: '50%',
+            background: '#F2EFE9', border: '3px solid #fff', marginTop: -19,
+            color: '#6B6B6B', fontSize: 12,
           }}
         >
-          <Avatar name={m.name} />
-          <div>
-            <div className="font-mono" style={{ fontSize: 10, color: DARK_MUTED }}>{m.name}</div>
-            <div style={{ fontSize: 13, color: DARK_TEXT, marginTop: 2 }}>{m.text}</div>
-          </div>
-        </div>
-      ))}
+          JE
+        </span>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#1A1A1A', marginTop: 8 }}>Jordan Ellis</div>
+        <div style={{ fontSize: 11, color: '#6B6B6B', marginTop: 2 }}>Senior Product Manager · Northwind Analytics</div>
+        <div className="font-mono" style={{ fontSize: 10, color: '#6B6B6B', marginTop: 4 }}>Austin, TX</div>
+      </div>
     </div>
   )
 }

@@ -26,7 +26,7 @@ export function PricingSection() {
             style={{ background: '#F2EFE9', border: '1px solid #E5E0D8', borderRadius: 14, padding: 32, marginTop: 28 }}
           >
             <p style={{ fontSize: 16, color: '#1A1A1A', lineHeight: 1.6 }}>
-              <strong>40 free captures</strong> — genuinely try it, no card required.
+              <strong>10 free captures</strong> — genuinely try it, no card required.
               <br />
               After that, <strong>$9.99/mo</strong>. Cancel anytime.
             </p>

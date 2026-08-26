@@ -2,9 +2,11 @@ import { Reveal } from '@/components/apple/Reveal'
 
 const FAQS = [
   { q: 'Is it Windows-only?', a: 'Yes, today. macOS is coming — you can join the waitlist from the download page.' },
-  { q: 'What happens after my 40 free captures?', a: "You'll need to subscribe ($9.99/mo, cancel anytime) to keep capturing. Everything you've already saved stays yours." },
+  { q: 'What happens after my 10 free captures?', a: "You'll need to subscribe ($9.99/mo, cancel anytime) to keep capturing. Everything you've already saved stays yours." },
   { q: 'Is my data used to train anything?', a: 'No. Screenshots are never used to train any model, ours or anyone else\'s.' },
-  { q: 'What does "faceless" actually mean?', a: 'No app window to manage, no taskbar entry, no dock icon. It lives in a hotkey and the tray — nothing to open unless you want to look back.' },
+  { q: 'What does "faceless" actually mean?', a: "There's no app window to manage day to day — Alt+N and Alt+S capture straight into your projects, and a Windows notification confirms the row either way. Open the app only when you want to look at a table." },
+  { q: 'Can I have more than one project?', a: 'Yes — unlimited projects, each with its own schema. Capturing always requires an active project; the hotkey prompts you to create one if you don\'t have any yet.' },
+  { q: 'What happened to my old captures?', a: 'Anything from before the update was automatically archived on first launch — recoverable from Settings anytime.' },
 ]
 
 export function FaqSection() {

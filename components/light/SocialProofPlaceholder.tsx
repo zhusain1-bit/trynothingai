@@ -10,7 +10,7 @@ export function SocialProofPlaceholder() {
       <Reveal variant="light">
         <p className="font-mono" style={{ fontSize: 13, color: '#6B6B6B', letterSpacing: '.02em' }}>
           {/* PLACEHOLDER */}
-          early testers are already screenshotting less and finding more.
+          early testers are already turning screenshots into rows instead of losing them.
         </p>
       </Reveal>
     </section>

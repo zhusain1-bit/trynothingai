@@ -11,7 +11,7 @@ import { DownloadKick } from './DownloadKick'
 export const metadata: Metadata = {
   title: 'Download — nothing.ai',
   description:
-    'Download nothing.ai for Windows — the faceless desktop AI that makes your screenshots smarter. 40 free captures, then $9.99/mo.',
+    'Download nothing.ai for Windows — the desktop AI that turns your screenshots into the table you already know how to use. 10 free captures, then $9.99/mo.',
 }
 
 export default function DownloadPage() {
@@ -38,7 +38,8 @@ export default function DownloadPage() {
             <Reveal variant="light" index={2}>
               <p style={{ fontSize: 17, lineHeight: 1.5, color: '#6B6B6B', maxWidth: 560 }}>
                 nothing.ai for Windows is on its way. it lives in{' '}
-                <span className="font-mono" style={{ color: '#1A1A1A' }}>⊞ ⇧ S</span> — here&rsquo;s how to wake it up.
+                <span className="font-mono" style={{ color: '#1A1A1A' }}>Alt+N</span> and{' '}
+                <span className="font-mono" style={{ color: '#1A1A1A' }}>Alt+S</span> — here&rsquo;s how to wake it up.
               </p>
             </Reveal>
             <Reveal variant="light" index={3}>
@@ -54,7 +55,7 @@ export default function DownloadPage() {
             <div className="font-mono flex flex-wrap items-center justify-center gap-x-[18px] gap-y-[6px]" style={{ fontSize: 12, color: '#6B6B6B', marginTop: 'clamp(36px, 5vw, 56px)' }}>
               <span>Windows 10/11 · 64-bit</span>
               <span aria-hidden="true">·</span>
-              <span>40 free captures, then $9.99/mo — sign in inside the app</span>
+              <span>10 free captures, then $9.99/mo — sign in inside the app</span>
             </div>
           </Reveal>
 

@@ -25,19 +25,19 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   // Resolves relative metadata URLs (incl. the generated OG/Twitter images) to absolute.
   metadataBase: new URL('https://trynothingai.com'),
-  title: '[Placeholder] nothing.ai — capture, and it finds its way into your day',
-  description: '[Placeholder — final copy pending] one hotkey. it resurfaces as your day, searchable across every day you’ve captured.',
+  title: 'nothing.ai — screenshot it. It\'s a row now.',
+  description: 'One hotkey. AI reads your screenshot, matches it to a project you define, and adds or updates a row — never a duplicate.',
   openGraph: {
-    title: '[Placeholder] nothing.ai — capture, and it finds its way into your day',
-    description: '[Placeholder — final copy pending] one hotkey. it resurfaces as your day, searchable across every day you’ve captured.',
+    title: 'nothing.ai — screenshot it. It\'s a row now.',
+    description: 'One hotkey. AI reads your screenshot, matches it to a project you define, and adds or updates a row — never a duplicate.',
     url: 'https://trynothingai.com',
     siteName: 'nothing.ai',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: '[Placeholder] nothing.ai — capture, and it finds its way into your day',
-    description: '[Placeholder — final copy pending]',
+    title: 'nothing.ai — screenshot it. It\'s a row now.',
+    description: 'One hotkey. AI reads your screenshot, matches it to a project you define, and adds or updates a row — never a duplicate.',
   },
 }
 

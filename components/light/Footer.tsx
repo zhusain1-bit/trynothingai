@@ -43,9 +43,10 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
   {
     title: 'product',
     links: [
+      { href: '#setup', label: 'setup' },
       { href: '#capture', label: 'capture' },
-      { href: '#daily-note', label: 'daily note' },
-      { href: '#ask', label: 'ask' },
+      { href: '#extract', label: 'extraction' },
+      { href: '#table', label: 'the table' },
       { href: '#privacy', label: 'privacy' },
     ],
   },
