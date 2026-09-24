@@ -750,3 +750,101 @@ section[id] { scroll-margin-top: 64px; }
   transition: right .2s var(--ease-warm);
 }
 .link-warm:hover::after { right: 0; }
+
+/* ─── Pricing page ────────────────────────────────────────────────────── */
+/* Secondary CTA — same geometry as .btn-warm, ink outline instead of amber
+   fill (amber stays reserved for the primary CTA). */
+.btn-warm-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid #1A1A1A;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .15s var(--ease-warm), background .15s var(--ease-warm);
+}
+.btn-warm-outline:hover { background: rgba(26,26,26,.05); transform: translateY(-2px); }
+.btn-warm-outline:active { transform: scale(.98); transition-duration: 80ms; }
+.btn-warm-outline:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .btn-warm-outline:hover, .btn-warm:hover { transform: none; }
+}
+
+/* Roadmap marker — quiet text, not a colored badge. */
+.soon-tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 6px;
+  border: 1px solid #E5E0D8;
+  border-radius: 4px;
+  font-family: var(--font-jetbrains, 'JetBrains Mono', monospace);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #6B6B6B;
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+
+.pricing-table { width: 100%; min-width: 560px; border-collapse: separate; border-spacing: 0; }
+.pricing-table th, .pricing-table td { padding: 13px 16px; text-align: left; border-bottom: 1px solid #E5E0D8; font-size: 14px; }
+.pricing-table td:not(:first-child), .pricing-table thead th:not(:first-child) { text-align: center; width: 28%; }
+.pricing-table tbody th { font-weight: 400; color: #1A1A1A; }
+.pricing-table .group-row th {
+  padding-top: 32px;
+  font-family: var(--font-jetbrains, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #6B6B6B;
+}
+/* Sticky feature column so a horizontally scrolled table keeps its labels. */
+.pricing-table th[scope="row"], .pricing-table .group-row th, .pricing-table thead th:first-child {
+  position: sticky; left: 0; background: #FAF8F5;
+}
+.table-scroll:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; border-radius: 8px; }
+
+.faq-trigger {
+  display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 20px 0; background: none; border: none; cursor: pointer; text-align: left;
+  font-size: 16px; font-weight: 600; color: #1A1A1A;
+}
+.faq-trigger:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; border-radius: 4px; }
+.faq-icon { flex: none; transition: transform .25s var(--ease-warm); }
+.faq-trigger[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+@media (prefers-reduced-motion: reduce) { .faq-icon { transition: none; } }
+
+/* Workflow diagram connector — hairline + one travelling dot. */
+.flow-line { position: relative; width: 1px; height: 36px; margin: 10px 0; background: #D9D3C9; overflow: visible; }
+@media (prefers-reduced-motion: no-preference) {
+  .flow-line::after {
+    content: '';
+    position: absolute;
+    left: -1.5px;
+    top: 0;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #1A1A1A;
+    animation: flow-dot 2.4s var(--ease-warm) infinite;
+  }
+}
+@keyframes flow-dot {
+  0%   { transform: translateY(0); opacity: 0; }
+  25%  { opacity: 1; }
+  75%  { opacity: 1; }
+  100% { transform: translateY(32px); opacity: 0; }
+}
+
+/* Enterprise value diagram — sources converging on one project. */
+.converge-lines { display: block; width: 100%; height: 56px; color: #D9D3C9; }
+/* Side-by-side diagram columns share one sources-band height (3 chip rows). */
+@media (min-width: 768px) { .workflow-grid { --sources-h: 124px; } }

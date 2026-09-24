@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { PLANS, formatPrice } from '@/lib/pricing'
 
 // Social share card (1200×630), rendered at build time.
 
@@ -43,7 +44,7 @@ export default function Image() {
             trynothingai.com
           </div>
           <div style={{ display: 'flex', fontSize: 22, color: '#6B6B6B' }}>
-            10 free captures · $9.99/mo
+            <span style={{ textDecoration: 'line-through', marginRight: 8, color: '#9A958D' }}>{formatPrice(PLANS.individual.standardPrice)}</span>{formatPrice(PLANS.individual.introPrice)}/mo for {PLANS.individual.introMonths} months
           </div>
         </div>
       </div>

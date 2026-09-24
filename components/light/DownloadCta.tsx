@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import { Reveal } from '@/components/apple/Reveal'
 import { MagneticButton } from './MagneticButton'
+import { PLANS, formatPrice } from '@/lib/pricing'
 
 export function DownloadCta() {
+  const ind = PLANS.individual
   return (
     <section style={{ padding: 'clamp(64px,10vw,120px) 24px', background: '#FAF8F5', textAlign: 'center' }}>
       <Reveal variant="light" panel>
@@ -10,7 +12,7 @@ export function DownloadCta() {
           Stop copy-pasting screenshots into spreadsheets by hand.
         </h2>
         <p style={{ fontSize: 16, color: '#6B6B6B', marginTop: 12 }}>
-          10 free captures, then $9.99/mo — cancel anytime.
+          <s style={{ color: '#9A958D', fontWeight: 400 }}>{formatPrice(ind.standardPrice)}</s> {formatPrice(ind.introPrice)}/mo for your first {ind.introMonths} months — cancel anytime.
         </p>
         <div style={{ marginTop: 24 }}>
           <MagneticButton>

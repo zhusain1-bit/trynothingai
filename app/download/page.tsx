@@ -7,14 +7,16 @@ import { Reveal } from '@/components/apple/Reveal'
 import { InstallSteps } from '@/components/light/InstallSteps'
 import { MacWaitlistCapture } from '@/components/light/MacWaitlistCapture'
 import { DownloadKick } from './DownloadKick'
+import { PLANS, formatPrice, introLine, afterLine } from '@/lib/pricing'
 
 export const metadata: Metadata = {
   title: 'Download — nothing.ai',
   description:
-    'Download nothing.ai for Windows — the desktop AI that turns your screenshots into the table you already know how to use. 10 free captures, then $9.99/mo.',
+    'Download nothing.ai for Windows — the desktop AI that turns your screenshots into the table you already know how to use. ' + introLine(PLANS.individual) + ' (' + afterLine(PLANS.individual) + ').',
 }
 
 export default function DownloadPage() {
+  const ind = PLANS.individual
   return (
     <WarmPage>
       <NavPill />
@@ -55,7 +57,7 @@ export default function DownloadPage() {
             <div className="font-mono flex flex-wrap items-center justify-center gap-x-[18px] gap-y-[6px]" style={{ fontSize: 12, color: '#6B6B6B', marginTop: 'clamp(36px, 5vw, 56px)' }}>
               <span>Windows 10/11 · 64-bit</span>
               <span aria-hidden="true">·</span>
-              <span>10 free captures, then $9.99/mo — sign in inside the app</span>
+              <span><s style={{ color: '#9A958D', fontWeight: 400 }}>{formatPrice(ind.standardPrice)}</s> {formatPrice(ind.introPrice)}/mo for {ind.introMonths} months — sign in inside the app</span>
             </div>
           </Reveal>
 
