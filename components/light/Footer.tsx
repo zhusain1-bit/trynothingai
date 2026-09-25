@@ -43,11 +43,11 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
   {
     title: 'product',
     links: [
-      { href: '/#setup', label: 'setup' },
-      { href: '/#capture', label: 'capture' },
-      { href: '/#extract', label: 'extraction' },
-      { href: '/#table', label: 'the table' },
-      { href: '/#privacy', label: 'privacy' },
+      { href: '/#how-it-works', label: 'how it works' },
+      { href: '/#use-cases', label: 'use cases' },
+      { href: '/#sources', label: 'sources' },
+      { href: '/#templates', label: 'templates' },
+      { href: '/#enterprise', label: 'enterprise' },
     ],
   },
   { title: 'get it', links: [{ href: '/download', label: 'download' }, { href: '/pricing', label: 'pricing' }] },
@@ -55,6 +55,7 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
     title: 'company',
     links: [
       { href: 'mailto:hi@trynothingai.com', label: 'contact' },
+      { href: '/pricing#faq', label: 'faq' },
       { href: '/privacy', label: 'privacy policy' },
     ],
   },

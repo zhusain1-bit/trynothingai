@@ -60,12 +60,12 @@ export function TableBlock() {
       id="table"
       eyebrow="the table"
       heading="A real spreadsheet, not a wall of screenshots."
-      body="Typed cells — currency, dates, clickable URLs. Click to edit. Toggle to Screenshots to see the raw captures chronologically. A camera icon on each row shows exactly which screenshot(s) built it."
+      body="Typed cells — currency, dates, clickable URLs. Click to edit. Switch to Sources to see every screenshot and file behind the project. A source icon on each row shows exactly where it came from."
       media={
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src="/images/table-view.png"
-          alt="nothing.ai's table view — a LinkedIn CRM project with typed columns, a key-column match icon, and a camera icon per row"
+          src="/images/project-table-demo.png"
+          alt="nothing.ai's table view — a Networking project with five records, typed columns, a match-field key icon, and a source icon on every row"
           style={{ width: '100%', display: 'block', borderRadius: 12, boxShadow: '0 24px 48px -12px rgba(26,26,26,0.18)' }}
         />
       }

@@ -40,6 +40,10 @@ const FAQS: { q: string; a: string }[] = [
       : 'CSV / Excel export is coming to both Individual and Enterprise. Your projects already live in a database on your own PC, and they stay yours.',
   },
   {
+    q: 'Is it Windows-only?',
+    a: 'Yes, today — Windows 10 and 11. macOS is coming; you can join the waitlist from the download page.',
+  },
+  {
     q: 'Do Enterprise users get a different extraction model?',
     a: 'No. Both plans get the same core Nothing intelligence. Enterprise is different in scale, collaboration, automation, administration and support — not in extraction quality.',
   },

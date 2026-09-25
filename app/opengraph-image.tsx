@@ -3,7 +3,7 @@ import { PLANS, formatPrice } from '@/lib/pricing'
 
 // Social share card (1200×630), rendered at build time.
 
-export const alt = 'nothing.ai — screenshot it. It\'s a row now.'
+export const alt = 'nothing.ai — Screenshot it. It\'s a row now. Turn anything you capture into structured projects.'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -35,7 +35,7 @@ export default function Image() {
             Screenshot it. It&rsquo;s a row now.
           </div>
           <div style={{ fontSize: 28, lineHeight: 1.4, color: '#6B6B6B', maxWidth: 880 }}>
-            AI reads your screenshot, matches it to a project you define, and adds or updates a row.
+            Turn screenshots, PDFs, images and files into structured projects — no copying and pasting.
           </div>
         </div>
 

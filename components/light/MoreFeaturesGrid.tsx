@@ -2,9 +2,9 @@ import { Reveal } from '@/components/apple/Reveal'
 
 const FEATURES = [
   { title: 'Column management', body: "Add, rename, or delete columns anytime. Can't delete the key column without picking a new one first — matching never breaks silently." },
-  { title: 'Cross-project search', body: 'Alt+D jumps to your most recent capture, Ctrl+D opens a pure search across every project — type a name, get matches from every table.' },
-  { title: 'Ask your notes', body: "Deeper natural-language questions across all your projects from the main window's search bar — always grounded in real rows, never invents an answer." },
-  { title: 'Manual rows', body: "No screenshot? Hit + Add row and log it by hand. The table doesn't care where a row came from." },
+  { title: 'Cross-project search', body: 'Alt+D or Ctrl+D opens a search across every project — type a name, get matches from every table.' },
+  { title: 'Ask this project', body: 'Natural-language questions from the Ask bar — inside one project, or across all of them from your project list. Always grounded in real records, never an invented answer.' },
+  { title: 'Manual rows', body: "No screenshot? Hit + Add record and log it by hand. The table doesn't care where a record came from." },
 ]
 
 export function MoreFeaturesGrid() {

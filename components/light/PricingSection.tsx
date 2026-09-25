@@ -1,66 +1,80 @@
-import Link from 'next/link'
-import { Reveal } from '@/components/apple/Reveal'
-import { PLANS, formatPrice, perUnit } from '@/lib/pricing'
+'use client'
 
-// Homepage summary — the full breakdown lives on /pricing.
+import { useEffect } from 'react'
+import { Reveal } from '@/components/apple/Reveal'
+import { useInView } from '@/components/features/useInView'
+import { capture } from '@/lib/posthog'
+import { FEATURES, PLANS, formatPrice, isLive } from '@/lib/pricing'
+import { TrackedLink } from '@/components/pricing/TrackedLink'
+import { IconCheck } from '@/components/pricing/icons'
+import { SectionHead } from '@/components/home/SectionHead'
+
+// Homepage pricing: two simple cards with 5 highlights each. The full
+// comparison lives on /pricing — visitors shouldn't read 30 checkboxes to
+// pick a plan.
 export function PricingSection() {
+  const { ref, inView } = useInView(0.3)
+  useEffect(() => {
+    if (inView) capture('pricing_viewed', { location: 'home' })
+  }, [inView])
+
   const plans = [PLANS.individual, PLANS.enterprise]
   return (
-    <section id="pricing" style={{ padding: 'clamp(64px,10vw,120px) 24px', background: '#FAF8F5' }}>
-      <div style={{ maxWidth: 820, margin: '0 auto', textAlign: 'center' }}>
-        <Reveal variant="light">
-          <span className="font-mono" style={{ fontSize: 12, letterSpacing: '.12em', textTransform: 'uppercase', color: '#6B6B6B' }}>
-            pricing
-          </span>
-          <h2
-            style={{
-              fontFamily: 'var(--font-instrument-serif), Georgia, serif',
-              fontSize: 'clamp(28px,4vw,40px)',
-              color: '#1A1A1A',
-              marginTop: 8,
-            }}
-          >
-            Simple pricing for everything you capture.
-          </h2>
-        </Reveal>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ marginTop: 28, textAlign: 'left' }}>
+    <section id="pricing" className="home-section" style={{ background: '#F2EFE9' }}>
+      <div ref={ref} style={{ maxWidth: 920, margin: '0 auto' }}>
+        <SectionHead eyebrow="pricing" title="Pick the plan that fits." />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5" style={{ marginTop: 'clamp(32px,5vw,48px)' }}>
           {plans.map((p, i) => (
             <Reveal key={p.id} variant="light" panel index={i + 1}>
-              <div
-                className="card-warm"
-                style={{
-                  height: '100%',
-                  background: i === 0 ? '#FFFFFF' : '#F2EFE9',
-                  border: '1px solid #E5E0D8',
-                  borderRadius: 14,
-                  padding: 28,
-                }}
+              <article
+                aria-labelledby={`home-plan-${p.id}`}
+                className="card-warm flex flex-col"
+                style={{ height: '100%', background: i === 0 ? '#FFFFFF' : '#FAF8F5', border: '1px solid #E5E0D8', borderRadius: 16, padding: 'clamp(24px,3.5vw,32px)' }}
               >
-                <h3 style={{ fontSize: 18, fontWeight: 600, color: '#1A1A1A' }}>{p.name}</h3>
-                <p style={{ fontSize: 14, color: '#6B6B6B', marginTop: 2 }}>{p.descriptor}</p>
-                <p style={{ marginTop: 18, display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
-                  <s style={{ fontSize: 16, color: '#9A958D' }}>{formatPrice(p.standardPrice)}</s>
-                  <span style={{ fontFamily: 'var(--font-instrument-serif), Georgia, serif', fontSize: 40, lineHeight: 1, color: '#1A1A1A' }}>
-                    {formatPrice(p.introPrice)}
-                  </span>
-                  <span style={{ fontSize: 13, color: '#6B6B6B' }}>{p.perUser ? '/ user / month' : '/ month'}</span>
-                </p>
-                <p style={{ fontSize: 13, color: '#6B6B6B', marginTop: 8 }}>
-                  for your first {p.introMonths} months, then {formatPrice(p.standardPrice)}{perUnit(p)}
-                </p>
-              </div>
+                <span className="font-mono" style={{ fontSize: 11.5, letterSpacing: '.12em', textTransform: 'uppercase', color: '#6B6B6B' }}>
+                  {p.perUser ? 'for your organization' : 'for you'}
+                </span>
+                <h3 id={`home-plan-${p.id}`} style={{ fontSize: 20, fontWeight: 600, color: '#1A1A1A', marginTop: 6 }}>{p.name}</h3>
+                <p style={{ fontSize: 14.5, color: '#6B6B6B', marginTop: 2 }}>{p.descriptor}</p>
+                {/* Price is the dominant element: number, unit, intro terms, then what it becomes. */}
+                <div style={{ marginTop: 24 }}>
+                  <div className="flex items-baseline" style={{ gap: 6, flexWrap: 'wrap' }}>
+                    <span style={{ fontFamily: 'var(--font-instrument-serif), Georgia, serif', fontSize: 'clamp(60px,7vw,76px)', lineHeight: 0.95, color: '#1A1A1A', letterSpacing: '-.02em' }}>
+                      {formatPrice(p.introPrice)}
+                    </span>
+                    <span style={{ fontSize: 17, color: '#1A1A1A' }}>{p.perUser ? '/user/month' : '/month'}</span>
+                  </div>
+                  <p style={{ fontSize: 15, color: '#1A1A1A', marginTop: 10 }}>for your first {p.introMonths} months</p>
+                  <p style={{ fontSize: 14, color: '#6B6B6B', marginTop: 2 }}>
+                    {formatPrice(p.standardPrice)}{p.perUser ? '/user/month' : '/month'} after
+                  </p>
+                </div>
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: 7, marginTop: 22, paddingTop: 18, borderTop: '1px solid #EFEBE4', flex: 1 }}>
+                  {p.highlights.map(k => (
+                    <li key={k} className="flex items-center" style={{ gap: 10, fontSize: 13.5, color: '#6B6B6B' }}>
+                      <span style={{ color: '#6B6B6B', display: 'flex' }}><IconCheck /></span>
+                      {FEATURES[k].label}
+                      {!isLive(k) && <span className="soon-tag">soon</span>}
+                    </li>
+                  ))}
+                </ul>
+                <TrackedLink
+                  href={p.cta.href}
+                  event={p.id === 'individual' ? 'individual_cta_clicked' : 'enterprise_cta_clicked'}
+                  props={{ location: 'home_pricing' }}
+                  className={i === 0 ? 'btn-warm' : 'btn-warm-outline'}
+                  style={{ display: 'flex', width: '100%', marginTop: 24, padding: '14px 22px', fontSize: 15 }}
+                >
+                  {p.cta.label}
+                </TrackedLink>
+              </article>
             </Reveal>
           ))}
         </div>
-        <Reveal variant="light" index={3}>
-          <div className="flex flex-wrap items-center justify-center" style={{ gap: 20, marginTop: 36 }}>
-            <Link href="/download" className="btn-warm" style={{ display: 'inline-flex', padding: '14px 32px', fontSize: 15 }}>
-              Download for Windows
-            </Link>
-            <Link href="/pricing" className="link-warm" style={{ fontSize: 15 }}>
-              Compare plans
-            </Link>
-          </div>
+        <Reveal variant="light">
+          <p style={{ textAlign: 'center', marginTop: 24 }}>
+            <a href="/pricing#compare" className="link-warm" style={{ fontSize: 15 }}>Compare every feature →</a>
+          </p>
         </Reveal>
       </div>
     </section>

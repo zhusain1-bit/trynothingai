@@ -4,14 +4,14 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
-// Section anchors are absolute (/#capture) so they work from every page, not
-// just the homepage. FAQ stays on-page where the current page has its own.
-function navLinks(pathname: string) {
+// Section anchors are absolute (/#templates) so they work from every page.
+// FAQ and Privacy live in the footer.
+function navLinks() {
   return [
-    { href: '/#capture', label: 'Features' },
+    { href: '/#how-it-works', label: 'Product' },
+    { href: '/#templates', label: 'Templates' },
     { href: '/pricing', label: 'Pricing' },
-    { href: pathname === '/pricing' ? '#faq' : '/#faq', label: 'FAQ' },
-    { href: '/privacy', label: 'Privacy' },
+    { href: '/#enterprise', label: 'Enterprise' },
   ]
 }
 
@@ -26,7 +26,7 @@ function navLinks(pathname: string) {
 // only, zero scroll event listeners).
 export function NavPill() {
   const pathname = usePathname() ?? '/'
-  const links = navLinks(pathname)
+  const links = navLinks()
   const sentinelRef = useRef<HTMLDivElement>(null)
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)

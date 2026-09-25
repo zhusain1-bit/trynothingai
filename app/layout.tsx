@@ -25,19 +25,19 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   // Resolves relative metadata URLs (incl. the generated OG/Twitter images) to absolute.
   metadataBase: new URL('https://trynothingai.com'),
-  title: 'nothing.ai — screenshot it. It\'s a row now.',
-  description: 'One hotkey. AI reads your screenshot, matches it to a project you define, and adds or updates a row — never a duplicate.',
+  title: 'nothing.ai — Turn anything you capture into structured projects',
+  description: "Turn screenshots, PDFs, images and files into structured projects with Nothing. Capture what you see, organize it automatically, and ask questions across everything you've saved.",
   openGraph: {
-    title: 'nothing.ai — screenshot it. It\'s a row now.',
-    description: 'One hotkey. AI reads your screenshot, matches it to a project you define, and adds or updates a row — never a duplicate.',
+    title: 'nothing.ai — Turn anything you capture into structured projects',
+    description: "Turn screenshots, PDFs, images and files into structured projects with Nothing. Capture what you see, organize it automatically, and ask questions across everything you've saved.",
     url: 'https://trynothingai.com',
     siteName: 'nothing.ai',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'nothing.ai — screenshot it. It\'s a row now.',
-    description: 'One hotkey. AI reads your screenshot, matches it to a project you define, and adds or updates a row — never a duplicate.',
+    title: 'nothing.ai — Turn anything you capture into structured projects',
+    description: "Turn screenshots, PDFs, images and files into structured projects with Nothing. Capture what you see, organize it automatically, and ask questions across everything you've saved.",
   },
 }
 

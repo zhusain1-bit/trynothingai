@@ -18,6 +18,8 @@ export type Plan = {
   /** Heading above the feature list. */
   featuresIntro?: string
   features: FeatureKey[]
+  /** The short list shown on the homepage cards (full list lives on /pricing). */
+  highlights: FeatureKey[]
 }
 
 // ─── Integration points ─────────────────────────────────────────────────
@@ -37,8 +39,9 @@ export const CAPTURE_ALLOWANCE_LABEL = 'Generous monthly capture allowance'
 // ─── Feature availability ───────────────────────────────────────────────
 // 'live' = shipped in the current desktop app. 'soon' = on the roadmap and
 // rendered with a visible "soon" marker. Verified against the app source
-// (NothingAI Production, 2026-09-24): no file/PDF/spreadsheet import, no
-// export, no templates, no team features exist yet.
+// (NothingAI Production 0.2.0, 2026-09-24): screenshots, images, PDFs and
+// CSV/Excel sources, the Sources view, per-record provenance and multi-record
+// extraction are shipped; export, templates and all team features are not.
 export type Status = 'live' | 'soon'
 
 export const FEATURES = {
@@ -48,21 +51,26 @@ export const FEATURES = {
   customSchemas: { label: 'Custom fields and schemas', status: 'live' },
   aiSchemas: { label: 'AI-generated project schemas', status: 'live' },
   tableView: { label: 'Table view', status: 'live' },
-  sourcesView: { label: 'Sources view', status: 'soon' },
-  imageUploads: { label: 'Image uploads', status: 'soon' },
-  pdfUploads: { label: 'PDF uploads', status: 'soon' },
-  spreadsheetUploads: { label: 'CSV / Excel uploads', status: 'soon' },
+  sourcesView: { label: 'Sources view', status: 'live' },
+  imageUploads: { label: 'Image uploads', status: 'live' },
+  pdfUploads: { label: 'PDF uploads', status: 'live' },
+  spreadsheetUploads: { label: 'CSV / Excel uploads', status: 'live' },
+  filesAndPdfs: { label: 'PDFs, images & spreadsheets', status: 'live' },
   ask: { label: 'Ask your projects', status: 'live' },
   provenance: { label: 'Source provenance', status: 'live' },
   search: { label: 'Search across your captures', status: 'live' },
   templates: { label: 'Project templates', status: 'soon' },
   exports: { label: 'CSV / Excel export', status: 'soon' },
-  standardBatch: { label: 'Standard batch processing', status: 'soon' },
+  standardBatch: { label: 'Many records from one PDF or sheet', status: 'live' },
   personalWorkspace: { label: 'Personal workspace', status: 'live' },
   standardPriority: { label: 'Standard processing priority', status: 'live' },
   captureAllowance: { label: CAPTURE_ALLOWANCE_LABEL, status: 'live' },
 
   sharedWorkspaces: { label: 'Shared team workspaces', status: 'soon' },
+  teamSearch: { label: 'Team-wide search', status: 'soon' },
+  automation: { label: 'Automation & integrations', status: 'soon' },
+  adminControls: { label: 'Admin controls', status: 'soon' },
+  everythingInIndividual: { label: 'Everything in Individual', status: 'live' },
   sharedProjects: { label: 'Shared projects', status: 'soon' },
   collaborators: { label: 'Multiple collaborators', status: 'soon' },
   comments: { label: 'Comments', status: 'soon' },
@@ -106,6 +114,7 @@ export const PLANS: Record<PlanId, Plan> = {
     introMonths: 2,
     perUser: false,
     cta: { label: 'Get Individual', href: INDIVIDUAL_CHECKOUT_HREF },
+    highlights: ['screenshotCapture', 'filesAndPdfs', 'customProjects', 'ask', 'exports'],
     features: [
       'screenshotCapture', 'structuredRecords', 'customProjects', 'customSchemas', 'aiSchemas',
       'tableView', 'ask', 'provenance', 'search', 'captureAllowance', 'personalWorkspace',
@@ -124,6 +133,7 @@ export const PLANS: Record<PlanId, Plan> = {
     introMonths: 2,
     perUser: true,
     cta: { label: 'Contact Sales', href: CONTACT_SALES_HREF },
+    highlights: ['everythingInIndividual', 'sharedWorkspaces', 'teamSearch', 'automation', 'adminControls'],
     featuresIntro: 'Everything in Individual, plus:',
     features: [
       'prioritySupport', 'teamOnboarding', 'customSetup',

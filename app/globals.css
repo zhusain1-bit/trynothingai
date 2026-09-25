@@ -848,3 +848,173 @@ section[id] { scroll-margin-top: 64px; }
 .converge-lines { display: block; width: 100%; height: 56px; color: #D9D3C9; }
 /* Side-by-side diagram columns share one sources-band height (3 chip rows). */
 @media (min-width: 768px) { .workflow-grid { --sources-h: 124px; } }
+
+/* ─── Homepage (2026-09 product-marketing iteration) ──────────────────── */
+.hero-demo-frame { aspect-ratio: 16 / 9; width: 100%; }
+@media (max-width: 559px) { .hero-demo-frame { aspect-ratio: 4 / 3; } }
+
+/* Light mock of the desktop app's surfaces. */
+.app-mock {
+  background: var(--app-surface);
+  border: 1px solid #E5E0D8;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px -24px rgba(26,26,26,.28);
+  text-align: left;
+}
+.tm-grid { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)) 92px; gap: 12px; align-items: center; }
+@media (max-width: 480px) {
+  .tm-grid { grid-template-columns: repeat(var(--cols), minmax(0, 1fr)) 22px; gap: 8px; }
+  .tm-source-label { display: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tm-row { animation: tm-land 6.5s var(--ease-warm) infinite; animation-delay: calc(var(--i) * .9s); }
+}
+@keyframes tm-land {
+  0%   { opacity: 0; transform: translateY(-6px); background: transparent; }
+  6%   { opacity: 1; transform: none; background: #FBEEE4; }
+  22%  { background: transparent; }
+  88%  { opacity: 1; }
+  96%, 100% { opacity: 0; }
+}
+
+/* Use-case + prompt pills */
+.uc-tab {
+  flex: none;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid #E5E0D8;
+  background: #FFFFFF;
+  color: #6B6B6B;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background .2s var(--ease-warm), color .2s var(--ease-warm), border-color .2s var(--ease-warm);
+}
+.uc-tab:hover { color: #1A1A1A; border-color: #CFC8BD; }
+.uc-tab[aria-selected="true"], .uc-tab[aria-pressed="true"] { background: #1A1A1A; border-color: #1A1A1A; color: #FAF8F5; }
+.uc-tab:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.use-case-tabs { scrollbar-width: none; }
+
+.uc-arrow { display: flex; align-items: center; justify-content: center; }
+.uc-arrow-pill {
+  font-family: var(--font-jetbrains, 'JetBrains Mono', monospace);
+  font-size: 12px; padding: 7px 12px; border-radius: 8px;
+  background: #1A1A1A; color: #FAF8F5; white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .uc-swap { animation: uc-in .45s var(--ease-warm) both; }
+}
+@keyframes uc-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* How it works — step list + one large media panel */
+.how-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 56px); align-items: center; }
+@media (max-width: 899px) { .how-grid { grid-template-columns: minmax(0,1fr); } .how-chips { display: none !important; } }
+.how-step {
+  display: grid; grid-template-columns: 32px minmax(0,1fr); gap: 8px;
+  width: 100%; text-align: left; background: none; border: none; cursor: pointer;
+  padding: 18px 0; border-top: 1px solid #E0DAD0;
+}
+li:first-child > .how-step { border-top: none; }
+.how-step:focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; border-radius: 6px; }
+.how-step:not([aria-current]) .how-step-body { display: none; }
+.how-step-bar { display: block; height: 2px; margin-top: 14px; background: #E0DAD0; border-radius: 1px; overflow: hidden; }
+.how-step-bar > span { display: block; height: 100%; background: #1A1A1A; transform-origin: left; }
+.how-step:not([aria-current]) .how-step-bar { display: none; }
+.how-media { border-radius: 16px; overflow: hidden; box-shadow: 0 24px 48px -20px rgba(26,26,26,.25); background: #DCDFE6; }
+.step-media { aspect-ratio: 1 / 1; width: 100%; }
+@media (max-width: 899px) { .step-media { aspect-ratio: 4 / 3; } }
+
+/* Sources + Enterprise flows: inputs → pill → project */
+.sources-flow, .ent-flow { display: grid; grid-template-columns: minmax(0, 4fr) auto minmax(0, 6fr); gap: 20px; align-items: center; }
+.sources-inputs { display: flex; flex-direction: column; gap: 10px; list-style: none; }
+.sources-link { display: flex; align-items: center; gap: 10px; }
+.sources-line { display: block; width: 28px; height: 1px; background: #CFC8BD; }
+@media (max-width: 899px) {
+  .sources-flow, .ent-flow { grid-template-columns: minmax(0,1fr); }
+  .sources-link { flex-direction: column; }
+  .sources-line { width: 1px; height: 20px; }
+  .sources-inputs { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 479px) { .sources-inputs { grid-template-columns: minmax(0,1fr); } }
+
+.ask-caret { display: inline-block; width: 1.5px; height: 1em; background: #1A1A1A; margin-left: 2px; vertical-align: -2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .ask-caret { animation: caret 1s steps(1) infinite; }
+}
+@keyframes caret { 50% { opacity: 0; } }
+.how-step-body { display: block; }
+@media (max-width: 480px) {
+  .tm-hide-m { display: none; }
+  .tm-grid { grid-template-columns: repeat(var(--cols-m, var(--cols)), minmax(0, 1fr)) 22px; }
+}
+
+/* ─── Demo slots (lib/demoSlots.ts) — fixed shapes for the Remotion renders */
+.demo-slot {
+  position: relative; width: 100%; aspect-ratio: var(--ar); overflow: hidden;
+  border-radius: 16px; background: #E9E5DC;
+  box-shadow: 0 24px 48px -20px rgba(26,26,26,.22);
+}
+@media (max-width: 559px) { .demo-slot[data-mb="560"] { aspect-ratio: var(--ar-m); } }
+@media (max-width: 639px) { .demo-slot[data-mb="640"] { aspect-ratio: var(--ar-m); } }
+@media (max-width: 899px) { .demo-slot[data-mb="900"] { aspect-ratio: var(--ar-m); } }
+.demo-slot-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.demo-slot-interim { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+
+/* Shared section rhythm — generous, but proportional to the content. */
+.home-section { padding: clamp(64px, 8.5vw, 112px) 24px; }
+
+/* Use-case interim stage inside its 16:9 / 4:5 demo slot */
+.uc-stage {
+  position: absolute; inset: 0; padding: clamp(18px, 4vw, 44px);
+  grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); gap: clamp(16px, 3vw, 32px);
+  background: linear-gradient(180deg, #F4F1EB, #ECE8E0);
+}
+.uc-source-chip {
+  display: none; justify-self: center; font-size: 13px; padding: 7px 14px; border-radius: 999px;
+  background: #FFFFFF; border: 1px solid #E5E0D8; color: #1A1A1A;
+}
+@media (max-width: 899px) {
+  .uc-stage { grid-template-columns: minmax(0,1fr); align-content: center; gap: 12px; }
+  .uc-source { display: none; }
+  .uc-source-chip { display: inline-block; }
+  .uc-stage .uc-arrow { display: none; }
+}
+
+/* Provenance interim: table + inspector filling the 16:10 slot */
+.prov-window {
+  position: absolute; inset: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 38%);
+  background: var(--app-surface);
+}
+.prov-table { padding: clamp(14px, 2.4vw, 24px); background: var(--app-chrome); min-width: 0; }
+.prov-table .app-mock { box-shadow: none; }
+.prov-inspector { background: var(--app-surface-elevated); border-left: 1px solid #E5E0D8; overflow: hidden; }
+.prov-field { padding: 9px 0; border-bottom: 1px solid #F2EFE9; }
+.prov-thumb { height: clamp(96px, 13vw, 150px); }
+@media (max-width: 639px) {
+  .prov-window { grid-template-columns: minmax(0,1fr); }
+  .prov-table { display: none; }
+  .prov-inspector { border-left: none; }
+  .prov-field { padding: 7px 0; }
+  .prov-thumb { height: 96px; }
+}
+
+/* Ask interim */
+.ask-stage { position: absolute; inset: 0; padding: clamp(12px, 2.6vw, 24px); background: var(--app-chrome); display: flex; flex-direction: column; justify-content: center; }
+@media (max-width: 559px) { .ask-stage .tm-grid[role="row"]:nth-child(n+6) { display: none; } }
+
+/* Template copy button */
+.tpl-copy {
+  margin-top: 14px; align-self: flex-start; padding: 8px 14px; border-radius: 8px;
+  border: 1px solid #1A1A1A; background: transparent; color: #1A1A1A;
+  font-size: 13.5px; font-weight: 600; cursor: pointer;
+  transition: background .15s var(--ease-warm);
+}
+.tpl-copy:hover { background: rgba(26,26,26,.05); }
+.tpl-copy:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+@media (max-width: 899px) {
+  .prov-inspector .prov-field:nth-child(4) { display: none; }
+  .prov-inspector > div:first-child { padding: 14px 18px 10px !important; }
+  .prov-inspector dl, .prov-inspector > div:last-child { padding-left: 18px !important; padding-right: 18px !important; }
+  .prov-thumb { height: 84px; }
+}
